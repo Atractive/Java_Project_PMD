@@ -41,13 +41,13 @@ public class Test_SwitchScene extends Application{
 		StackPane layout2 = new StackPane();
 		layout2.getChildren().add(button2);
 		scene2=new Scene(layout2,600,300);
-		
+
 		window.setScene(scene1);
 		window.setTitle("Test Switching");
 		window.show();
-		
-		
-		
+
+
+
 	}
 
 }
