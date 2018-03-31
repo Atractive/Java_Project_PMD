@@ -15,9 +15,9 @@ public class CouleurDominante {
 
 	public CouleurDominante(String s) {
 		int[] temp2 = getDominanteColorLib(s);
-		System.out.println("indice de la couleur dominante dans le talbeau Colorrange"
-				+ NearestColor(Color.rgb(temp2[0], temp2[1], temp2[2])));
-		// System.out.println(NearestColor(Color.rgb(temp2[0], temp2[1], temp2[2])));
+		System.out.println(temp2[0] + " " + temp2[1] + " " + temp2[2]);
+		System.out.println(NearestColor3(Color.rgb(temp2[0], temp2[1], temp2[2])));
+
 	}
 
 	public int[] ColortoRGBArray(Color c) {
@@ -36,7 +36,6 @@ public class CouleurDominante {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("diego");
 		int[] resultD = ColorThief.getColor(imgD); // lib
 		return resultD;
 
@@ -62,6 +61,26 @@ public class CouleurDominante {
 			double temp = colorDistance(rgb, (colorRange[i]));
 			if (min > temp) {
 				min = temp;
+				index = i;
+			}
+		}
+		return index;
+	}
+
+	public int NearestColor3(Color rgb) { // Utilisation des méthodes de LAB pour convertir RBG -> LAB puis récuperer la
+		// différence entre 2 couleurs
+		int[] Rlab1 = ColortoRGBArray(rgb);
+		int[] Rlab2 = ColortoRGBArray(colorRange[0]);
+		LAB lab1 = LAB.fromRGB(Rlab1[0], Rlab1[1], Rlab1[2], 1);
+		LAB lab2 = LAB.fromRGB(Rlab2[0], Rlab2[1], Rlab2[2], 1);
+		double diff = lab1.distance(lab2);
+		int index = 0;
+		for (int i = 1; i < colorRange.length; i++) {
+			int[] Rlabtemp = ColortoRGBArray(colorRange[i]);
+			LAB labtemp = LAB.fromRGB(Rlabtemp[0], Rlabtemp[1], Rlabtemp[2], 1);
+			double temp = labtemp.distance(lab1);
+			if (diff > temp) {
+				diff = temp;
 				index = i;
 			}
 		}
