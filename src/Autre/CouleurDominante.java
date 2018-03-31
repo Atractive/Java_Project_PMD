@@ -14,30 +14,13 @@ public class CouleurDominante {
 			Color.CYAN, Color.RED, Color.MAGENTA, Color.BROWN, Color.WHITE, Color.BLACK };
 
 	public CouleurDominante(String s) {
-		int[] temp2 = new int[3];
-		BufferedImage imgD = null;
-		try {
-			imgD = ImageIO.read(new File(s));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		int[] resultD = ColorThief.getColor(imgD);
-
-		temp2[0] = resultD[0];
-		temp2[1] = resultD[1];
-		temp2[2] = resultD[2];
-		System.out.println("R: " + temp2[0] + "\nG: " + temp2[1] + "\nB: " + temp2[2]);
-		System.out.println("indice dans le talbeau ColorRange avec version Diego : " + getNearestColor(temp2));
-		System.out.println();
-		System.out.println("indice dans le talbeau ColorRange avec version S.OF: "
+		int[] temp2 = getDominanteColorLib(s);
+		System.out.println("indice de la couleur dominante dans le talbeau Colorrange"
 				+ NearestColor(Color.rgb(temp2[0], temp2[1], temp2[2])));
-		// int[] temp = (DC(s));
-		// System.out.println(temp[0] + " " + temp[1] + " " + temp[2]);
-		// System.out.println("Diego" + colorRange[getNearestColor(temp)]);
+		// System.out.println(NearestColor(Color.rgb(temp2[0], temp2[1], temp2[2])));
 	}
 
-	public int[] getRGB(Color c) {
+	public int[] ColortoRGBArray(Color c) {
 		int[] rgb = new int[3];
 		rgb[0] = (int) (c.getRed() * 255);
 		rgb[1] = (int) (c.getBlue() * 255);
@@ -46,53 +29,17 @@ public class CouleurDominante {
 
 	}
 
-	public int[] getDominanteColor(String s) { // Fonction obsolète, remplacé par une lib.
-		BufferedImage img = null;
-		File f = null;
-
+	public int[] getDominanteColorLib(String s) {
+		BufferedImage imgD = null;
 		try {
-			f = new File(s);
-			img = ImageIO.read(f);
+			imgD = ImageIO.read(new File(s));
 		} catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
+		System.out.println("diego");
+		int[] resultD = ColorThief.getColor(imgD); // lib
+		return resultD;
 
-		int width = img.getWidth();
-		int height = img.getHeight();
-		int p, r, g, b;
-		int t = width * height;
-		r = g = b = 0;
-		int[] rgb = new int[] { r, g, b };
-
-		for (int i = 0; i < width; i++) {
-			for (int j = 0; j < height; j++) {
-				p = img.getRGB(i, j);
-				rgb[0] += (p >> 16) & 0xff;
-				rgb[1] += (p >> 8) & 0xff;
-				rgb[2] += p & 0xff;
-
-			}
-		}
-		rgb[0] /= t;
-		rgb[1] /= t;
-		rgb[2] /= t;
-
-		return rgb;
-	}
-
-	public int GetDistance(int[] colorA, int[] colorB) { // distance metric dans un espace de couleur multidimensionel
-															// RGB, dimension
-		// euclidienne, Version diégo
-		int redDifference;
-		int greenDifference;
-		int blueDifference;
-
-		redDifference = colorA[0] - colorB[0];
-		greenDifference = colorA[1] - colorB[1];
-		blueDifference = colorA[2] - colorB[2];
-
-		return (int) Math.sqrt(
-				redDifference * redDifference + greenDifference * greenDifference + blueDifference * blueDifference);
 	}
 
 	double colorDistance(Color c1, Color c2) // distance metric dans un espace de couleur multidimensionel RGB,
@@ -113,20 +60,6 @@ public class CouleurDominante {
 		int index = 0;
 		for (int i = 0; i < colorRange.length; i++) {
 			double temp = colorDistance(rgb, (colorRange[i]));
-			if (min > temp) {
-				min = temp;
-				index = i;
-			}
-		}
-		return index;
-	}
-
-	public int getNearestColor(int[] rgb) {// Récupère la couleur la plus proche dans un espace de couleur
-											// mutlidimensionel RGB version S.OF
-		int min = GetDistance(rgb, getRGB(colorRange[0]));
-		int index = 0;
-		for (int i = 0; i < colorRange.length; i++) {
-			int temp = GetDistance(rgb, getRGB(colorRange[i]));
 			if (min > temp) {
 				min = temp;
 				index = i;
