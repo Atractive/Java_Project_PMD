@@ -2,6 +2,7 @@ package PROJET_BROUILLON;
 
 import java.io.File;
 
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,12 +17,12 @@ public class Main extends Application {
 
 	public void start(Stage stage) throws Exception {
 
-		Parent root = FXMLLoader.load(getClass().getResource("GalleryView.fxml"));
-
 		ModeleTest modele = new ModeleTest(ImageDirectory);
-		// ControlerMDI Controler = new ControlerMDI(modele);
+		FXMLLoader firstLoader = new FXMLLoader(getClass().getResource("GalleryView.fxml"));
+		firstLoader.setController(new ControlerMDI(modele));
+		Parent firstUI = firstLoader.load();
 
-		Scene scene = new Scene(root);
+		Scene scene = new Scene(firstUI);
 		stage.setTitle("FXML Welcome");
 		stage.setScene(scene);
 		stage.show();

@@ -54,9 +54,9 @@ public class ControlerMDI {
 	@FXML
 	private TilePane TilePaneGalerie;
 
-	// public ControlerMDI(ModeleTest modele2) { plus tard avec mvc
-	// this.modele = modele2;
-	// }
+	public ControlerMDI(ModeleTest modele) {
+		this.modele = modele;
+	}
 
 	@FXML
 	public void initialize() {
