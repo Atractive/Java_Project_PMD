@@ -102,6 +102,7 @@ public class ControlerMDI {
 		imageView = new ImageView(temp);
 		imageView.setFitWidth(150);
 		imageView.getStyleClass().add("image");
+		System.out.println(img.nom);
 		return imageView;
 	}
 
