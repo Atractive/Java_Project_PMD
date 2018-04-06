@@ -2,6 +2,7 @@ package PROJET_BROUILLON;
 
 import java.io.File;
 
+import Modele.ImageBI;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -62,7 +63,6 @@ public class ControlerMDI {
 	public void initialize() {
 		InjectImages();
 		System.out.println("SOS");
-
 	}
 
 	private void InjectImages() {
@@ -76,7 +76,6 @@ public class ControlerMDI {
 
 		for (final File file : listOfFiles) {
 			ImageView imageView;
-			System.out.println(file.toString());
 			imageView = createImageView(file.toString());
 
 			VBox vbox = new VBox();
@@ -96,10 +95,11 @@ public class ControlerMDI {
 
 	}
 
-	private ImageView createImageView(String string) {
+	private ImageView createImageView(String nom) {
 		ImageView imageView = null;
-		final Image image = new Image("file:" + string, 150, 0, true, true);
-		imageView = new ImageView(image);
+		final ImageBI img = new ImageBI(nom);
+		Image temp = new Image("file:"+img.nom,150,0,true,true);
+		imageView = new ImageView(temp);
 		imageView.setFitWidth(150);
 		imageView.getStyleClass().add("image");
 		return imageView;
