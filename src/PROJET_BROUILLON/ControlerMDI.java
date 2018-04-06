@@ -1,14 +1,12 @@
 package PROJET_BROUILLON;
 
 import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
@@ -17,7 +15,9 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 
 public class ControlerMDI {
 
@@ -73,15 +73,24 @@ public class ControlerMDI {
 		File folder = new File("Images");
 		File[] listOfFiles = folder.listFiles();
 
+
 		for (final File file : listOfFiles) {
 			ImageView imageView;
 			System.out.println(file.toString());
 			imageView = createImageView(file.toString());
-			TilePaneGalerie.getChildren().addAll(imageView);
+
+			VBox vbox = new VBox();
+			Label label1 = new Label(file.toString());
+		    //label1.setGraphic(imageView);
+		    vbox.setSpacing(10);
+		    vbox.getChildren().addAll(imageView,label1);
+
+			TilePaneGalerie.getChildren().addAll(vbox);
+
 		}
 
-		ScrollPaneGalerie.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); //
-		ScrollPaneGalerie.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); //
+		//ScrollPaneGalerie.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); //
+		//ScrollPaneGalerie.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); //
 		ScrollPaneGalerie.setFitToWidth(true);
 		ScrollPaneGalerie.setContent(TilePaneGalerie);
 
@@ -92,6 +101,7 @@ public class ControlerMDI {
 		final Image image = new Image("file:" + string, 150, 0, true, true);
 		imageView = new ImageView(image);
 		imageView.setFitWidth(150);
+		imageView.getStyleClass().add("image");
 		return imageView;
 	}
 

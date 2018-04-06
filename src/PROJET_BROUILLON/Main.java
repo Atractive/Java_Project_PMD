@@ -23,6 +23,7 @@ public class Main extends Application {
 		Parent firstUI = firstLoader.load();
 
 		Scene scene = new Scene(firstUI);
+		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setTitle("FXML Welcome");
 		stage.setScene(scene);
 		stage.show();
