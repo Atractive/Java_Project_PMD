@@ -1,8 +1,6 @@
 .image{
 
 	-fx-padding: 10;
-	-fx-border-style:ridge;
-	-fx-border-color: #e2e2e2;
     -fx-border-width: 2;
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 	}

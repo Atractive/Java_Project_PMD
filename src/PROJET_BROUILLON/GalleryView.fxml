@@ -71,9 +71,17 @@
 								</AnchorPane>
 							</content>
 						</Tab>
-						<Tab text="Image Complete">
+						<Tab fx:id="TabImageComplete" text="Image Complete">
 							<content>
-								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+								<AnchorPane fx:id="AnchorPaneImgComplete" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <SplitPane fx:id="SplitPaneImgComplete" dividerPositions="0.750402576489533" focusTraversable="false" layoutY="-1.0" orientation="VERTICAL" prefHeight="621.0" prefWidth="898.0">
+                                <items>
+                                  <AnchorPane fx:id="VHaut" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                  <AnchorPane fx:id="VBas" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                </items>
+                              </SplitPane>
+                           </children></AnchorPane>
 							</content>
 						</Tab>
 					</tabs>

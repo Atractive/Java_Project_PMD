@@ -3,6 +3,7 @@ package PROJET_BROUILLON;
 import java.io.File;
 
 import Modele.ImageBI;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -15,10 +16,12 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class ControlerMDI {
 
@@ -54,6 +57,16 @@ public class ControlerMDI {
 	private ScrollPane ScrollPaneGalerie;
 	@FXML
 	private TilePane TilePaneGalerie;
+	@FXML
+	private Tab ImageComplete;
+	@FXML
+	private AnchorPane AnchorPaneImgComplete;
+	@FXML
+	private SplitPane SplitPaneImgComplete;
+	@FXML
+	private AnchorPane VHaut;
+	@FXML
+	private AnchorPane VBas;
 
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
@@ -77,7 +90,23 @@ public class ControlerMDI {
 		for (final File file : listOfFiles) {
 			ImageView imageView;
 			imageView = createImageView(file.toString());
+			imageView.setOnMouseClicked(new EventHandler<MouseEvent>()
+	        {
+	            @Override
+	            public void handle(MouseEvent t) {
+	                System.out.println("coucou");
+	                TabP.getSelectionModel().selectNext();
+	                Image img=new Image("file:"+file.toString());
+	                ImageView imageView2 = null;
+	                imageView2= new ImageView(img);
+	                VHaut.getChildren().add(imageView2);
+	                SplitPaneImgComplete.getItems().clear();
+	                SplitPaneImgComplete.getItems().add(VHaut);
+	                SplitPaneImgComplete.getItems().add(VBas);
+	                AnchorPaneImgComplete.getChildren().add(SplitPaneImgComplete);
 
+	            }
+	        });
 			VBox vbox = new VBox();
 			Label label1 = new Label(file.toString());
 		    //label1.setGraphic(imageView);
@@ -102,6 +131,7 @@ public class ControlerMDI {
 		imageView = new ImageView(temp);
 		imageView.setFitWidth(150);
 		imageView.getStyleClass().add("image");
+
 		System.out.println(img.nom);
 		return imageView;
 	}
