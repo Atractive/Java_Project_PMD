@@ -11,8 +11,8 @@ public class ImageBI {
 
 	public String nom;
 	ArrayList<String> mots_clefs;
-	boolean favoris;
-	int etoile;
+	public boolean favoris;
+	public int etoile;
 	Color couleur;
 
 	public ImageBI (String n){

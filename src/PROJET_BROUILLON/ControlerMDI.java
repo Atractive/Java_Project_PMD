@@ -80,16 +80,15 @@ public class ControlerMDI {
 
 			VBox vbox = new VBox();
 			Label label1 = new Label(file.toString());
-		    //label1.setGraphic(imageView);
 		    vbox.setSpacing(10);
-		    vbox.getChildren().addAll(imageView,label1);
 
+		    vbox.getChildren().addAll(imageView,label1);
 			TilePaneGalerie.getChildren().addAll(vbox);
 
 		}
 
-		//ScrollPaneGalerie.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); //
-		//ScrollPaneGalerie.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); //
+		ScrollPaneGalerie.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); //
+		ScrollPaneGalerie.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); //
 		ScrollPaneGalerie.setFitToWidth(true);
 		ScrollPaneGalerie.setContent(TilePaneGalerie);
 
@@ -102,8 +101,9 @@ public class ControlerMDI {
 		imageView = new ImageView(temp);
 		imageView.setFitWidth(150);
 		imageView.getStyleClass().add("image");
-		System.out.println(img.nom);
 		return imageView;
 	}
+
+
 
 }
