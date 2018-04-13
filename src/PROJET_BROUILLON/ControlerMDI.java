@@ -6,6 +6,7 @@ import Modele.ImageBI;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
@@ -104,20 +105,22 @@ public class ControlerMDI {
 	                SplitPaneImgComplete.getItems().add(VHaut);
 	                SplitPaneImgComplete.getItems().add(VBas);
 	                AnchorPaneImgComplete.getChildren();
-
 	            }
 	        });
 			VBox vbox = new VBox();
 			Label label1 = new Label(file.toString());
+			label1.getStyleClass().add("label1");
 		    vbox.setSpacing(10);
+		    vbox.setAlignment(Pos.CENTER);
+		    vbox.getStyleClass().add("vbox");
 
 		    vbox.getChildren().addAll(imageView,label1);
 			TilePaneGalerie.getChildren().addAll(vbox);
 
 		}
 
-		ScrollPaneGalerie.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); //
-		ScrollPaneGalerie.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); //
+		ScrollPaneGalerie.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		ScrollPaneGalerie.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 		ScrollPaneGalerie.setFitToWidth(true);
 		ScrollPaneGalerie.setContent(TilePaneGalerie);
 
@@ -132,7 +135,5 @@ public class ControlerMDI {
 		imageView.getStyleClass().add("image");
 		return imageView;
 	}
-
-
 
 }
