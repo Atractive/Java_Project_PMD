@@ -1,6 +1,7 @@
 package PROJET_BROUILLON;
 
 import java.io.File;
+import java.util.Arrays;
 
 import Modele.ImageBI;
 import javafx.event.EventHandler;
@@ -94,27 +95,41 @@ public class ControlerMDI {
 			imageView.setOnMouseClicked(new EventHandler<MouseEvent>()
 	        {
 	            @Override
-	            public void handle(MouseEvent t) {
-	                System.out.println("coucou");
-	                TabP.getSelectionModel().selectNext();
+	            public void handle(MouseEvent t) { //Au clic, changement de tab et affichage de l'image
+	                TabP.getSelectionModel().selectNext(); //Change de tab
+
 	                Image img=new Image("file:"+file.toString());
 	                ImageView imageView2 = null;
 	                imageView2= new ImageView(img);
 	                VHaut.getChildren().add(imageView2);
+
+	                System.out.println(img.getWidth()); //Largeur
+	                System.out.println(img.getHeight()); //Hauteur
+
+
 	                SplitPaneImgComplete.getItems().clear();
 	                SplitPaneImgComplete.getItems().add(VHaut);
 	                SplitPaneImgComplete.getItems().add(VBas);
 	                AnchorPaneImgComplete.getChildren();
+
 	            }
 	        });
 			VBox vbox = new VBox();
-			Label label1 = new Label(file.toString());
-			label1.getStyleClass().add("label1");
+
+			String nom = new String(file.toString().split("\\\\")[1].split("\\.")[0]);
+			if (nom.length()>15){
+				nom=nom.substring(0,15)+"..."+file.toString().split("\\\\")[1].split("\\.")[1];
+			}
+			else{
+				nom=nom+"."+file.toString().split("\\\\")[1].split("\\.")[1];
+			}
+
+			Label label1 = new Label(nom);
+
 		    vbox.setSpacing(10);
+		    vbox.getChildren().addAll(imageView,label1);
 		    vbox.setAlignment(Pos.CENTER);
 		    vbox.getStyleClass().add("vbox");
-
-		    vbox.getChildren().addAll(imageView,label1);
 			TilePaneGalerie.getChildren().addAll(vbox);
 
 		}

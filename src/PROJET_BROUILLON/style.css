@@ -18,7 +18,6 @@
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: yellow;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
 .menu-button:hover {
