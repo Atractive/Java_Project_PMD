@@ -10,10 +10,10 @@ import javafx.scene.paint.Color;
 public class ImageBI {
 
 	public String nom;
-	ArrayList<String> mots_clefs;
+	public ArrayList<String> mots_clefs;
 	public boolean favoris;
 	public int etoile;
-	Color couleur;
+	public Color couleur;
 
 	public ImageBI (String n){
 		this.nom = n;

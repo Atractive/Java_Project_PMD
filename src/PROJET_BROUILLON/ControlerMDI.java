@@ -1,6 +1,7 @@
 package PROJET_BROUILLON;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import Modele.ImageBI;
@@ -83,7 +84,7 @@ public class ControlerMDI {
 	private void InjectImages() {
 
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
-		TilePaneGalerie.setHgap(15);
+		TilePaneGalerie.setHgap(10);
 
 		File folder = new File("Images");
 		File[] listOfFiles = folder.listFiles();
@@ -98,14 +99,23 @@ public class ControlerMDI {
 	            public void handle(MouseEvent t) { //Au clic, changement de tab et affichage de l'image
 	                TabP.getSelectionModel().selectNext(); //Change de tab
 
-	                Image img=new Image("file:"+file.toString());
 	                ImageView imageView2 = null;
-	                imageView2= new ImageView(img);
+	        		final ImageBI img = new ImageBI(file.toString());
+	        		Image temp = new Image("file:"+img.nom);
+	        		imageView2 = new ImageView(temp);
 	                VHaut.getChildren().add(imageView2);
 
-	                System.out.println(img.getWidth()); //Largeur
-	                System.out.println(img.getHeight()); //Hauteur
+	                //Affichage des Metadonnées
 
+	                Label META = new Label("Nom : " + img.nom + "\n"
+	                		+ "Mots-Clefs : " + img.mots_clefs.toString() + "\n"
+	                		+ "Taille : " + temp.getWidth() + "x" + temp.getHeight() + "\n"
+	                		+ "Poids : " + temp.getWidth()*temp.getHeight()*4 + "\n"
+	                		+ "Favoris : " + img.favoris + "\n"
+	                		+ "Nombre d'étoile : " + img.etoile + "\n"
+	                		+ "Couleur Dominante : " + img.couleur);
+
+	                VBas.getChildren().addAll(META);
 
 	                SplitPaneImgComplete.getItems().clear();
 	                SplitPaneImgComplete.getItems().add(VHaut);
@@ -117,12 +127,8 @@ public class ControlerMDI {
 			VBox vbox = new VBox();
 
 			String nom = new String(file.toString().split("\\\\")[1].split("\\.")[0]);
-			if (nom.length()>15){
-				nom=nom.substring(0,15)+"..."+file.toString().split("\\\\")[1].split("\\.")[1];
-			}
-			else{
-				nom=nom+"."+file.toString().split("\\\\")[1].split("\\.")[1];
-			}
+			if (nom.length()>15){nom=nom.substring(0,15)+"..."+file.toString().split("\\\\")[1].split("\\.")[1];}
+			else{nom=nom+"."+file.toString().split("\\\\")[1].split("\\.")[1];}
 
 			Label label1 = new Label(nom);
 
@@ -131,7 +137,6 @@ public class ControlerMDI {
 		    vbox.setAlignment(Pos.CENTER);
 		    vbox.getStyleClass().add("vbox");
 			TilePaneGalerie.getChildren().addAll(vbox);
-
 		}
 
 		ScrollPaneGalerie.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
