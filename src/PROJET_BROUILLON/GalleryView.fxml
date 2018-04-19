@@ -10,8 +10,10 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="AnchorP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
@@ -73,19 +75,28 @@
 							</content>
 						</Tab>
 						<Tab fx:id="TabImageComplete" text="Image Complete">
-							<content>
-								<AnchorPane fx:id="AnchorPaneImgComplete" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <content>
+                        <AnchorPane fx:id="AnchorPaneImgComplete" prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <SplitPane fx:id="SplitPaneImgComplete" dividerPositions="0.750402576489533" focusTraversable="false" layoutY="-1.0" orientation="VERTICAL" prefHeight="621.0" prefWidth="698.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
-                                <items>
-                                  <AnchorPane fx:id="VHaut" prefHeight="461.0" prefWidth="643.0" />
-                                  <AnchorPane fx:id="VBas" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                                </items>
-                              </SplitPane>
-                              <ChoiceBox accessibleRole="CHECK_BOX" layoutX="779.0" layoutY="378.0" />
-                              <Button alignment="CENTER" layoutX="778.0" layoutY="203.0" mnemonicParsing="false" text="Favoris" />
-                           </children></AnchorPane>
-							</content>
+                              <HBox fx:id="HBoxImgComplete" layoutX="-1.0" prefHeight="621.0" prefWidth="699.0">
+                                 <children>
+                                    <SplitPane fx:id="SplitPaneImgComplete" dividerPositions="0.7508090614886731" focusTraversable="false" orientation="VERTICAL" prefHeight="600.0" prefWidth="750.0">
+                                      <items>
+                                        <AnchorPane fx:id="VHaut" />
+                                        <AnchorPane fx:id="VBas" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                      </items>
+                                    </SplitPane>
+                                 </children>
+                              </HBox>
+                              <VBox fx:id="VBoxImgComplete" layoutX="698.0" prefHeight="621.0" prefWidth="203.0">
+                                 <children>
+                                    <Button fx:id="Favoris" mnemonicParsing="false" text="Favoris" />
+                                    <ChoiceBox fx:id="Notes" prefHeight="25.0" prefWidth="88.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
 						</Tab>
 					</tabs>
 				</TabPane>

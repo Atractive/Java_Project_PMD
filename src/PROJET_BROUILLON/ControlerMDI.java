@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import Modele.ImageBI;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.ScrollPane;
@@ -22,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -70,6 +73,15 @@ public class ControlerMDI {
 	private AnchorPane VHaut;
 	@FXML
 	private AnchorPane VBas;
+	@FXML
+	private Button Favoris;
+	@FXML
+	private ChoiceBox<String> Notes;
+	@FXML
+	private HBox HBoxImgComplete;
+	@FXML
+	private VBox VBoxImgComplete;
+
 
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
@@ -79,6 +91,7 @@ public class ControlerMDI {
 	public void initialize() {
 		InjectImages();
 		System.out.println("SOS");
+
 	}
 
 	private void InjectImages() {
@@ -100,10 +113,16 @@ public class ControlerMDI {
 	            	TabP.getSelectionModel().selectNext(); //Change de tab
 	            	//SplitPaneImgComplete.getItems().clear();
 
-	                ImageView imageView2 = null;
+	            	ImageView imageView2 = null;
 	        		final ImageBI img = new ImageBI(file.toString());
 	        		Image temp = new Image("file:"+img.nom);
-	        		imageView2 = new ImageView(temp);
+	        		imageView2= new ImageView(temp);
+	        		imageView2.setFitWidth(750);
+	        		imageView2.setFitHeight(400);
+
+	        		Notes.getItems().addAll("1","2","3","4","5");
+	        		Notes.setPrefSize(50,10);
+
 	        		VHaut.getChildren().clear();
 	                VHaut.getChildren().add(imageView2);
 
@@ -123,7 +142,16 @@ public class ControlerMDI {
 	                SplitPaneImgComplete.getItems().clear();
 	                SplitPaneImgComplete.getItems().add(VHaut);
 	                SplitPaneImgComplete.getItems().add(VBas);
+
+	                SplitPaneImgComplete.setDividerPositions(0.75,0.25);
+
+	                VBoxImgComplete.getChildren();
+	                VBoxImgComplete.setAlignment(Pos.CENTER);
+
+	                HBoxImgComplete.getChildren().addAll(SplitPaneImgComplete,VBoxImgComplete);
+
 	                AnchorPaneImgComplete.getChildren();
+
 
 	            }
 	        });
