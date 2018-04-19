@@ -97,12 +97,14 @@ public class ControlerMDI {
 	        {
 	            @Override
 	            public void handle(MouseEvent t) { //Au clic, changement de tab et affichage de l'image
-	                TabP.getSelectionModel().selectNext(); //Change de tab
+	            	TabP.getSelectionModel().selectNext(); //Change de tab
+	            	//SplitPaneImgComplete.getItems().clear();
 
 	                ImageView imageView2 = null;
 	        		final ImageBI img = new ImageBI(file.toString());
 	        		Image temp = new Image("file:"+img.nom);
 	        		imageView2 = new ImageView(temp);
+	        		VHaut.getChildren().clear();
 	                VHaut.getChildren().add(imageView2);
 
 	                //Affichage des Metadonnées
@@ -115,6 +117,7 @@ public class ControlerMDI {
 	                		+ "Nombre d'étoile : " + img.etoile + "\n"
 	                		+ "Couleur Dominante : " + img.couleur);
 
+	                VBas.getChildren().clear();
 	                VBas.getChildren().addAll(META);
 
 	                SplitPaneImgComplete.getItems().clear();

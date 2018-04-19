@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
@@ -75,12 +76,14 @@
 							<content>
 								<AnchorPane fx:id="AnchorPaneImgComplete" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <SplitPane fx:id="SplitPaneImgComplete" dividerPositions="0.750402576489533" focusTraversable="false" layoutY="-1.0" orientation="VERTICAL" prefHeight="621.0" prefWidth="898.0">
+                              <SplitPane fx:id="SplitPaneImgComplete" dividerPositions="0.750402576489533" focusTraversable="false" layoutY="-1.0" orientation="VERTICAL" prefHeight="621.0" prefWidth="698.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
                                 <items>
-                                  <AnchorPane fx:id="VHaut" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                  <AnchorPane fx:id="VHaut" prefHeight="461.0" prefWidth="643.0" />
                                   <AnchorPane fx:id="VBas" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
                                 </items>
                               </SplitPane>
+                              <ChoiceBox accessibleRole="CHECK_BOX" layoutX="779.0" layoutY="378.0" />
+                              <Button alignment="CENTER" layoutX="778.0" layoutY="203.0" mnemonicParsing="false" text="Favoris" />
                            </children></AnchorPane>
 							</content>
 						</Tab>
