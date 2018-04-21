@@ -155,6 +155,28 @@ public class ControlerMDI {
 
 	            }
 	        });
+
+			Favoris.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent arg0) {
+					final ImageBI img = new ImageBI(file.toString());
+					img.Set_Favoris();
+				}
+
+
+			});
+
+			Notes.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+				@Override
+				public void handle(MouseEvent event) {
+					final ImageBI img = new ImageBI(file.toString());
+					img.Set_Etoile(Notes.getValue());
+				}
+
+			});
+
 			VBox vbox = new VBox();
 
 			String nom = new String(file.toString().split("\\\\")[1].split("\\.")[0]);

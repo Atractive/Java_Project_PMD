@@ -12,14 +12,14 @@ public class ImageBI {
 	public String nom;
 	public ArrayList<String> mots_clefs;
 	public boolean favoris;
-	public int etoile;
+	public String etoile;
 	public Color couleur;
 
 	public ImageBI (String n){
 		this.nom = n;
 		this.mots_clefs = new ArrayList<>();
 		this.favoris = false;
-		this.etoile = 0;
+		this.etoile = "0";
 		this.couleur = Color.WHITE;
 	}
 
@@ -27,11 +27,15 @@ public class ImageBI {
 		mots_clefs.add(mc);
 	}
 
-	public void Set_Favoris(Boolean bf){
-		favoris = bf;
+	public void Set_Favoris(){
+		if (this.favoris){
+			this.favoris = false;
+		} else {
+			this.favoris = true;
+		}
 	}
 
-	public void Set_Etoile(int nbe){
+	public void Set_Etoile(String nbe){
 		this.etoile = nbe;
 	}
 
