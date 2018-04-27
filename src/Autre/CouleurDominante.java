@@ -15,10 +15,6 @@ public class CouleurDominante {
 	public static String[] colorName = new String[] { "Red", "Blue", "Green", "Yellow", "Orange", "Cyan", "Magenta" };
 
 	public CouleurDominante(String s) {
-		int[] temp2 = getDominanteColorLib(s);
-		 System.out.println(temp2[0] + " " + temp2[1] + " " + temp2[2]);
-		 System.out.println(NearestColor3(Color.rgb(temp2[0], temp2[1], temp2[2])));
-
 	}
 
 	public int[] ColortoRGBArray(Color c) {
@@ -94,11 +90,5 @@ public class CouleurDominante {
 		return colorName[index];
 	}
 
-	public static void main(String[] args) {
-//		CouleurDominante gt = new CouleurDominante("Images\\Minions.jpg");
-//		System.out.println(gt.getDominanteColorLib("Images\\Minions.jpg")[0] + " "
-//				+ gt.getDominanteColorLib("Images\\Minions.jpg")[1] + " "
-//				+ gt.getDominanteColorLib("Images\\Minions.jpg")[2]);
-	}
 
 }

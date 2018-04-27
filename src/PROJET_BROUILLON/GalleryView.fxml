@@ -104,34 +104,35 @@
                                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
-                                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="207.0" text=" Nom">
+                                                <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="207.0" text=" Nom">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="s_couleurd" alignment="CENTER" prefHeight="33.0" prefWidth="201.0" text="     Favoris" GridPane.rowIndex="5">
+                                                <Label fx:id="s_couleurd" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="201.0" text="     Favoris" GridPane.rowIndex="6">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Label alignment="CENTER" prefHeight="33.0" prefWidth="234.0" text="Taille" GridPane.rowIndex="1">
+                                                <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="234.0" text="Taille" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="s_couleurd11" alignment="CENTER" prefHeight="33.0" prefWidth="224.0" text="  Poids" GridPane.rowIndex="2">
+                                                <Label fx:id="s_couleurd11" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="224.0" text="  Poids" GridPane.rowIndex="2">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="s_tags1" alignment="CENTER" prefHeight="33.0" prefWidth="222.0" text="  Note" GridPane.rowIndex="6">
+                                                <Label fx:id="s_tags1" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="222.0" text="  Note" GridPane.rowIndex="7">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="s_tags" alignment="CENTER" prefHeight="33.0" prefWidth="223.0" text="Tags" GridPane.rowIndex="3">
+                                                <Label fx:id="s_tags" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="223.0" text="Tags" GridPane.rowIndex="3">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
@@ -140,14 +141,20 @@
                                                 <TextField fx:id="Staille" prefHeight="25.0" prefWidth="54.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                 <TextField fx:id="Spoids" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                 <TextField fx:id="Stags" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                <RadioButton fx:id="Sfavoris" mnemonicParsing="false" prefHeight="17.0" prefWidth="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                                <ChoiceBox fx:id="Snote" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                                <Label fx:id="s_couleurd1" alignment="CENTER" prefHeight="33.0" prefWidth="167.0" text="Couleur" GridPane.rowIndex="4">
+                                                <RadioButton fx:id="Sfavoris" mnemonicParsing="false" prefHeight="17.0" prefWidth="5.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                <ChoiceBox fx:id="Snote" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                <Label fx:id="s_couleurd1" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="167.0" text="Couleur" GridPane.rowIndex="4">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
                                                 <TextField fx:id="Scolors" alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <Label fx:id="s_couleurd12" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="167.0" text="Nombre d'ouverture" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Roboto" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="Sopen" alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                              </children>
                                           </GridPane>
                                        </children></AnchorPane>

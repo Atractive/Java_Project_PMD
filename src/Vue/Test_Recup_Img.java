@@ -15,7 +15,6 @@ public class Test_Recup_Img {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(getImage(2)[0]);
 
 
 	}

@@ -15,7 +15,8 @@ public class ImageBI {
 	public int etoile;
 	public String couleur;
 	public String path;
-
+	public int nb_ouverture;
+	
 	public ImageBI(String n) {
 		this.path = n;
 		this.nom = n.substring(7, n.length());
@@ -24,6 +25,7 @@ public class ImageBI {
 		this.etoile = 5;
 		cd = new CouleurDominante(this.path);
 		this.couleur = cd.getDomintanteColor(this.path);
+		this.nb_ouverture = 0;
 	}
 
 	public void Add_MotsClefs(String mc) {
@@ -42,8 +44,9 @@ public class ImageBI {
 		this.etoile = nbe;
 	}
 
-	public void Set_CouleurDominante() {
-		// Récupérer la couleurs avec la class CouleursDominante
+
+	public void Increase_nbOuverture() {
+		this.nb_ouverture++;
 	}
 
 }

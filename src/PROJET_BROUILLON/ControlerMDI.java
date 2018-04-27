@@ -105,29 +105,14 @@ public class ControlerMDI {
 	private ChoiceBox<Integer> Snote;
 	@FXML
 	private TextField Scolors;
-	//
+	@FXML
+	private TextField Sopen;
 	@FXML
 	private AnchorPane LeftImgComplete;
 	@FXML
 	private AnchorPane RightImgComplete;
 	@FXML
 	private ImageView ImageViewImgComplete;
-
-	//
-	// @FXML
-	// private AnchorPane AnchorPaneImgComplete;
-	// @FXML
-	// private AnchorPane VHaut;
-	// @FXML
-	// private AnchorPane VBas;
-	// @FXML
-	// private Button Favoris;
-	// @FXML
-	// private ChoiceBox<String> Notes;
-	// @FXML
-	// private HBox HBoxImgComplete;
-	// @FXML
-	// private VBox VBoxImgComplete;
 
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
@@ -242,7 +227,6 @@ public class ControlerMDI {
 							borderPane.setCenter(temp);
 							borderPane.setStyle("-fx-background-color: BLACK");
 							LeftImgComplete.getChildren().add(borderPane);
-
 							LeftImgComplete.getChildren().clear();
 							LeftImgComplete.getChildren().add(temp);
 
@@ -254,11 +238,15 @@ public class ControlerMDI {
 							Stags.textProperty().setValue(img.mots_clefs.toString());
 							SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
 							Scolors.setText(img.couleur);
+							Snote.setValue(img.etoile);
+							img.Increase_nbOuverture();
+							Sopen.setText(String.valueOf(img.nb_ouverture));
 
 							Snom.setEditable(false);
 							Staille.setEditable(false);
 							Spoids.setEditable(false);
 							Scolors.setEditable(false);
+
 						}
 					}
 				}
