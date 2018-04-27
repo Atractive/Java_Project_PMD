@@ -54,7 +54,7 @@
 									</items>
 								</MenuButton>
 								<Region prefHeight="55.0" prefWidth="200.0" />
-								<Button fx:id="Button6" mnemonicParsing="false" text="Button" />
+								<Button fx:id="Button6" mnemonicParsing="false" text="Ajouter..." />
 							</buttons>
 						</ButtonBar>
 					</children>

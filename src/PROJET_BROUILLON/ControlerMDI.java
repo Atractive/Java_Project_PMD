@@ -1,11 +1,21 @@
 package PROJET_BROUILLON;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.CopyOption;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import Modele.ImageBI;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -28,6 +38,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class ControlerMDI {
 
@@ -83,15 +98,51 @@ public class ControlerMDI {
 	private VBox VBoxImgComplete;
 
 
+
+
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
 	}
 
 	@FXML
 	public void initialize() {
+		ajouter_image();
 		InjectImages();
 		System.out.println("SOS");
 
+	}
+
+	private void ajouter_image(){
+		Button6.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(final ActionEvent e) {
+					FileChooser filechooser = new FileChooser();
+					filechooser.getExtensionFilters().addAll(
+					         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+
+					Stage newWindow = new Stage();
+
+		            newWindow.setTitle("Second Stage");
+
+		            // Specifies the modality for new window.
+		            newWindow.initModality(Modality.WINDOW_MODAL);
+
+				File list = filechooser.showOpenDialog(newWindow);
+				if (list != null) {
+						System.out.println(list);
+						try {
+							Files.move(FileSystems.getDefault().getPath(list.getPath()), FileSystems.getDefault().getPath(new File("Images/"+list.getName()).getPath()),StandardCopyOption.REPLACE_EXISTING);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						TilePaneGalerie.getChildren().clear();
+						InjectImages();
+					}
+				}
+			}
+		);
 	}
 
 	private void InjectImages() {
@@ -100,7 +151,9 @@ public class ControlerMDI {
 		TilePaneGalerie.setHgap(10);
 
 		File folder = new File("Images");
+
 		File[] listOfFiles = folder.listFiles();
+
 
 
 		for (final File file : listOfFiles) {
@@ -148,7 +201,7 @@ public class ControlerMDI {
 	                VBoxImgComplete.getChildren();
 	                VBoxImgComplete.setAlignment(Pos.CENTER);
 
-	                HBoxImgComplete.getChildren().addAll(SplitPaneImgComplete,VBoxImgComplete);
+	                HBoxImgComplete.getChildren();
 
 	                AnchorPaneImgComplete.getChildren();
 
@@ -183,6 +236,8 @@ public class ControlerMDI {
 			if (nom.length()>15){nom=nom.substring(0,15)+"..."+file.toString().split("\\\\")[1].split("\\.")[1];}
 			else{nom=nom+"."+file.toString().split("\\\\")[1].split("\\.")[1];}
 
+
+
 			Label label1 = new Label(nom);
 
 		    vbox.setSpacing(10);
@@ -200,10 +255,9 @@ public class ControlerMDI {
 	}
 
 	private ImageView createImageView(String nom) {
-		ImageView imageView = null;
 		final ImageBI img = new ImageBI(nom);
 		Image temp = new Image("file:"+img.nom,150,0,true,true);
-		imageView = new ImageView(temp);
+		ImageView imageView = new ImageView(temp);
 		imageView.setFitWidth(150);
 		imageView.getStyleClass().add("image");
 		return imageView;
