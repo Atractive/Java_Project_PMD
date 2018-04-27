@@ -9,13 +9,14 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="AnchorP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="AnchorP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<SplitPane fx:id="SplitP" dividerPositions="0.0513" layoutX="45.0" layoutY="82.0" maxWidth="100.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<items>
@@ -91,8 +92,10 @@
                               </HBox>
                               <VBox fx:id="VBoxImgComplete" layoutX="698.0" prefHeight="621.0" prefWidth="203.0">
                                  <children>
-                                    <Button fx:id="Favoris" mnemonicParsing="false" text="Favoris" />
+                                    <Button fx:id="Favoris" mnemonicParsing="false" text="Favoris" textAlignment="CENTER" />
                                     <ChoiceBox fx:id="Notes" prefHeight="25.0" prefWidth="88.0" />
+                                    <TextField id="mcbarre" prefHeight="1.0" prefWidth="101.0" text="Mot-clef" />
+                                    <Button id="mcvalid" mnemonicParsing="false" text="OK" />
                                  </children>
                               </VBox>
                            </children>

@@ -1,5 +1,6 @@
 package PROJET_BROUILLON;
 
+import java.awt.TextField;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -95,10 +96,13 @@ public class ControlerMDI {
 	@FXML
 	private ChoiceBox<String> Notes;
 	@FXML
+	private TextField mcbarre;
+	@FXML
+	private Button mcvalid;
+	@FXML
 	private HBox HBoxImgComplete;
 	@FXML
 	private VBox VBoxImgComplete;
-
 
 
 
@@ -112,7 +116,6 @@ public class ControlerMDI {
 		supprimer_image();
 		InjectImages();
 		System.out.println("SOS");
-
 	}
 
 	private void ajouter_image(){
@@ -148,9 +151,6 @@ public class ControlerMDI {
 			}
 		);
 	}
-
-
-
 
 
 	private void supprimer_image(){
@@ -189,6 +189,7 @@ public class ControlerMDI {
 		);
 	}
 
+
 	private void InjectImages() {
 
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
@@ -198,25 +199,27 @@ public class ControlerMDI {
 
 		File[] listOfFiles = folder.listFiles();
 
-
-
 		for (final File file : listOfFiles) {
-			ImageView imageView;
-			imageView = createImageView(file.toString());
-			imageView.setOnMouseClicked(new EventHandler<MouseEvent>()
-	        {
+
+			final ImageBI img = new ImageBI(file.toString());
+			Image temp = new Image("file:"+img.nom,150,0,true,true);
+			ImageView imageView = new ImageView(temp);
+			imageView.setFitWidth(150);
+			imageView.getStyleClass().add("image");
+
+			imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
 	            @Override
-	            public void handle(MouseEvent t) { //Au clic, changement de tab et affichage de l'image
-	            	TabP.getSelectionModel().selectNext(); //Change de tab
-	            	//SplitPaneImgComplete.getItems().clear();
+	            public void handle(MouseEvent t) {
+	            	TabP.getSelectionModel().selectNext();
 
 	            	ImageView imageView2 = null;
-	        		final ImageBI img = new ImageBI(file.toString());
-	        		Image temp = new Image("file:"+img.nom);
-	        		imageView2= new ImageView(temp);
+	            	Image temp = new Image("file:"+img.nom);
+	        		imageView2 = new ImageView(temp);
 	        		imageView2.setFitWidth(750);
 	        		imageView2.setFitHeight(400);
 
+	        		Notes.getItems().clear();
 	        		Notes.getItems().addAll("1","2","3","4","5");
 	        		Notes.setPrefSize(50,10);
 
@@ -249,38 +252,83 @@ public class ControlerMDI {
 
 	                AnchorPaneImgComplete.getChildren();
 
+	                Favoris.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+	    				@Override
+	    				public void handle(MouseEvent arg0) {
+
+	    					img.Set_Favoris();
+
+	    					Label META = new Label("Nom : " + img.nom + "\n"
+	    		                		+ "Mots-Clefs : " + img.mots_clefs.toString() + "\n"
+	    		                		+ "Taille : " + temp.getWidth() + "x" + temp.getHeight() + "\n"
+	    		                		+ "Poids : " + temp.getWidth()*temp.getHeight()*4 + "\n"
+	    		                		+ "Favoris : " + img.favoris + "\n"
+	    		                		+ "Nombre d'étoile : " + img.etoile + "\n"
+	    		                		+ "Couleur Dominante : " + img.couleur);
+
+	    					VBas.getChildren().clear();
+	    					VBas.getChildren().addAll(META);
+
+	    				}
+
+	    			});
+
+	    			Notes.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+	    				@Override
+	    				public void handle(MouseEvent event) {
+
+	    					img.Set_Etoile(Notes.getValue());
+
+	    					Label META = new Label("Nom : " + img.nom + "\n"
+	    	                		+ "Mots-Clefs : " + img.mots_clefs.toString() + "\n"
+	    	                		+ "Taille : " + temp.getWidth() + "x" + temp.getHeight() + "\n"
+	    	                		+ "Poids : " + temp.getWidth()*temp.getHeight()*4 + "\n"
+	    	                		+ "Favoris : " + img.favoris + "\n"
+	    	                		+ "Nombre d'étoile : " + img.etoile + "\n"
+	    	                		+ "Couleur Dominante : " + img.couleur);
+
+	    					VBas.getChildren().clear();
+	    					VBas.getChildren().addAll(META);
+
+	    				}
+
+	    			});
+
+	    			mcvalid.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+						@Override
+						public void handle(MouseEvent arg0) {
+
+							img.Add_MotsClefs(mcbarre.getText());
+
+							Label META = new Label("Nom : " + img.nom + "\n"
+	    	                		+ "Mots-Clefs : " + img.mots_clefs.toString() + "\n"
+	    	                		+ "Taille : " + temp.getWidth() + "x" + temp.getHeight() + "\n"
+	    	                		+ "Poids : " + temp.getWidth()*temp.getHeight()*4 + "\n"
+	    	                		+ "Favoris : " + img.favoris + "\n"
+	    	                		+ "Nombre d'étoile : " + img.etoile + "\n"
+	    	                		+ "Couleur Dominante : " + img.couleur);
+
+	    					VBas.getChildren().clear();
+	    					VBas.getChildren().addAll(META);
+
+						}
+
+	    			});
 
 	            }
+
 	        });
 
-			Favoris.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
-				@Override
-				public void handle(MouseEvent arg0) {
-					final ImageBI img = new ImageBI(file.toString());
-					img.Set_Favoris();
-				}
-
-
-			});
-
-			Notes.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
-				@Override
-				public void handle(MouseEvent event) {
-					final ImageBI img = new ImageBI(file.toString());
-					img.Set_Etoile(Notes.getValue());
-				}
-
-			});
 
 			VBox vbox = new VBox();
 
 			String nom = new String(file.toString().split("\\\\")[1].split("\\.")[0]);
 			if (nom.length()>15){nom=nom.substring(0,15)+"..."+file.toString().split("\\\\")[1].split("\\.")[1];}
 			else{nom=nom+"."+file.toString().split("\\\\")[1].split("\\.")[1];}
-
-
 
 			Label label1 = new Label(nom);
 
@@ -296,15 +344,6 @@ public class ControlerMDI {
 		ScrollPaneGalerie.setFitToWidth(true);
 		ScrollPaneGalerie.setContent(TilePaneGalerie);
 
-	}
-
-	private ImageView createImageView(String nom) {
-		final ImageBI img = new ImageBI(nom);
-		Image temp = new Image("file:"+img.nom,150,0,true,true);
-		ImageView imageView = new ImageView(temp);
-		imageView.setFitWidth(150);
-		imageView.getStyleClass().add("image");
-		return imageView;
 	}
 
 }
