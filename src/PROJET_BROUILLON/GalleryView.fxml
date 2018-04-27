@@ -55,6 +55,7 @@
 								</MenuButton>
 								<Region prefHeight="55.0" prefWidth="200.0" />
 								<Button fx:id="Button6" mnemonicParsing="false" text="Ajouter..." />
+                        <Button fx:id="Button7" layoutX="792.0" layoutY="19.0" mnemonicParsing="false" text="Supprimer..." />
 							</buttons>
 						</ButtonBar>
 					</children>

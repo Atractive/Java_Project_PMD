@@ -69,6 +69,8 @@ public class ControlerMDI {
 	@FXML
 	private Button Button6;
 	@FXML
+	private Button Button7;
+	@FXML
 	private TabPane TabP;
 	@FXML
 	private Tab TabGalerie;
@@ -107,6 +109,7 @@ public class ControlerMDI {
 	@FXML
 	public void initialize() {
 		ajouter_image();
+		supprimer_image();
 		InjectImages();
 		System.out.println("SOS");
 
@@ -131,8 +134,49 @@ public class ControlerMDI {
 				File list = filechooser.showOpenDialog(newWindow);
 				if (list != null) {
 						System.out.println(list);
+
 						try {
 							Files.move(FileSystems.getDefault().getPath(list.getPath()), FileSystems.getDefault().getPath(new File("Images/"+list.getName()).getPath()),StandardCopyOption.REPLACE_EXISTING);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						TilePaneGalerie.getChildren().clear();
+						InjectImages();
+					}
+				}
+			}
+		);
+	}
+
+
+
+
+
+	private void supprimer_image(){
+		Button7.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(final ActionEvent e) {
+					FileChooser filechooser = new FileChooser();
+					filechooser.getExtensionFilters().addAll(
+					         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+
+					filechooser.setInitialDirectory(new File("Images"));
+
+					Stage newWindow = new Stage();
+
+		            newWindow.setTitle("Second Stage");
+
+		            // Specifies the modality for new window.
+		            newWindow.initModality(Modality.WINDOW_MODAL);
+
+				File list = filechooser.showOpenDialog(newWindow);
+
+				if (list != null) {
+						System.out.println(list);
+						try {
+							Files.delete(FileSystems.getDefault().getPath(new File("Images/"+list.getName()).getPath()));
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
