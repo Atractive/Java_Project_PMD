@@ -1,4 +1,4 @@
- package PROJET_BROUILLON;
+package PROJET_BROUILLON;
 
 import java.awt.Button;
 import java.io.File;
@@ -22,8 +22,6 @@ public class Main extends Application {
 	// ModeleTest modele;
 	public static String ImageDirectory = "Images";
 	public static File[] AllImages;
-	
-	
 
 	public void start(Stage stage) throws Exception {
 
@@ -33,11 +31,14 @@ public class Main extends Application {
 		Parent firstUI = firstLoader.load();
 
 		Scene scene = new Scene(firstUI);
-		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+		String css = getClass().getResource("style.css").toExternalForm();
+		scene.getStylesheets().add(css);
+//		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setTitle("FXML Welcome");
 		
-		//System.out.println(Arrays.toString(ControlerMDI.class.getDeclaredFields()));
-	
+		// System.out.println(Arrays.toString(ControlerMDI.class.getDeclaredFields()));
+
+		
 		stage.setScene(scene);
 		stage.show();
 		stage.setMaximized(true);

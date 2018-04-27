@@ -10,13 +10,14 @@ import de.androidpit.colorthief.ColorThief;
 import javafx.scene.paint.Color;
 
 public class CouleurDominante {
-	public static Color[] colorRange = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE,
-			Color.CYAN, Color.RED, Color.MAGENTA, Color.BROWN, Color.WHITE, Color.BLACK };
+	public static Color[] colorRange = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, };
+
+	public static String[] colorName = new String[] { "Red", "Blue", "Green", "Yellow", "Orange", "Cyan", "Magenta" };
 
 	public CouleurDominante(String s) {
 		int[] temp2 = getDominanteColorLib(s);
-		System.out.println(temp2[0] + " " + temp2[1] + " " + temp2[2]);
-		System.out.println(NearestColor3(Color.rgb(temp2[0], temp2[1], temp2[2])));
+		 System.out.println(temp2[0] + " " + temp2[1] + " " + temp2[2]);
+		 System.out.println(NearestColor3(Color.rgb(temp2[0], temp2[1], temp2[2])));
 
 	}
 
@@ -27,6 +28,11 @@ public class CouleurDominante {
 		rgb[2] = (int) (c.getGreen() * 255);
 		return rgb;
 
+	}
+
+	public String getDomintanteColor(String s) {
+		int[] temp = getDominanteColorLib(s);
+		return NearestColor3(Color.rgb(temp[0], temp[1], temp[2]));
 	}
 
 	public int[] getDominanteColorLib(String s) {
@@ -67,7 +73,8 @@ public class CouleurDominante {
 		return index;
 	}
 
-	public int NearestColor3(Color rgb) { // Utilisation des méthodes de LAB pour convertir RBG -> LAB puis récuperer la
+	public String NearestColor3(Color rgb) { // Utilisation des méthodes de LAB pour convertir RBG -> LAB puis récuperer
+												// la
 		// différence entre 2 couleurs
 		int[] Rlab1 = ColortoRGBArray(rgb);
 		int[] Rlab2 = ColortoRGBArray(colorRange[0]);
@@ -84,11 +91,14 @@ public class CouleurDominante {
 				index = i;
 			}
 		}
-		return index;
+		return colorName[index];
 	}
 
 	public static void main(String[] args) {
-		CouleurDominante gt = new CouleurDominante("C:\\Users\\Ortiz Diego\\eclipse\\Projet\\Images\\Oasis.jpg");
+//		CouleurDominante gt = new CouleurDominante("Images\\Minions.jpg");
+//		System.out.println(gt.getDominanteColorLib("Images\\Minions.jpg")[0] + " "
+//				+ gt.getDominanteColorLib("Images\\Minions.jpg")[1] + " "
+//				+ gt.getDominanteColorLib("Images\\Minions.jpg")[2]);
 	}
 
 }

@@ -23,16 +23,22 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
@@ -83,24 +89,45 @@ public class ControlerMDI {
 	@FXML
 	private Tab ImageComplete;
 	@FXML
-	private AnchorPane AnchorPaneImgComplete;
-	@FXML
 	private SplitPane SplitPaneImgComplete;
+	//
 	@FXML
-	private AnchorPane VHaut;
+	private TextField Snom;
 	@FXML
-	private AnchorPane VBas;
+	private TextField Staille;
 	@FXML
-	private Button Favoris;
+	private TextField Spoids;
 	@FXML
-	private ChoiceBox<String> Notes;
+	private TextField Stags;
 	@FXML
-	private HBox HBoxImgComplete;
+	private RadioButton Sfavoris;
 	@FXML
-	private VBox VBoxImgComplete;
+	private ChoiceBox<Integer> Snote;
+	@FXML
+	private TextField Scolors;
+	//
+	@FXML
+	private AnchorPane LeftImgComplete;
+	@FXML
+	private AnchorPane RightImgComplete;
+	@FXML
+	private ImageView ImageViewImgComplete;
 
-
-
+	//
+	// @FXML
+	// private AnchorPane AnchorPaneImgComplete;
+	// @FXML
+	// private AnchorPane VHaut;
+	// @FXML
+	// private AnchorPane VBas;
+	// @FXML
+	// private Button Favoris;
+	// @FXML
+	// private ChoiceBox<String> Notes;
+	// @FXML
+	// private HBox HBoxImgComplete;
+	// @FXML
+	// private VBox VBoxImgComplete;
 
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
@@ -108,85 +135,78 @@ public class ControlerMDI {
 
 	@FXML
 	public void initialize() {
+		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 		ajouter_image();
 		supprimer_image();
 		InjectImages();
 		System.out.println("SOS");
-
 	}
 
-	private void ajouter_image(){
+	private void ajouter_image() {
 		Button6.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(final ActionEvent e) {
-					FileChooser filechooser = new FileChooser();
-					filechooser.getExtensionFilters().addAll(
-					         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+				FileChooser filechooser = new FileChooser();
+				filechooser.getExtensionFilters()
+						.addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*jpeg"));
 
-					Stage newWindow = new Stage();
+				Stage newWindow = new Stage();
 
-		            newWindow.setTitle("Second Stage");
+				newWindow.setTitle("Second Stage");
 
-		            // Specifies the modality for new window.
-		            newWindow.initModality(Modality.WINDOW_MODAL);
+				// Specifies the modality for new window.
+				newWindow.initModality(Modality.WINDOW_MODAL);
 
 				File list = filechooser.showOpenDialog(newWindow);
 				if (list != null) {
-						System.out.println(list);
 
-						try {
-							Files.move(FileSystems.getDefault().getPath(list.getPath()), FileSystems.getDefault().getPath(new File("Images/"+list.getName()).getPath()),StandardCopyOption.REPLACE_EXISTING);
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						TilePaneGalerie.getChildren().clear();
-						InjectImages();
+					try {
+						Files.move(FileSystems.getDefault().getPath(list.getPath()),
+								FileSystems.getDefault().getPath(new File("Images/" + list.getName()).getPath()),
+								StandardCopyOption.REPLACE_EXISTING);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
+					TilePaneGalerie.getChildren().clear();
+					InjectImages();
 				}
 			}
-		);
+		});
 	}
 
-
-
-
-
-	private void supprimer_image(){
+	private void supprimer_image() {
 		Button7.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(final ActionEvent e) {
-					FileChooser filechooser = new FileChooser();
-					filechooser.getExtensionFilters().addAll(
-					         new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+				FileChooser filechooser = new FileChooser();
+				filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 
-					filechooser.setInitialDirectory(new File("Images"));
+				filechooser.setInitialDirectory(new File("Images"));
 
-					Stage newWindow = new Stage();
+				Stage newWindow = new Stage();
 
-		            newWindow.setTitle("Second Stage");
+				newWindow.setTitle("Second Stage");
 
-		            // Specifies the modality for new window.
-		            newWindow.initModality(Modality.WINDOW_MODAL);
+				// Specifies the modality for new window.
+				newWindow.initModality(Modality.WINDOW_MODAL);
 
 				File list = filechooser.showOpenDialog(newWindow);
 
 				if (list != null) {
-						System.out.println(list);
-						try {
-							Files.delete(FileSystems.getDefault().getPath(new File("Images/"+list.getName()).getPath()));
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						TilePaneGalerie.getChildren().clear();
-						InjectImages();
+					try {
+						Files.delete(FileSystems.getDefault().getPath(new File("Images/" + list.getName()).getPath()));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
+					TilePaneGalerie.getChildren().clear();
+					InjectImages();
 				}
 			}
-		);
+		});
 	}
 
 	private void InjectImages() {
@@ -198,96 +218,88 @@ public class ControlerMDI {
 
 		File[] listOfFiles = folder.listFiles();
 
-
-
 		for (final File file : listOfFiles) {
 			ImageView imageView;
 			imageView = createImageView(file.toString());
-			imageView.setOnMouseClicked(new EventHandler<MouseEvent>()
-	        {
-	            @Override
-	            public void handle(MouseEvent t) { //Au clic, changement de tab et affichage de l'image
-	            	TabP.getSelectionModel().selectNext(); //Change de tab
-	            	//SplitPaneImgComplete.getItems().clear();
-
-	            	ImageView imageView2 = null;
-	        		final ImageBI img = new ImageBI(file.toString());
-	        		Image temp = new Image("file:"+img.nom);
-	        		imageView2= new ImageView(temp);
-	        		imageView2.setFitWidth(750);
-	        		imageView2.setFitHeight(400);
-
-	        		Notes.getItems().addAll("1","2","3","4","5");
-	        		Notes.setPrefSize(50,10);
-
-	        		VHaut.getChildren().clear();
-	                VHaut.getChildren().add(imageView2);
-
-	                //Affichage des Metadonnées
-
-	                Label META = new Label("Nom : " + img.nom + "\n"
-	                		+ "Mots-Clefs : " + img.mots_clefs.toString() + "\n"
-	                		+ "Taille : " + temp.getWidth() + "x" + temp.getHeight() + "\n"
-	                		+ "Poids : " + temp.getWidth()*temp.getHeight()*4 + "\n"
-	                		+ "Favoris : " + img.favoris + "\n"
-	                		+ "Nombre d'étoile : " + img.etoile + "\n"
-	                		+ "Couleur Dominante : " + img.couleur);
-
-	                VBas.getChildren().clear();
-	                VBas.getChildren().addAll(META);
-
-	                SplitPaneImgComplete.getItems().clear();
-	                SplitPaneImgComplete.getItems().add(VHaut);
-	                SplitPaneImgComplete.getItems().add(VBas);
-
-	                SplitPaneImgComplete.setDividerPositions(0.75,0.25);
-
-	                VBoxImgComplete.getChildren();
-	                VBoxImgComplete.setAlignment(Pos.CENTER);
-
-	                HBoxImgComplete.getChildren();
-
-	                AnchorPaneImgComplete.getChildren();
-
-
-	            }
-	        });
-
-			Favoris.setOnMouseClicked(new EventHandler<MouseEvent>(){
-
+			imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
-				public void handle(MouseEvent arg0) {
-					final ImageBI img = new ImageBI(file.toString());
-					img.Set_Favoris();
+				public void handle(MouseEvent t) { // Au clic, changement de tab et affichage de l'image
+					if (t.getButton().equals(MouseButton.PRIMARY)) {
+
+						if (t.getClickCount() == 2) {
+							TabP.getSelectionModel().selectNext(); // Change de tab
+
+							ImageView temp = new ImageView();
+							final ImageBI img = new ImageBI(file.toString());
+							Image tempI = new Image("file:" + img.path);
+							BorderPane borderPane = new BorderPane();
+							temp.setImage(tempI);
+							temp.setStyle("-fx-background-color: BLACK");
+							temp.setFitHeight(LeftImgComplete.getHeight());
+							temp.setPreserveRatio(true);
+							temp.setSmooth(true);
+							temp.setCache(true);
+							borderPane.setCenter(temp);
+							borderPane.setStyle("-fx-background-color: BLACK");
+							LeftImgComplete.getChildren().add(borderPane);
+
+							LeftImgComplete.getChildren().clear();
+							LeftImgComplete.getChildren().add(temp);
+
+							Snom.textProperty().setValue(img.nom);
+							Staille.textProperty().setValue(
+									(int) Math.round(tempI.getWidth()) + " x " + (int) Math.round(tempI.getHeight()));
+							Spoids.textProperty()
+									.setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() * 4)));
+							Stags.textProperty().setValue(img.mots_clefs.toString());
+							SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
+							Scolors.setText(img.couleur);
+
+							Snom.setEditable(false);
+							Staille.setEditable(false);
+							Spoids.setEditable(false);
+							Scolors.setEditable(false);
+						}
+					}
 				}
-
-
 			});
 
-			Notes.setOnMouseClicked(new EventHandler<MouseEvent>(){
+			// Favoris.setOnMouseClicked(new EventHandler<MouseEvent>(){
+			//
+			// @Override
+			// public void handle(MouseEvent arg0) {
+			// final ImageBI img = new ImageBI(file.toString());
+			// img.Set_Favoris();
+			// }
+			//
+			//
+			// });
 
-				@Override
-				public void handle(MouseEvent event) {
-					final ImageBI img = new ImageBI(file.toString());
-					img.Set_Etoile(Notes.getValue());
-				}
-
-			});
+			// Notes.setOnMouseClicked(new EventHandler<MouseEvent>(){
+			//
+			// @Override
+			// public void handle(MouseEvent event) {
+			// final ImageBI img = new ImageBI(file.toString());
+			// img.Set_Etoile(Notes.getValue());
+			// }
+			//
+			// });
 
 			VBox vbox = new VBox();
 
 			String nom = new String(file.toString().split("\\\\")[1].split("\\.")[0]);
-			if (nom.length()>15){nom=nom.substring(0,15)+"..."+file.toString().split("\\\\")[1].split("\\.")[1];}
-			else{nom=nom+"."+file.toString().split("\\\\")[1].split("\\.")[1];}
-
-
+			if (nom.length() > 15) {
+				nom = nom.substring(0, 15) + "..." + file.toString().split("\\\\")[1].split("\\.")[1];
+			} else {
+				nom = nom + "." + file.toString().split("\\\\")[1].split("\\.")[1];
+			}
 
 			Label label1 = new Label(nom);
 
-		    vbox.setSpacing(10);
-		    vbox.getChildren().addAll(imageView,label1);
-		    vbox.setAlignment(Pos.CENTER);
-		    vbox.getStyleClass().add("vbox");
+			vbox.setSpacing(10);
+			vbox.getChildren().addAll(imageView, label1);
+			vbox.setAlignment(Pos.CENTER);
+			vbox.getStyleClass().add("vbox");
 			TilePaneGalerie.getChildren().addAll(vbox);
 		}
 
@@ -300,7 +312,7 @@ public class ControlerMDI {
 
 	private ImageView createImageView(String nom) {
 		final ImageBI img = new ImageBI(nom);
-		Image temp = new Image("file:"+img.nom,150,0,true,true);
+		Image temp = new Image("file:" + img.path, 150, 0, true, true);
 		ImageView imageView = new ImageView(temp);
 		imageView.setFitWidth(150);
 		imageView.getStyleClass().add("image");
