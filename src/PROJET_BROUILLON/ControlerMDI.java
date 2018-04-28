@@ -206,6 +206,7 @@ public class ControlerMDI {
 		TilePaneGalerie.setHgap(10);
 
 		ArrayList<ImageBI> LimagesC = this.modele.Limages;
+		System.out.println(LimagesC.get(0));
 		
 		for (int i = 0; i < LimagesC.size(); i++) {
 			ImageView imageView;
@@ -214,15 +215,12 @@ public class ControlerMDI {
 			imageView.setId(String.valueOf(i));
 			imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent event) { // Au clic, changement de tab et affichage de l'image
-					System.out.println();
 					if (event.getButton().equals(MouseButton.PRIMARY)) {
 						if (event.getClickCount() == 2) {
 							TabP.getSelectionModel().selectNext(); // Change de tab
 							String source2 = event.getPickResult().getIntersectedNode().getId();
-							System.out.println("Just the id: " + source2);
-							System.out.println(" " + source2);
 							ImageView temp = new ImageView();
-							 final ImageBI img = new ImageBI(LimagesC.get(Integer.parseInt(source2)).path.toString());
+							final ImageBI img = LimagesC.get(Integer.parseInt(source2));
 							 Image tempI = new Image("file:" + img.path);
 							 BorderPane borderPane = new BorderPane();
 							 temp.setImage(tempI);
