@@ -13,8 +13,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.xml.transform.Source;
+
 import Autre.CouleurDominante;
 import Modele.ImageBI;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableSetValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,6 +37,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
@@ -56,8 +62,8 @@ public class ControlerMDI {
 	@FXML
 	public ModeleTest modele;
 
-	public int test = 5;
-	
+	public String temp_index;
+
 	@FXML
 	private AnchorPane AnchorP;
 	@FXML
@@ -102,7 +108,7 @@ public class ControlerMDI {
 	@FXML
 	private TextField Spoids;
 	@FXML
-	private TextField Stags;
+	private TextArea Stags;
 	@FXML
 	private RadioButton Sfavoris;
 	@FXML
@@ -120,12 +126,10 @@ public class ControlerMDI {
 
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
-		this.test = 5;
 	}
 
 	@FXML
 	public void initialize() {
-		this.test = 5;
 		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 		ajouter_image();
 		supprimer_image();
@@ -206,8 +210,6 @@ public class ControlerMDI {
 		TilePaneGalerie.setHgap(10);
 
 		ArrayList<ImageBI> LimagesC = this.modele.Limages;
-		System.out.println(LimagesC.get(0));
-		
 		for (int i = 0; i < LimagesC.size(); i++) {
 			ImageView imageView;
 			// System.out.println("controler " + file.toString());
@@ -219,66 +221,65 @@ public class ControlerMDI {
 						if (event.getClickCount() == 2) {
 							TabP.getSelectionModel().selectNext(); // Change de tab
 							String source2 = event.getPickResult().getIntersectedNode().getId();
+							temp_index = source2;
 							ImageView temp = new ImageView();
 							final ImageBI img = LimagesC.get(Integer.parseInt(source2));
-							 Image tempI = new Image("file:" + img.path);
-							 BorderPane borderPane = new BorderPane();
-							 temp.setImage(tempI);
-							 temp.setStyle("-fx-background-color: BLACK");
-							 temp.setFitHeight(LeftImgComplete.getHeight());
-							 temp.setPreserveRatio(true);
-							 temp.setSmooth(true);
-							 temp.setCache(true);
-							 borderPane.setCenter(temp);
-							 borderPane.setStyle("-fx-background-color: BLACK");
-							 LeftImgComplete.getChildren().add(borderPane);
-							 LeftImgComplete.getChildren().clear();
-							 LeftImgComplete.getChildren().add(temp);
+							Image tempI = new Image("file:" + img.path);
+							BorderPane borderPane = new BorderPane();
+							temp.setImage(tempI);
+							temp.setStyle("-fx-background-color: BLACK");
+							temp.setFitHeight(LeftImgComplete.getHeight());
+							temp.setPreserveRatio(true);
+							temp.setSmooth(true);
+							temp.setCache(true);
+							borderPane.setCenter(temp);
+							borderPane.setStyle("-fx-background-color: BLACK");
+							LeftImgComplete.getChildren().add(borderPane);
+							LeftImgComplete.getChildren().clear();
+							LeftImgComplete.getChildren().add(temp);
+
+							Snom.textProperty().setValue(img.nom);
+							Staille.textProperty().setValue(
+									(int) Math.round(tempI.getWidth()) + " x " + (int) Math.round(tempI.getHeight()));
+							Spoids.textProperty()
+									.setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() * 4)));
+							Stags.textProperty().setValue(img.mots_clefs.toString());
+							SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
+							Snote.setValue(img.etoile);
+							img.Increase_nbOuverture();
+							Sopen.setText(String.valueOf(img.nb_ouverture));
+							Scolors.setText(CouleurDominante.getDomintanteColor(img.path));
+							Sfavoris.setSelected(img.favoris);
+							Snote.setValue(img.etoile);
+
 							
-							 Snom.textProperty().setValue(img.nom);
-							 Staille.textProperty().setValue(
-							 (int) Math.round(tempI.getWidth()) + " x " + (int)
-							 Math.round(tempI.getHeight()));
-							 Spoids.textProperty()
-							 .setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() *
-							 4)));
-							 Stags.textProperty().setValue(img.mots_clefs.toString());
-							 SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
-							 Snote.setValue(img.etoile);
-							 img.Increase_nbOuverture();
-							 Sopen.setText(String.valueOf(img.nb_ouverture));
-							 Scolors.setText(CouleurDominante.getDomintanteColor(img.path));
-							
-							 Snom.setEditable(false);
-							 Staille.setEditable(false);
-							 Spoids.setEditable(false);
-							 Scolors.setEditable(false);
+							Snom.setEditable(false);
+							Staille.setEditable(false);
+							Spoids.setEditable(false);
+							Scolors.setEditable(false);
 
 						}
 					}
 				}
 			});
 
-			// Favoris.setOnMouseClicked(new EventHandler<MouseEvent>(){
-			//
-			// @Override
-			// public void handle(MouseEvent arg0) {
-			// final ImageBI img = new ImageBI(file.toString());
-			// img.Set_Favoris();
-			// }
-			//
-			//
-			// });
+			Sfavoris.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent arg0) {
+					LimagesC.get(Integer.parseInt(temp_index)).Set_Favoris();
+				}
 
-			// Notes.setOnMouseClicked(new EventHandler<MouseEvent>(){
-			//
-			// @Override
-			// public void handle(MouseEvent event) {
-			// final ImageBI img = new ImageBI(file.toString());
-			// img.Set_Etoile(Notes.getValue());
-			// }
-			//
-			// });
+			});
+
+	
+			Snote.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+				@Override
+				public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+					LimagesC.get(Integer.parseInt(temp_index)).Set_Etoile((Integer) number2);
+					LimagesC.get(Integer.parseInt(temp_index)).etoile = (Integer) number2 + 1;
+					
+				}
+			});
 
 			VBox vbox = new VBox();
 

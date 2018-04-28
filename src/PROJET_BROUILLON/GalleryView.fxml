@@ -11,6 +11,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -140,7 +141,6 @@
                                                 <TextField fx:id="Snom" editable="false" GridPane.columnIndex="1" />
                                                 <TextField fx:id="Staille" prefHeight="25.0" prefWidth="54.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                 <TextField fx:id="Spoids" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                <TextField fx:id="Stags" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                 <RadioButton fx:id="Sfavoris" mnemonicParsing="false" prefHeight="17.0" prefWidth="5.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                                 <ChoiceBox fx:id="Snote" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                                 <Label fx:id="s_couleurd1" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="167.0" text="Couleur" GridPane.rowIndex="4">
@@ -155,6 +155,7 @@
                                                    </font>
                                                 </Label>
                                                 <TextField fx:id="Sopen" alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                <TextArea fx:id="Stags" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                              </children>
                                           </GridPane>
                                        </children></AnchorPane>
