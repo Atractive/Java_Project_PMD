@@ -2,16 +2,20 @@ package Modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class ImageBI implements Serializable {
 	public String nom;
 	public ArrayList<String> mots_clefs;
+	public String tags;
 	public boolean favoris;
 	public int etoile;
 	public String path;
 	public int nb_ouverture;
 
 	public ImageBI(String n) {
+		this.tags = new String();
 		this.path = n;
 		this.nom = n.substring(7, n.length());
 		this.mots_clefs = new ArrayList<>();
@@ -38,6 +42,11 @@ public class ImageBI implements Serializable {
 
 	public void Increase_nbOuverture() {
 		this.nb_ouverture++;
+	}
+	
+	public void Set_Tags(String s) {
+		ArrayList<String> T = new ArrayList<String>(Arrays.asList(s.split("\\s+")));
+		
 	}
 
 }

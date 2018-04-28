@@ -42,6 +42,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -246,19 +248,32 @@ public class ControlerMDI {
 							Stags.textProperty().setValue(img.mots_clefs.toString());
 							SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
 							Snote.setValue(img.etoile);
+							System.out.println(img.etoile);
 							img.Increase_nbOuverture();
 							Sopen.setText(String.valueOf(img.nb_ouverture));
 							Scolors.setText(CouleurDominante.getDomintanteColor(img.path));
 							Sfavoris.setSelected(img.favoris);
-							Snote.setValue(img.etoile);
 
-							
 							Snom.setEditable(false);
 							Staille.setEditable(false);
 							Spoids.setEditable(false);
 							Scolors.setEditable(false);
 
 						}
+					}
+				}
+			});
+
+			Stags.setOnKeyPressed(new EventHandler<KeyEvent>() {
+				@Override
+				public void handle(KeyEvent keyEvent) {
+					if (keyEvent.getCode() == KeyCode.ENTER) {
+						String text = Stags.getText();
+
+						System.out.println(text);
+
+						// clear text
+						Stags.setText("");
 					}
 				}
 			});
@@ -271,13 +286,12 @@ public class ControlerMDI {
 
 			});
 
-	
 			Snote.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 				@Override
 				public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
 					LimagesC.get(Integer.parseInt(temp_index)).Set_Etoile((Integer) number2);
 					LimagesC.get(Integer.parseInt(temp_index)).etoile = (Integer) number2 + 1;
-					
+
 				}
 			});
 

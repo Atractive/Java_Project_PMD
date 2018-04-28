@@ -155,7 +155,7 @@
                                                    </font>
                                                 </Label>
                                                 <TextField fx:id="Sopen" alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                                <TextArea fx:id="Stags" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <TextArea fx:id="Stags" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                              </children>
                                           </GridPane>
                                        </children></AnchorPane>

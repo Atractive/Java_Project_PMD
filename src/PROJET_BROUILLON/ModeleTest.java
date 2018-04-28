@@ -2,6 +2,7 @@ package PROJET_BROUILLON;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,6 +13,7 @@ import Modele.ImageBI;
 
 public class ModeleTest {
 
+	
 	ArrayList<ImageBI> Limages = new ArrayList<ImageBI>();
 	ArrayList<ImageBI> Limages_unserialized = new ArrayList<ImageBI>();
 	ArrayList<ImageBI> Limages_loaddata = new ArrayList<ImageBI>();
@@ -21,7 +23,7 @@ public class ModeleTest {
 	public ModeleTest(String s) throws ClassNotFoundException, IOException {
 		File temp = new File("images.dat");
 		File[] imagesListe = new File(s).listFiles();
-		UnserializeData(temp);
+		LoadDataF(s);
 		if (temp.exists() && imagesListe.length == Limages_unserialized.size()) {
 			this.Limages = Limages_unserialized;
 		} else {
@@ -38,7 +40,6 @@ public class ModeleTest {
 	public void chargerDonnées(String dir) {
 		File[] imagesListe = new File(dir).listFiles();
 		for (File file : imagesListe) {
-			// System.out.println(file);
 			ImageBI Imagetemp = new ImageBI(file.toString());
 			this.Limages_loaddata.add(Imagetemp);
 		}
@@ -54,14 +55,20 @@ public class ModeleTest {
 		fos.close();
 	}
 
-	public void UnserializeData(File fichier) throws IOException, ClassNotFoundException {
-
-		FileInputStream fis = new FileInputStream(fichier);
-		ObjectInputStream ois = new ObjectInputStream(fis);
-
-		this.Limages_unserialized = (ArrayList<ImageBI>) ois.readObject();
-		ois.close();
-		fis.close();
+	
+	public void LoadDataF(String dir) {
+		
+		File fichier =  new File("images.dat") ;
+		ObjectInputStream ois;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(fichier));
+			this.Limages_unserialized = (ArrayList<ImageBI>)ois.readObject();
+			ois.close();
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException("Fichier introuvable");
+		} catch (IOException | ClassNotFoundException e2) {
+			throw new RuntimeException("Lecture des données impossible ou données corrompues");
+		}	
 	}
 
 }
