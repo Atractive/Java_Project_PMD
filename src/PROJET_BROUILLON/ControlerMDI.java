@@ -53,8 +53,11 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class ControlerMDI {
 
+	@FXML
 	public ModeleTest modele;
 
+	public int test = 5;
+	
 	@FXML
 	private AnchorPane AnchorP;
 	@FXML
@@ -117,10 +120,12 @@ public class ControlerMDI {
 
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
+		this.test = 5;
 	}
 
 	@FXML
 	public void initialize() {
+		this.test = 5;
 		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 		ajouter_image();
 		supprimer_image();
@@ -200,53 +205,56 @@ public class ControlerMDI {
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
 		TilePaneGalerie.setHgap(10);
 
-		File folder = new File("Images");
-
-		File[] listOfFiles = folder.listFiles();
-
-		for (final File file : listOfFiles) {
+		ArrayList<ImageBI> LimagesC = this.modele.Limages;
+		
+		for (int i = 0; i < LimagesC.size(); i++) {
 			ImageView imageView;
-			imageView = createImageView(file.toString());
+			// System.out.println("controler " + file.toString());
+			imageView = createImageView(LimagesC.get(i).path);
+			imageView.setId(String.valueOf(i));
 			imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent t) { // Au clic, changement de tab et affichage de l'image
-					if (t.getButton().equals(MouseButton.PRIMARY)) {
-
-						if (t.getClickCount() == 2) {
+				public void handle(MouseEvent event) { // Au clic, changement de tab et affichage de l'image
+					System.out.println();
+					if (event.getButton().equals(MouseButton.PRIMARY)) {
+						if (event.getClickCount() == 2) {
 							TabP.getSelectionModel().selectNext(); // Change de tab
-
+							String source2 = event.getPickResult().getIntersectedNode().getId();
+							System.out.println("Just the id: " + source2);
+							System.out.println(" " + source2);
 							ImageView temp = new ImageView();
-							final ImageBI img = new ImageBI(file.toString());
-							Image tempI = new Image("file:" + img.path);
-							BorderPane borderPane = new BorderPane();
-							temp.setImage(tempI);
-							temp.setStyle("-fx-background-color: BLACK");
-							temp.setFitHeight(LeftImgComplete.getHeight());
-							temp.setPreserveRatio(true);
-							temp.setSmooth(true);
-							temp.setCache(true);
-							borderPane.setCenter(temp);
-							borderPane.setStyle("-fx-background-color: BLACK");
-							LeftImgComplete.getChildren().add(borderPane);
-							LeftImgComplete.getChildren().clear();
-							LeftImgComplete.getChildren().add(temp);
-
-							Snom.textProperty().setValue(img.nom);
-							Staille.textProperty().setValue(
-									(int) Math.round(tempI.getWidth()) + " x " + (int) Math.round(tempI.getHeight()));
-							Spoids.textProperty()
-									.setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() * 4)));
-							Stags.textProperty().setValue(img.mots_clefs.toString());
-							SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
-							Snote.setValue(img.etoile);
-							img.Increase_nbOuverture();
-							Sopen.setText(String.valueOf(img.nb_ouverture));
-							Scolors.setText(CouleurDominante.getDomintanteColor(img.path));
-
-							Snom.setEditable(false);
-							Staille.setEditable(false);
-							Spoids.setEditable(false);
-							Scolors.setEditable(false);
+							 final ImageBI img = new ImageBI(LimagesC.get(Integer.parseInt(source2)).path.toString());
+							 Image tempI = new Image("file:" + img.path);
+							 BorderPane borderPane = new BorderPane();
+							 temp.setImage(tempI);
+							 temp.setStyle("-fx-background-color: BLACK");
+							 temp.setFitHeight(LeftImgComplete.getHeight());
+							 temp.setPreserveRatio(true);
+							 temp.setSmooth(true);
+							 temp.setCache(true);
+							 borderPane.setCenter(temp);
+							 borderPane.setStyle("-fx-background-color: BLACK");
+							 LeftImgComplete.getChildren().add(borderPane);
+							 LeftImgComplete.getChildren().clear();
+							 LeftImgComplete.getChildren().add(temp);
+							
+							 Snom.textProperty().setValue(img.nom);
+							 Staille.textProperty().setValue(
+							 (int) Math.round(tempI.getWidth()) + " x " + (int)
+							 Math.round(tempI.getHeight()));
+							 Spoids.textProperty()
+							 .setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() *
+							 4)));
+							 Stags.textProperty().setValue(img.mots_clefs.toString());
+							 SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
+							 Snote.setValue(img.etoile);
+							 img.Increase_nbOuverture();
+							 Sopen.setText(String.valueOf(img.nb_ouverture));
+							 Scolors.setText(CouleurDominante.getDomintanteColor(img.path));
+							
+							 Snom.setEditable(false);
+							 Staille.setEditable(false);
+							 Spoids.setEditable(false);
+							 Scolors.setEditable(false);
 
 						}
 					}
@@ -276,11 +284,12 @@ public class ControlerMDI {
 
 			VBox vbox = new VBox();
 
-			String nom = new String(file.toString().split("\\\\")[1].split("\\.")[0]);
+			String nom = new String(this.modele.Limages.get(i).path.toString().split("\\\\")[1].split("\\.")[0]);
 			if (nom.length() > 15) {
-				nom = nom.substring(0, 15) + "..." + file.toString().split("\\\\")[1].split("\\.")[1];
+				nom = nom.substring(0, 15) + "..."
+						+ this.modele.Limages.get(i).path.toString().split("\\\\")[1].split("\\.")[1];
 			} else {
-				nom = nom + "." + file.toString().split("\\\\")[1].split("\\.")[1];
+				nom = nom + "." + this.modele.Limages.get(i).path.toString().split("\\\\")[1].split("\\.")[1];
 			}
 
 			Label label1 = new Label(nom);

@@ -13,16 +13,20 @@ import Modele.ImageBI;
 public class ModeleTest {
 
 	ArrayList<ImageBI> Limages = new ArrayList<ImageBI>();
+	ArrayList<ImageBI> Limages_unserialized = new ArrayList<ImageBI>();
+	ArrayList<ImageBI> Limages_loaddata = new ArrayList<ImageBI>();
+
 	private ModeleTest modele;
-	
-	
+
 	public ModeleTest(String s) throws ClassNotFoundException, IOException {
 		File temp = new File("images.dat");
-		if (temp.exists()) {
-			UnserializeData(temp);			
-		}
-		else{
+		File[] imagesListe = new File(s).listFiles();
+		UnserializeData(temp);
+		if (temp.exists() && imagesListe.length == Limages_unserialized.size()) {
+			this.Limages = Limages_unserialized;
+		} else {
 			chargerDonnées(s);
+			this.Limages = this.Limages_loaddata;
 		}
 
 	}
@@ -32,11 +36,11 @@ public class ModeleTest {
 	}
 
 	public void chargerDonnées(String dir) {
-		ArrayList<ImageBI> temp = new ArrayList<ImageBI>();
 		File[] imagesListe = new File(dir).listFiles();
-		this.Limages = new ArrayList<>();
 		for (File file : imagesListe) {
-			this.Limages.add(new ImageBI(file.toString()));
+			// System.out.println(file);
+			ImageBI Imagetemp = new ImageBI(file.toString());
+			this.Limages_loaddata.add(Imagetemp);
 		}
 	}
 
@@ -49,13 +53,13 @@ public class ModeleTest {
 		oos.close();
 		fos.close();
 	}
-	
+
 	public void UnserializeData(File fichier) throws IOException, ClassNotFoundException {
 
 		FileInputStream fis = new FileInputStream(fichier);
 		ObjectInputStream ois = new ObjectInputStream(fis);
 
-		this.Limages = (ArrayList<ImageBI>) ois.readObject();
+		this.Limages_unserialized = (ArrayList<ImageBI>) ois.readObject();
 		ois.close();
 		fis.close();
 	}
