@@ -39,6 +39,7 @@ public class Main extends Application {
 		// System.out.println(Arrays.toString(ControlerMDI.class.getDeclaredFields()));
 
 		
+		
 		stage.setScene(scene);
 		stage.show();
 		stage.setMaximized(true);
