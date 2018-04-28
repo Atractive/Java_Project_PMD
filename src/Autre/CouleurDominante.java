@@ -17,7 +17,7 @@ public class CouleurDominante {
 	public CouleurDominante(String s) {
 	}
 
-	public int[] ColortoRGBArray(Color c) {
+	public static int[] ColortoRGBArray(Color c) {
 		int[] rgb = new int[3];
 		rgb[0] = (int) (c.getRed() * 255);
 		rgb[1] = (int) (c.getBlue() * 255);
@@ -26,12 +26,12 @@ public class CouleurDominante {
 
 	}
 
-	public String getDomintanteColor(String s) {
+	public static String getDomintanteColor(String s) {
 		int[] temp = getDominanteColorLib(s);
 		return NearestColor3(Color.rgb(temp[0], temp[1], temp[2]));
 	}
 
-	public int[] getDominanteColorLib(String s) {
+	public static int[] getDominanteColorLib(String s) {
 		BufferedImage imgD = null;
 		try {
 			imgD = ImageIO.read(new File(s));
@@ -69,7 +69,7 @@ public class CouleurDominante {
 		return index;
 	}
 
-	public String NearestColor3(Color rgb) { // Utilisation des méthodes de LAB pour convertir RBG -> LAB puis récuperer
+	public static String NearestColor3(Color rgb) { // Utilisation des méthodes de LAB pour convertir RBG -> LAB puis récuperer
 												// la
 		// différence entre 2 couleurs
 		int[] Rlab1 = ColortoRGBArray(rgb);

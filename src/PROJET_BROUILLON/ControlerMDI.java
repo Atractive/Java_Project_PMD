@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import Autre.CouleurDominante;
 import Modele.ImageBI;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -237,10 +238,10 @@ public class ControlerMDI {
 									.setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() * 4)));
 							Stags.textProperty().setValue(img.mots_clefs.toString());
 							SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
-							Scolors.setText(img.couleur);
 							Snote.setValue(img.etoile);
 							img.Increase_nbOuverture();
 							Sopen.setText(String.valueOf(img.nb_ouverture));
+							Scolors.setText(CouleurDominante.getDomintanteColor(img.path));
 
 							Snom.setEditable(false);
 							Staille.setEditable(false);

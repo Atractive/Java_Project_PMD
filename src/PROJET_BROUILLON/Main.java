@@ -2,6 +2,7 @@ package PROJET_BROUILLON;
 
 import java.awt.Button;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,16 +34,21 @@ public class Main extends Application {
 		Scene scene = new Scene(firstUI);
 		String css = getClass().getResource("style.css").toExternalForm();
 		scene.getStylesheets().add(css);
-//		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setTitle("FXML Welcome");
-		
-		// System.out.println(Arrays.toString(ControlerMDI.class.getDeclaredFields()));
-
-		
-		
 		stage.setScene(scene);
 		stage.show();
 		stage.setMaximized(true);
+
+		stage.setOnHiding(event -> {
+			try {
+				modele.SerializeData(new File("images.dat"));
+				System.out.println(modele.Limages);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
+
 	}
 
 	public static void main(String[] args) {
