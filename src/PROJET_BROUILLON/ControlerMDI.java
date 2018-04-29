@@ -245,7 +245,7 @@ public class ControlerMDI {
 									(int) Math.round(tempI.getWidth()) + " x " + (int) Math.round(tempI.getHeight()));
 							Spoids.textProperty()
 									.setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() * 4)));
-							Stags.textProperty().setValue(img.mots_clefs.toString());
+							Stags.textProperty().setValue(img.show_Tags(img.mots_clefs));
 							SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
 							Snote.setValue(img.etoile);
 							System.out.println(img.etoile);
@@ -268,12 +268,11 @@ public class ControlerMDI {
 				@Override
 				public void handle(KeyEvent keyEvent) {
 					if (keyEvent.getCode() == KeyCode.ENTER) {
-						String text = Stags.getText();
 
+						String text = Stags.getText().trim().replaceAll("\n", "").replaceAll("\r", "")
+								.replaceAll("\\s+", "");
 						System.out.println(text);
-
-						// clear text
-						Stags.setText("");
+						LimagesC.get(Integer.parseInt(temp_index)).Set_Tags(text);
 					}
 				}
 			});

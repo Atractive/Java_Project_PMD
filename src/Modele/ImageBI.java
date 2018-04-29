@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 public class ImageBI implements Serializable {
 	public String nom;
 	public ArrayList<String> mots_clefs;
@@ -43,10 +42,21 @@ public class ImageBI implements Serializable {
 	public void Increase_nbOuverture() {
 		this.nb_ouverture++;
 	}
-	
+
 	public void Set_Tags(String s) {
-		ArrayList<String> T = new ArrayList<String>(Arrays.asList(s.split("\\s+")));
-		
+		ArrayList<String> T = new ArrayList<String>(Arrays.asList(s.split("#")));
+		System.out.println(T + " " + T.size());
+		this.mots_clefs = T;
 	}
+	
+	public String show_Tags(ArrayList<String> t) {
+		String s = "";
+		for (int i = 1 ; i < t.size(); i++ ) {
+			s += "#" + t.get(i) + " ";
+		}
+		return s;
+	}
+	
+
 
 }
