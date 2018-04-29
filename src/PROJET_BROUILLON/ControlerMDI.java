@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.transform.Source;
@@ -126,6 +127,7 @@ public class ControlerMDI {
 	@FXML
 	private ImageView ImageViewImgComplete;
 
+
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
 	}
@@ -146,7 +148,7 @@ public class ControlerMDI {
 			public void handle(final ActionEvent e) {
 				FileChooser filechooser = new FileChooser();
 				filechooser.getExtensionFilters()
-						.addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*jpeg"));
+				.addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*jpeg"));
 
 				Stage newWindow = new Stage();
 
@@ -155,13 +157,21 @@ public class ControlerMDI {
 				// Specifies the modality for new window.
 				newWindow.initModality(Modality.WINDOW_MODAL);
 
-				File list = filechooser.showOpenDialog(newWindow);
+				List<File> list = filechooser.showOpenMultipleDialog(newWindow);
 				if (list != null) {
 
 					try {
-						Files.move(FileSystems.getDefault().getPath(list.getPath()),
-								FileSystems.getDefault().getPath(new File("Images/" + list.getName()).getPath()),
-								StandardCopyOption.REPLACE_EXISTING);
+						for(File file:list){
+							//Files.copy(FileSystems.getDefault().getPath(file.getPath()),FileSystems.getDefault().getPath(file.getParent()+file.getName()));
+							Files.copy(FileSystems.getDefault().getPath(file.getParent()+"\\"+file.getName()),
+									FileSystems.getDefault().getPath(new File("Images/" + file.getName()).getPath()),
+									StandardCopyOption.REPLACE_EXISTING);
+									//LimagesC.addAll((Collection<? extends ImageBI>) new File("Images/" + file.getName()));
+							//this.modele.Limages.add(new File("Images/" + file.getName()).getPath());
+							//Files.copy(FileSystems.getDefault().getPath(file.getPath()),FileSystems.getDefault().getPath(file.getParent()));
+						}
+
+
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -190,12 +200,14 @@ public class ControlerMDI {
 				// Specifies the modality for new window.
 				newWindow.initModality(Modality.WINDOW_MODAL);
 
-				File list = filechooser.showOpenDialog(newWindow);
+				List<File> list = filechooser.showOpenMultipleDialog(newWindow);
 
 				if (list != null) {
 					try {
-						Files.delete(FileSystems.getDefault().getPath(new File("Images/" + list.getName()).getPath()));
-					} catch (IOException e1) {
+						for (File file:list){
+							Files.delete(FileSystems.getDefault().getPath(new File("Images/" + file.getName()).getPath()));
+						}
+						} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
@@ -244,7 +256,7 @@ public class ControlerMDI {
 							Staille.textProperty().setValue(
 									(int) Math.round(tempI.getWidth()) + " x " + (int) Math.round(tempI.getHeight()));
 							Spoids.textProperty()
-									.setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() * 4)));
+							.setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() * 4)));
 							Stags.textProperty().setValue(img.show_Tags(img.mots_clefs));
 							SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
 							Snote.setValue(img.etoile);

@@ -20,7 +20,7 @@ import javafx.stage.Window;
 
 public class Main extends Application {
 
-	// ModeleTest modele;
+	//ModeleTest modele;
 	public static String ImageDirectory = "Images";
 	public static File[] AllImages;
 
@@ -40,14 +40,14 @@ public class Main extends Application {
 		stage.show();
 		stage.setMaximized(true);
 
-		stage.setOnHiding(event -> {
-			try {
-				modele.SerializeData(new File("images.dat"));
-				System.out.println(modele.Limages);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		});
+//		stage.setOnHiding(event -> {
+//			try {
+//				modele.SerializeData(new File("images.dat"));
+//				System.out.println(modele.Limages);
+//			} catch (IOException e1) {
+//				e1.printStackTrace();
+//			}
+//		});
 
 	}
 
