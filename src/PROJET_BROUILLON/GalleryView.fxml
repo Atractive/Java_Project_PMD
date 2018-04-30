@@ -4,8 +4,6 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -20,6 +18,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="AnchorP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
@@ -30,36 +29,37 @@
 					<children>
 						<ButtonBar fx:id="ButtonB" layoutX="53.0" layoutY="7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<buttons>
-								<MenuButton fx:id="MenuB1" mnemonicParsing="false" text="MenuButton">
-									<items>
-										<MenuItem mnemonicParsing="false" text="Action 1" />
-										<MenuItem mnemonicParsing="false" text="Action 2" />
-									</items>
-								</MenuButton>
-								<MenuButton fx:id="MenuB2" mnemonicParsing="false" text="MenuButton">
-									<items>
-										<MenuItem mnemonicParsing="false" text="Action 1" />
-										<MenuItem mnemonicParsing="false" text="Action 2" />
-									</items>
-								</MenuButton>
-								<MenuButton fx:id="MenuB3" mnemonicParsing="false" text="MenuButton">
-									<items>
-										<MenuItem mnemonicParsing="false" text="Action 1" />
-										<MenuItem mnemonicParsing="false" text="Action 2" />
-									</items>
-								</MenuButton>
-								<MenuButton fx:id="MenuB4" mnemonicParsing="false" text="MenuButton">
-									<items>
-										<MenuItem mnemonicParsing="false" text="Action 1" />
-										<MenuItem mnemonicParsing="false" text="Action 2" />
-									</items>
-								</MenuButton>
-								<MenuButton fx:id="MenuB5" mnemonicParsing="false" text="MenuButton">
-									<items>
-										<MenuItem mnemonicParsing="false" text="Action 1" />
-										<MenuItem mnemonicParsing="false" text="Action 2" />
-									</items>
-								</MenuButton>
+                        <VBox alignment="CENTER" layoutX="384.0" layoutY="10.0" prefHeight="56.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Favoris" />
+                              <ChoiceBox fx:id="MenuB1" prefHeight="25.0" prefWidth="85.0" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="56.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Notes" />
+                              <ChoiceBox fx:id="MenuB2" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="56.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Couleur" />
+                              <ChoiceBox fx:id="MenuB3" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="56.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Mots-Clé" />
+                              <TextField fx:id="MenuB4" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="56.0">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Classement" />
+                              <ChoiceBox fx:id="MenuB5" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                        <Button fx:id="MenuB6" alignment="CENTER" mnemonicParsing="false" text="Valider" />
 								<Region prefHeight="55.0" prefWidth="200.0" />
 								<Button fx:id="Button6" mnemonicParsing="false" text="Ajouter..." />
                         <Button fx:id="Button7" layoutX="792.0" layoutY="19.0" mnemonicParsing="false" text="Supprimer..." />

@@ -63,6 +63,7 @@ public class ModeleTest {
 	public ModeleTest(String s) throws ClassNotFoundException, IOException {
 		File temp = new File("images.dat");
 		File[] imagesListe = new File(s).listFiles();
+		
 		LoadDataF(s);
 		if (temp.exists() && imagesListe.length == Limages_unserialized.size()) {
 			this.Limages = Limages_unserialized;
@@ -79,25 +80,25 @@ public class ModeleTest {
 		ImagesTailles();
 		ImagesPoids();
 		ImagesCptOpen();
-		// System.out.println(this.MapImagesTaille);
-		// for (Integer key : MapImagesCptOpen.keySet()) {
-		// System.out.println(key + " " + MapImagesCptOpen.get(key));
-		// }
-		// System.out.println(this.ImagesFav);
-		// System.out.println("--------------------");
-		// System.out.println(this.MapTags);
-		// System.out.println("--------------------");
-		// System.out.println(this.SetImages1Etoile);
-		// System.out.println(this.SetImages2Etoile);
-		// System.out.println(this.SetImages3Etoile);
-		// System.out.println(this.SetImages4Etoile);
-		// System.out.println(this.SetImages5Etoile);
-		// System.out.println("--------------------");
-		// System.out.println(this.SetImagesRed);
-		// System.out.println(this.SetImagesBlue);
-		// System.out.println(this.SetImagesGreen);
-		// System.out.println(this.SetImagesCyan);
-		// System.out.println(this.SetImagesMagenta);
+		 System.out.println(this.MapImagesTaille);
+		 for (Integer key : MapImagesCptOpen.keySet()) {
+		 System.out.println(key + " " + MapImagesCptOpen.get(key));
+		 }
+		 System.out.println(this.ImagesFav);
+		 System.out.println("--------------------");
+		 System.out.println(this.MapTags);
+		 System.out.println("--------------------");
+		 System.out.println(this.SetImages1Etoile);
+		 System.out.println(this.SetImages2Etoile);
+		 System.out.println(this.SetImages3Etoile);
+		 System.out.println(this.SetImages4Etoile);
+		 System.out.println(this.SetImages5Etoile);
+		 System.out.println("--------------------");
+		 System.out.println(this.SetImagesRed);
+		 System.out.println(this.SetImagesBlue);
+		 System.out.println(this.SetImagesGreen);
+		 System.out.println(this.SetImagesCyan);
+		 System.out.println(this.SetImagesMagenta);
 
 	}
 

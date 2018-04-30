@@ -78,15 +78,17 @@ public class ControlerMDI {
 	@FXML
 	private ButtonBar ButtonB;
 	@FXML
-	private MenuButton MenuB1;
+	private ChoiceBox MenuB1;
 	@FXML
-	private MenuButton MenuB2;
+	private ChoiceBox MenuB2;
 	@FXML
-	private MenuButton MenuB3;
+	private ChoiceBox MenuB3;
 	@FXML
-	private MenuButton MenuB4;
+	private TextField MenuB4;
 	@FXML
-	private MenuButton MenuB5;
+	private ChoiceBox MenuB5;
+	@FXML
+	private Button MenuB6;
 	@FXML
 	private Button Button6;
 	@FXML
@@ -132,14 +134,45 @@ public class ControlerMDI {
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
 	}
-
+	
+	public Object[] rech = new Object[5];
 	@FXML
 	public void initialize() {
 		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5));
+		MenuB1.getItems().addAll("Oui","Non","ND");
+		MenuB2.getItems().addAll("1","2","3","4","5","ND");
+		MenuB3.getItems().addAll("Rouge","Bleu","Vert","Cyan","Magenta","ND");
+		MenuB5.getItems().addAll("Taille","Poids","Nombre d'ouverture","ND");
 		ajouter_image();
 		supprimer_image();
+		résultat_recherche();
 		InjectImages();
 		System.out.println("SOS");
+	}
+
+	private void résultat_recherche(){
+		MenuB6.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				Object Tf="";
+				if (MenuB4.getCharacters().length()==0){
+					Tf="ND";
+				}else{
+					Tf=MenuB4.getCharacters();
+				}
+				Object[] tab = {MenuB1.getValue(),MenuB2.getValue(),MenuB3.getValue(),Tf,MenuB5.getValue()};
+				
+				//System.arraycopy(rech, 0, tab, 0, tab.length);
+				for (int i = 0; i < tab.length; i++) { 
+				       rech[i] = tab[i]; 
+				    } 
+				
+				System.out.println(Arrays.toString(rech));
+			};
+		});
+		
 	}
 
 	private void ajouter_image() {
@@ -368,6 +401,8 @@ public class ControlerMDI {
 		ScrollPaneGalerie.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 		ScrollPaneGalerie.setFitToWidth(true);
 		ScrollPaneGalerie.setContent(TilePaneGalerie);
+
+
 
 	}
 
