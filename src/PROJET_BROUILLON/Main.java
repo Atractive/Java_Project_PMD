@@ -43,7 +43,6 @@ public class Main extends Application {
 		stage.setOnHiding(event -> {
 			try {
 				modele.SerializeData(new File("images.dat"));
-				System.out.println(modele.Limages);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

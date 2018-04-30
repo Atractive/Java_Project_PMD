@@ -10,9 +10,8 @@ import de.androidpit.colorthief.ColorThief;
 import javafx.scene.paint.Color;
 
 public class CouleurDominante {
-	public static Color[] colorRange = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE, };
-
-	public static String[] colorName = new String[] { "Red", "Blue", "Green", "Yellow", "Orange", "Cyan", "Magenta" };
+	public static Color[] colorRange = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE, Color.CYAN, Color.MAGENTA };
+	public static String[] colorName = new String[] { "Red", "Blue", "Green", "Orange", "Cyan", "Magenta" };
 
 	public CouleurDominante(String s) {
 	}
@@ -69,8 +68,9 @@ public class CouleurDominante {
 		return index;
 	}
 
-	public static String NearestColor3(Color rgb) { // Utilisation des méthodes de LAB pour convertir RBG -> LAB puis récuperer
-												// la
+	public static String NearestColor3(Color rgb) { // Utilisation des méthodes de LAB pour convertir RBG -> LAB puis
+													// récuperer
+		// la
 		// différence entre 2 couleurs
 		int[] Rlab1 = ColortoRGBArray(rgb);
 		int[] Rlab2 = ColortoRGBArray(colorRange[0]);
@@ -89,6 +89,5 @@ public class CouleurDominante {
 		}
 		return colorName[index];
 	}
-
 
 }
