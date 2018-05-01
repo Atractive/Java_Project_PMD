@@ -54,9 +54,8 @@ public class ControlerMDI {
 
 	@FXML
 	public ModeleTest modele;
-
+	@FXML
 	public String temp_index;
-
 	@FXML
 	private AnchorPane AnchorP;
 	@FXML
@@ -95,7 +94,6 @@ public class ControlerMDI {
 	private Tab ImageComplete;
 	@FXML
 	private SplitPane SplitPaneImgComplete;
-
 	@FXML
 	private TextField Snom;
 	@FXML
@@ -123,36 +121,54 @@ public class ControlerMDI {
 	public ArrayList<String> ColorChoose = new ArrayList<String>(
 			Arrays.asList("Rouge", "Bleu", "Vert", "Cyan", "Magenta", "ND"));
 
+	//Constructeur et lien avec le MODELE
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
 	}
 
+	//Methode d'initialisation de tout les éléments de l'application
 	@FXML
 	public void initialize() {
+
 		// ajouter_image();
 		// supprimer_image();
 		ModifFXML();
 		InjectImages(modele.Limages);
 		résultat_requeteerche();
 		System.out.println("SOS");
+
 	}
 
+	//Configuration des boutons pour le tri
 	private void ModifFXML() {
+
 		SplitP.setDividerPositions(0.1);
 		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5));
+
+		//Configuration des choix possibles pour les boutons
 		MenuB1.getItems().addAll("Oui", "Non", "ND");
 		MenuB2.getItems().addAll("1", "2", "3", "4", "5", "ND");
 		MenuB3.getItems().addAll(ColorChoose.get(0), ColorChoose.get(1), ColorChoose.get(2), ColorChoose.get(3),
 				ColorChoose.get(4), ColorChoose.get(5));
 		MenuB5.getItems().addAll("Taille", "Poids", "Nombre d'ouverture", "ND");
+
+		//Mise en place des choix par défault sur les boutons
 		MenuB1.setValue("Oui");
+		MenuB1.getStyleClass().add("but");
 		MenuB2.setValue("3");
+		MenuB2.getStyleClass().add("but");
 		MenuB3.setValue("Vert");
+		MenuB3.getStyleClass().add("but");
 		MenuB4.setText("Paysage");
+		MenuB4.getStyleClass().add("but");
 		MenuB5.setValue("Taille");
+		MenuB5.getStyleClass().add("but");
+
+		MenuB6.getStyleClass().add("val");
 
 	}
 
+	//Configuration du bouton de validation
 	private void résultat_requeteerche() {
 		MenuB6.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -169,6 +185,7 @@ public class ControlerMDI {
 
 	}
 
+	//Methode pour trier les images en fonction des choix sur les boutons
 	private void buildListeTri(String[] requete) {
 		HashSet<String> TriBin = new HashSet<String>();
 
@@ -254,12 +271,14 @@ public class ControlerMDI {
 	// });
 	// }
 
+	//Méthode qui assure le chargement des images
 	private void InjectImages(ArrayList<ImageBI> LimagesC) { // ajouter un paramètre étant une liste de string que sont
 																// les paths des images
 		// à display.
 
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
 		TilePaneGalerie.setHgap(10);
+		TilePaneGalerie.getStyleClass().add("tpg");
 
 		// ArrayList<ImageBI> LimagesC = this.modele.Limages;
 		// System.out.println(this.modele.Limages);
@@ -344,6 +363,7 @@ public class ControlerMDI {
 				}
 			});
 
+			//Configuration de la zone de texte pour les tags
 			Stags.setOnKeyPressed(new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent keyEvent) {
@@ -365,6 +385,7 @@ public class ControlerMDI {
 				}
 			});
 
+			//Configuration du bouton qui gère les favoris
 			Sfavoris.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 				@Override
@@ -383,6 +404,7 @@ public class ControlerMDI {
 				}
 			});
 
+			//Configuration de la boite qui permet de gérer les notes
 			Snote.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 				@Override
 
@@ -417,18 +439,17 @@ public class ControlerMDI {
 				}
 			});
 
-			VBox vbox = new VBox();
 
+
+			//Concaténation du nom de l'image
 			String nom = new String(this.modele.Limages.get(i).path.toString().split("\\\\")[1].split("\\.")[0]);
-			if (nom.length() > 15) {
-				nom = nom.substring(0, 15) + "..."
-						+ this.modele.Limages.get(i).path.toString().split("\\\\")[1].split("\\.")[1];
-			} else {
-				nom = nom + "." + this.modele.Limages.get(i).path.toString().split("\\\\")[1].split("\\.")[1];
-			}
-
+			if (nom.length() > 15) {nom = nom.substring(0, 15) + "..." + this.modele.Limages.get(i).path.toString().split("\\\\")[1].split("\\.")[1];
+			} else {nom = nom + "." + this.modele.Limages.get(i).path.toString().split("\\\\")[1].split("\\.")[1];}
 			Label label1 = new Label(nom);
+			label1.getStyleClass().add("label1");
 
+			//Création de la VBox qui accueille l'imageView et le label1
+			VBox vbox = new VBox();
 			vbox.setSpacing(10);
 			vbox.getChildren().addAll(imageView, label1);
 			vbox.setAlignment(Pos.CENTER);
@@ -439,10 +460,12 @@ public class ControlerMDI {
 		ScrollPaneGalerie.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		ScrollPaneGalerie.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 		ScrollPaneGalerie.setFitToWidth(true);
+		ScrollPaneGalerie.getStyleClass().add("spg");
 		ScrollPaneGalerie.setContent(TilePaneGalerie);
 
 	}
 
+	//Méthode qui permet la création de l'imageView
 	private ImageView createImageView(ImageBI img) {
 		Image temp = new Image("file:" + img.path, 100, 0, true, true);
 		ImageView imageView = new ImageView(temp);

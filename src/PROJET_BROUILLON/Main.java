@@ -16,19 +16,26 @@ public class Main extends Application {
 	public static File[] AllImages;
 
 	public void start(Stage stage) throws Exception {
+
+		//Lien entre le MODELE, la VUE (fxml) et le CONTROLEUR
 		ModeleTest modele = new ModeleTest(ImageDirectory);
 		FXMLLoader firstLoader = new FXMLLoader(getClass().getResource("GalleryView.fxml"));
 		firstLoader.setController(new ControlerMDI(modele));
-		Parent firstUI = firstLoader.load();
 
+		//Création de la SCENE
+		Parent firstUI = firstLoader.load();
 		Scene scene = new Scene(firstUI);
 
+		//Lien entre la SCENE et le CSS
 		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-		stage.setTitle("FXML Welcome");
-		stage.setScene(scene);
-		stage.show();
-		stage.setMaximized(true);
 
+		//Paramètres du STAGE
+		stage.setTitle("BANQUE D'IMAGE - PMD");
+		stage.setScene(scene);
+		stage.setMaximized(true);
+		stage.show();
+
+		//Sérialisation des données dans le fichier images.dat
 		stage.setOnHiding(event -> {
 			try {
 				modele.SerializeData(new File("images.dat"));
@@ -39,6 +46,7 @@ public class Main extends Application {
 
 	}
 
+	//Lancement de l'application
 	public static void main(String[] args) {
 		launch(args);
 	}

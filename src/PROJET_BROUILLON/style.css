@@ -1,25 +1,57 @@
-.image{
+
+.spg {
+	-fx-background-color: "black";
+}
+
+.tpg {
+	-fx-background-color: #E1BEE7;
+}
+
+.image {
 	-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.8), 10.0, 0.0, 0.0, 0.0);
 }
 
-.vbox:hover{
-	-fx-background-color: rgba(0.0,255.0,255.0,0.1);
+.vbox {
+	-fx-background-color: #E1BEE7;
 }
 
-.label1{
-	-fx-font-size: 10.0px;
+.vbox:hover {
+	-fx-background-color: #42A5F5;
 }
 
-.menu-button {
-    -fx-padding: 5.0 22.0 5.0 22.0;
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 2.0;
-    -fx-background-radius: 0.0;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11.0pt;
-    -fx-text-fill: yellow;
+.label1 {
+	-fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
 }
 
-.menu-button:hover {
-    -fx-background-color: yellow;
+.label1:hover {
+	-fx-text-fill: white;
+}
+
+#TabGalerie {
+	-fx-font-size: 12pt;
+}
+
+#TabImageComplete {
+	-fx-font-size: 12pt;
+}
+
+#SplitAnchor1 {
+	-fx-background-color: #E1BEE7;
+	-fx-font-size: 11pt;
+	-fx-font-family: "Segoe UI Semibold";
+}
+
+#RightImgComplete {
+	-fx-background-color: #E1BEE7;
+	-fx-font-size: 11pt;
+	-fx-font-family: "Segoe UI Semibold";
+}
+
+.but:hover {
+	-fx-background-color: #42A5F5;
+}
+
+.val:hover {
+	-fx-background-color: "yellow";
 }
