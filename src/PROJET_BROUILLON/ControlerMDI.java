@@ -2,26 +2,18 @@ package PROJET_BROUILLON;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.nio.file.CopyOption;
+
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
-import javax.xml.transform.Source;
-
-import Autre.CouleurDominante;
 import Modele.ImageBI;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableSetValue;
+
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -32,9 +24,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
@@ -42,7 +32,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -51,12 +41,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Path;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -107,7 +95,7 @@ public class ControlerMDI {
 	private Tab ImageComplete;
 	@FXML
 	private SplitPane SplitPaneImgComplete;
-	//
+
 	@FXML
 	private TextField Snom;
 	@FXML
@@ -131,7 +119,9 @@ public class ControlerMDI {
 	@FXML
 	private ImageView ImageViewImgComplete;
 
-	public Object[] rech = new Object[5];
+	public String[] requete = new String[5];
+	public ArrayList<String> ColorChoose = new ArrayList<String>(
+			Arrays.asList("Rouge", "Bleu", "Vert", "Cyan", "Magenta", "ND"));
 
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
@@ -139,117 +129,140 @@ public class ControlerMDI {
 
 	@FXML
 	public void initialize() {
+		// ajouter_image();
+		// supprimer_image();
+		ModifFXML();
+		InjectImages(modele.Limages);
+		résultat_requeteerche();
+		System.out.println("SOS");
+	}
+
+	private void ModifFXML() {
 		SplitP.setDividerPositions(0.1);
 		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5));
 		MenuB1.getItems().addAll("Oui", "Non", "ND");
 		MenuB2.getItems().addAll("1", "2", "3", "4", "5", "ND");
-		MenuB3.getItems().addAll("Rouge", "Bleu", "Vert", "Cyan", "Magenta", "ND");
+		MenuB3.getItems().addAll(ColorChoose.get(0), ColorChoose.get(1), ColorChoose.get(2), ColorChoose.get(3),
+				ColorChoose.get(4), ColorChoose.get(5));
 		MenuB5.getItems().addAll("Taille", "Poids", "Nombre d'ouverture", "ND");
-		ajouter_image();
-		supprimer_image();
-		InjectImages();
-		résultat_recherche();
-		System.out.println("SOS");
+		MenuB1.setValue("Oui");
+		MenuB2.setValue("3");
+		MenuB3.setValue("Vert");
+		MenuB4.setText("Paysage");
+		MenuB5.setValue("Taille");
+
 	}
 
-	private void résultat_recherche() {
+	private void résultat_requeteerche() {
 		MenuB6.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				Object Tf = "";
-				if (MenuB4.getCharacters().length() == 0) {
-					Tf = "ND";
-				} else {
-					Tf = MenuB4.getCharacters();
-				}
-				Object[] tab = { MenuB1.getValue(), MenuB2.getValue(), MenuB3.getValue(), Tf, MenuB5.getValue() };
+				String[] tab = { MenuB1.getSelectionModel().getSelectedItem(),
+						MenuB2.getSelectionModel().getSelectedItem(), MenuB3.getSelectionModel().getSelectedItem(),
+						MenuB4.getText(), MenuB5.getSelectionModel().getSelectedItem() };
 
-				// System.arraycopy(rech, 0, tab, 0, tab.length);
-				for (int i = 0; i < tab.length; i++) {
-					rech[i] = tab[i];
-				}
+				buildListeTri(tab);
 
-				System.out.println(Arrays.toString(rech));
 			};
 		});
 
 	}
 
-	private void ajouter_image() {
-		Button6.setOnAction(new EventHandler<ActionEvent>() {
+	private void buildListeTri(String[] requete) {
+		HashSet<String> TriBin = new HashSet<String>();
 
-			@Override
-			public void handle(final ActionEvent e) {
-				FileChooser filechooser = new FileChooser();
-				filechooser.getExtensionFilters()
-						.addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*jpeg"));
+		if (requete[0] == "oui") {
+			System.out.println("FAV" + " " + modele.ImagesFav);
+		} else if (requete[0] == "non") {
+			System.out.println("FAV" + " " + "todo");
+		} else {
+			System.out.println("FAV" + " " + "todo");
+		}
+		System.out.println("NOTES " + ((Integer.parseInt(requete[1])) - 1));
+		System.out.println("COLOR " + " " + ColorChoose.indexOf(requete[2]));
+		System.out.println("MOT CLES" + " " + modele.MapTags.get(requete[3]));
 
-				Stage newWindow = new Stage();
-
-				newWindow.setTitle("Second Stage");
-
-				// Specifies the modality for new window.
-				newWindow.initModality(Modality.WINDOW_MODAL);
-
-				File list = filechooser.showOpenDialog(newWindow);
-				if (list != null) {
-
-					try {
-						Files.move(FileSystems.getDefault().getPath(list.getPath()),
-								FileSystems.getDefault().getPath(new File("Images/" + list.getName()).getPath()),
-								StandardCopyOption.REPLACE_EXISTING);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-					TilePaneGalerie.getChildren().clear();
-					InjectImages();
-				}
-			}
-		});
 	}
 
-	private void supprimer_image() {
-		Button7.setOnAction(new EventHandler<ActionEvent>() {
+	// private void ajouter_image() {
+	// Button6.setOnAction(new EventHandler<ActionEvent>() {
+	//
+	// @Override
+	// public void handle(final ActionEvent e) {
+	// FileChooser filechooser = new FileChooser();
+	// filechooser.getExtensionFilters()
+	// .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
+	// "*jpeg"));
+	//
+	// Stage newWindow = new Stage();
+	//
+	// newWindow.setTitle("Second Stage");
+	//
+	// // Specifies the modality for new window.
+	// newWindow.initModality(Modality.WINDOW_MODAL);
+	//
+	// File list = filechooser.showOpenDialog(newWindow);
+	// if (list != null) {
+	//
+	// try {
+	// Files.move(FileSystems.getDefault().getPath(list.getPath()),
+	// FileSystems.getDefault().getPath(new File("Images/" +
+	// list.getName()).getPath()),
+	// StandardCopyOption.REPLACE_EXISTING);
+	// } catch (IOException e1) {
+	// e1.printStackTrace();
+	// }
+	// TilePaneGalerie.getChildren().clear();
+	// InjectImages();
+	// }
+	// }
+	// });
+	// }
+	//
+	// private void supprimer_image() {
+	// Button7.setOnAction(new EventHandler<ActionEvent>() {
+	//
+	// @Override
+	// public void handle(final ActionEvent e) {
+	// FileChooser filechooser = new FileChooser();
+	// filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files",
+	// "*.png", "*.jpg", "*.gif"));
+	//
+	// filechooser.setInitialDirectory(new File("Images"));
+	//
+	// Stage newWindow = new Stage();
+	//
+	// newWindow.setTitle("Second Stage");
+	//
+	// // Specifies the modality for new window.
+	// newWindow.initModality(Modality.WINDOW_MODAL);
+	//
+	// File list = filechooser.showOpenDialog(newWindow);
+	//
+	// if (list != null) {
+	// try {
+	// Files.delete(FileSystems.getDefault().getPath(new File("Images/" +
+	// list.getName()).getPath()));
+	// } catch (IOException e1) {
+	// e1.printStackTrace();
+	// }
+	// TilePaneGalerie.getChildren().clear();
+	// InjectImages();
+	// }
+	// }
+	// });
+	// }
 
-			@Override
-			public void handle(final ActionEvent e) {
-				FileChooser filechooser = new FileChooser();
-				filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-
-				filechooser.setInitialDirectory(new File("Images"));
-
-				Stage newWindow = new Stage();
-
-				newWindow.setTitle("Second Stage");
-
-				// Specifies the modality for new window.
-				newWindow.initModality(Modality.WINDOW_MODAL);
-
-				File list = filechooser.showOpenDialog(newWindow);
-
-				if (list != null) {
-					try {
-						Files.delete(FileSystems.getDefault().getPath(new File("Images/" + list.getName()).getPath()));
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-					TilePaneGalerie.getChildren().clear();
-					InjectImages();
-				}
-			}
-		});
-	}
-
-	private void InjectImages() { // ajouter un paramètre étant une liste de string que sont les paths des images
+	private void InjectImages(ArrayList<ImageBI> LimagesC) { // ajouter un paramètre étant une liste de string que sont
+																// les paths des images
 		// à display.
 
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
 		TilePaneGalerie.setHgap(10);
 
-		ArrayList<ImageBI> LimagesC = this.modele.Limages;
-
+		// ArrayList<ImageBI> LimagesC = this.modele.Limages;
+		// System.out.println(this.modele.Limages);
 		for (int i = 0; i < LimagesC.size(); i++) {
 			ImageView imageView;
 			imageView = createImageView(LimagesC.get(i));
@@ -261,7 +274,7 @@ public class ControlerMDI {
 							TabP.getSelectionModel().selectNext(); // Change de tab
 							String source2 = event.getPickResult().getIntersectedNode().getId();
 							temp_index = source2;
-							System.out.println(temp_index);
+							// System.out.println(temp_index);
 							ImageView temp = new ImageView();
 							final ImageBI img = LimagesC.get(Integer.parseInt(source2));
 							Image tempI = new Image("file:" + img.path);
@@ -297,9 +310,10 @@ public class ControlerMDI {
 							Spoids.setEditable(false);
 							Scolors.setEditable(false);
 
+							@SuppressWarnings("unused")
 							HashSet<String> toworkValue = new HashSet<String>();
 							int toworkKey = 0;
-							System.out.println("before" + modele.MapImagesCptOpen);
+							// System.out.println("before" + modele.MapImagesCptOpen);
 							for (Integer key : modele.MapImagesCptOpen.keySet()) {
 								if (modele.MapImagesCptOpen.get(key)
 										.contains(modele.Limages.get(Integer.parseInt(temp_index)).path)) {
@@ -346,7 +360,7 @@ public class ControlerMDI {
 						// System.out.println("after" + " " +
 						// LimagesC.get(Integer.parseInt(temp_index)).mots_clefs);
 						Tags_soustraction(Integer.parseInt(temp_index), before, after);
-						System.out.println(modele.MapTags);
+						// System.out.println(modele.MapTags);
 					}
 				}
 			});
@@ -357,14 +371,14 @@ public class ControlerMDI {
 				public void handle(MouseEvent arg0) {
 					int index = Integer.parseInt(temp_index);
 					modele.Limages.get(index).Set_Favoris();
-					System.out.println(modele.ImagesFav);
+					// System.out.println(modele.ImagesFav);
 					if (modele.ImagesFav.contains(modele.Limages.get(index).path)) {
 						modele.ImagesFav.remove(modele.Limages.get(index).path);
 					} else {
 						modele.ImagesFav.add(modele.Limages.get(index).path);
 
 					}
-					System.out.println(modele.ImagesFav);
+					// System.out.println(modele.ImagesFav);
 
 				}
 			});

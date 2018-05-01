@@ -83,7 +83,7 @@ public class ModeleTest {
 		// }
 		// System.out.println(this.ImagesFav);
 		// System.out.println("--------------------");
-		 System.out.println(this.MapTags);
+		System.out.println(this.MapTags);
 		// System.out.println("--------------------");
 		// System.out.println(this.SetImages1Etoile);
 		// System.out.println(this.SetImages2Etoile);
