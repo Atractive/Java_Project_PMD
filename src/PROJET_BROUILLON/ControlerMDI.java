@@ -189,6 +189,7 @@ public class ControlerMDI {
 		HashSet<String> TriBin = new HashSet<String>();
 		HashSet<String> SetEveryImagesNameCopy = new HashSet<>(modele.SetEveryImagesName);
 		ArrayList<String> RenvoiFinal = new ArrayList<String>();
+		ArrayList<ImageBI> RenvoiFinalDisplay = new ArrayList<ImageBI>();
 
 		if (requete[0] == "Oui") {
 			// System.out.println("seulement FAV" + " " + modele.ImagesFav);
@@ -243,8 +244,8 @@ public class ControlerMDI {
 			}
 		}
 
-		System.out.println(TriBin);
-		System.out.println(requete[4]);
+		// System.out.println(TriBin);
+		// System.out.println(requete[4]);
 
 		if (requete[4] == "Taille" || requete[4] == "Poids") {
 			for (Integer key : modele.MapImagesTaille.keySet()) {
@@ -259,7 +260,7 @@ public class ControlerMDI {
 			}
 		} else {
 			for (Integer key : modele.MapImagesCptOpen.keySet()) {
-				System.out.println(key + " " + modele.MapImagesCptOpen.get(key));
+				// System.out.println(key + " " + modele.MapImagesCptOpen.get(key));
 				for (String s : TriBin) {
 					if ((modele.MapImagesCptOpen.get(key).contains(s))) {
 						RenvoiFinal.add(s);
@@ -268,82 +269,20 @@ public class ControlerMDI {
 			}
 		}
 
-		System.out.println(RenvoiFinal);
+		// System.out.println(RenvoiFinal);
+		for (int i = 0; i < RenvoiFinal.size(); i++) {
+			int indexTempImageBI = (modele.LimagesPATH.indexOf(RenvoiFinal.get(i)));
+			RenvoiFinalDisplay.add(modele.Limages.get(indexTempImageBI));
+		}
+		System.out.println(RenvoiFinalDisplay); // IMAGESBI DU TRI DE L'UTILISATEUR
+		InjectImages(RenvoiFinalDisplay);
+
 	}
 
-	// private void ajouter_image() {
-	// Button6.setOnAction(new EventHandler<ActionEvent>() {
-	//
-	// @Override
-	// public void handle(final ActionEvent e) {
-	// FileChooser filechooser = new FileChooser();
-	// filechooser.getExtensionFilters()
-	// .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
-	// "*jpeg"));
-	//
-	// Stage newWindow = new Stage();
-	//
-	// newWindow.setTitle("Second Stage");
-	//
-	// // Specifies the modality for new window.
-	// newWindow.initModality(Modality.WINDOW_MODAL);
-	//
-	// File list = filechooser.showOpenDialog(newWindow);
-	// if (list != null) {
-	//
-	// try {
-	// Files.move(FileSystems.getDefault().getPath(list.getPath()),
-	// FileSystems.getDefault().getPath(new File("Images/" +
-	// list.getName()).getPath()),
-	// StandardCopyOption.REPLACE_EXISTING);
-	// } catch (IOException e1) {
-	// e1.printStackTrace();
-	// }
-	// TilePaneGalerie.getChildren().clear();
-	// InjectImages();
-	// }
-	// }
-	// });
-	// }
-	//
-	// private void supprimer_image() {
-	// Button7.setOnAction(new EventHandler<ActionEvent>() {
-	//
-	// @Override
-	// public void handle(final ActionEvent e) {
-	// FileChooser filechooser = new FileChooser();
-	// filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files",
-	// "*.png", "*.jpg", "*.gif"));
-	//
-	// filechooser.setInitialDirectory(new File("Images"));
-	//
-	// Stage newWindow = new Stage();
-	//
-	// newWindow.setTitle("Second Stage");
-	//
-	// // Specifies the modality for new window.
-	// newWindow.initModality(Modality.WINDOW_MODAL);
-	//
-	// File list = filechooser.showOpenDialog(newWindow);
-	//
-	// if (list != null) {
-	// try {
-	// Files.delete(FileSystems.getDefault().getPath(new File("Images/" +
-	// list.getName()).getPath()));
-	// } catch (IOException e1) {
-	// e1.printStackTrace();
-	// }
-	// TilePaneGalerie.getChildren().clear();
-	// InjectImages();
-	// }
-	// }
-	// });
-	// }
+	
 
-	private void InjectImages(ArrayList<ImageBI> LimagesC) { // ajouter un paramètre étant une liste de string que sont
-																// les paths des images
+	private void InjectImages(ArrayList<ImageBI> LimagesC) {											
 		// à display.
-
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
 		TilePaneGalerie.setHgap(10);
 
@@ -565,4 +504,72 @@ public class ControlerMDI {
 
 	}
 
+	// private void ajouter_image() {
+		// Button6.setOnAction(new EventHandler<ActionEvent>() {
+		//
+		// @Override
+		// public void handle(final ActionEvent e) {
+		// FileChooser filechooser = new FileChooser();
+		// filechooser.getExtensionFilters()
+		// .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
+		// "*jpeg"));
+		//
+		// Stage newWindow = new Stage();
+		//
+		// newWindow.setTitle("Second Stage");
+		//
+		// // Specifies the modality for new window.
+		// newWindow.initModality(Modality.WINDOW_MODAL);
+		//
+		// File list = filechooser.showOpenDialog(newWindow);
+		// if (list != null) {
+		//
+		// try {
+		// Files.move(FileSystems.getDefault().getPath(list.getPath()),
+		// FileSystems.getDefault().getPath(new File("Images/" +
+		// list.getName()).getPath()),
+		// StandardCopyOption.REPLACE_EXISTING);
+		// } catch (IOException e1) {
+		// e1.printStackTrace();
+		// }
+		// TilePaneGalerie.getChildren().clear();
+		// InjectImages();
+		// }
+		// }
+		// });
+		// }
+		//
+		// private void supprimer_image() {
+		// Button7.setOnAction(new EventHandler<ActionEvent>() {
+		//
+		// @Override
+		// public void handle(final ActionEvent e) {
+		// FileChooser filechooser = new FileChooser();
+		// filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files",
+		// "*.png", "*.jpg", "*.gif"));
+		//
+		// filechooser.setInitialDirectory(new File("Images"));
+		//
+		// Stage newWindow = new Stage();
+		//
+		// newWindow.setTitle("Second Stage");
+		//
+		// // Specifies the modality for new window.
+		// newWindow.initModality(Modality.WINDOW_MODAL);
+		//
+		// File list = filechooser.showOpenDialog(newWindow);
+		//
+		// if (list != null) {
+		// try {
+		// Files.delete(FileSystems.getDefault().getPath(new File("Images/" +
+		// list.getName()).getPath()));
+		// } catch (IOException e1) {
+		// e1.printStackTrace();
+		// }
+		// TilePaneGalerie.getChildren().clear();
+		// InjectImages();
+		// }
+		// }
+		// });
+		// }
 }

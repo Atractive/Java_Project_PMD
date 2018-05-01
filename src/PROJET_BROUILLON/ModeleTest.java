@@ -27,6 +27,8 @@ public class ModeleTest {
 	ArrayList<ImageBI> Limages_unserialized = new ArrayList<ImageBI>();
 	ArrayList<ImageBI> Limages_loaddata = new ArrayList<ImageBI>();
 
+	ArrayList<String> LimagesPATH = new ArrayList<String>();
+
 	//// TRI
 
 	HashSet<String> ImagesFav = new HashSet<String>();
@@ -39,8 +41,6 @@ public class ModeleTest {
 
 	ArrayList<HashSet<String>> ListeSetImagesEtoiles = new ArrayList<HashSet<String>>(
 			Arrays.asList(SetImages1Etoile, SetImages2Etoile, SetImages3Etoile, SetImages4Etoile, SetImages5Etoile));
-
-	// "YELLOW", "GREEN", "BLUE", "PINK", "BROWN" ;
 
 	HashSet<String> SetImagesRed = new HashSet<String>();
 	HashSet<String> SetImagesBlue = new HashSet<String>();
@@ -84,6 +84,7 @@ public class ModeleTest {
 		ImagesTailles();
 		ImagesCptOpen();
 		this.MapImagesPoids = this.MapImagesTaille;
+		this.SetEveryImagesName = new HashSet<String>(this.LimagesPATH);
 		// ImagesPoids();
 		ImagesCouleurs();
 		// System.out.println(this.MapImagesTaille);
@@ -143,7 +144,7 @@ public class ModeleTest {
 
 	public void DataFavoris() {
 		for (int i = 0; i < this.Limages.size(); i++) {
-			this.SetEveryImagesName.add(this.Limages.get(i).path);
+			this.LimagesPATH.add(this.Limages.get(i).path);
 			if (this.Limages.get(i).favoris == true) {
 				this.ImagesFav.add(this.Limages.get(i).path);
 			}
