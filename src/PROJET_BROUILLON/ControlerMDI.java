@@ -19,8 +19,11 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ChoiceBox;
@@ -95,7 +98,8 @@ public class ControlerMDI {
 	private Tab ImageComplete;
 	@FXML
 	private SplitPane SplitPaneImgComplete;
-
+	@FXML
+	private Button Aide_recherche;
 	@FXML
 	private TextField Snom;
 	@FXML
@@ -134,6 +138,7 @@ public class ControlerMDI {
 		ModifFXML();
 		InjectImages(modele.Limages);
 		résultat_requeteerche();
+		aide_recherche();
 		System.out.println("SOS");
 	}
 
@@ -144,6 +149,37 @@ public class ControlerMDI {
 		MenuB5.getItems().addAll("Taille", "Poids", "Nombre d'ouverture", "ND");
 		MenuB1.setValue("Oui");
 		MenuB5.setValue("Taille");
+
+	}
+
+	private void new_contro() throws Exception{
+		FXMLLoader secondLoader = new FXMLLoader(getClass().getResource("AideRecherche.fxml"));
+		//secondLoader.setController(ControlerAR.class);
+
+
+		Stage stage = new Stage();
+		//AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("AideRecherche.fxml"));
+
+        Scene scene = new Scene(secondLoader.load(),400,400);
+        stage.setScene(scene);
+        stage.show();
+	}
+	private void aide_recherche(){
+		Aide_recherche.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0){
+				// TODO Auto-generated method stub
+				System.out.println("coucou");
+				try {
+					new_contro();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			};
+		});
 
 	}
 
@@ -187,6 +223,30 @@ public class ControlerMDI {
 
 	private void buildListeTri(String[] requete) {
 		HashSet<String> TriBin = new HashSet<String>();
+		ArrayList<String> NotesRequetes = new ArrayList<String>(Arrays.asList(requete[1].split(" ")));
+		ArrayList<String> CouleursRequetes = new ArrayList<String>(Arrays.asList(requete[2].split(" ")));
+		System.out.println(NotesRequetes);
+		System.out.println(CouleursRequetes);
+
+
+
+		// System.out.println(modele.ImagesFav);
+		// System.out.println(modele.SetEveryImagesName);
+		//
+		// System.out.println(requete[0] + " " + requete[1] + " " + requete[2] + " " +
+		// requete[3] + " " + requete[4]);
+		// if (requete[0] == "oui") {
+		// System.out.println("seulement FAV" + " " + modele.ImagesFav);
+		// } else if (requete[0] == "non") {
+		// System.out.println("seulement non FAV" + " " + "todo");
+		// } else {
+		// System.out.println("toutes FAV" + " " + "todo");
+		// }
+		//
+		// System.out.println("NOTES " + ((Integer.parseInt(requete[1])) - 1));
+		// System.out.println("COLOR " + " " + ColorChoose.indexOf(requete[2]));
+		// System.out.println("MOT CLES" + " " + modele.MapTags.get(requete[3]));
+
 		HashSet<String> SetEveryImagesNameCopy = new HashSet<>(modele.SetEveryImagesName);
 		ArrayList<String> RenvoiFinal = new ArrayList<String>();
 		ArrayList<ImageBI> RenvoiFinalDisplay = new ArrayList<ImageBI>();
@@ -229,7 +289,7 @@ public class ControlerMDI {
 			// System.out.println(Couleursrequetes);
 			for (int i = 0; i < Couleursrequetes.size(); i++) {
 				// System.out.println(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
-				TriBin.retainAll(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
+				//TriBin.retainAll(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
 			}
 		}
 
@@ -269,6 +329,7 @@ public class ControlerMDI {
 			}
 		}
 
+
 		// System.out.println(RenvoiFinal);
 		for (int i = 0; i < RenvoiFinal.size(); i++) {
 			int indexTempImageBI = (modele.LimagesPATH.indexOf(RenvoiFinal.get(i)));
@@ -278,7 +339,79 @@ public class ControlerMDI {
 		TilePaneGalerie.getChildren().clear();
 		InjectImages(RenvoiFinalDisplay);
 
+		System.out.println(RenvoiFinal);
 	}
+
+	// private void ajouter_image() {
+	// Button6.setOnAction(new EventHandler<ActionEvent>() {
+	//
+	// @Override
+	// public void handle(final ActionEvent e) {
+	// FileChooser filechooser = new FileChooser();
+	// filechooser.getExtensionFilters()
+	// .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
+	// "*jpeg"));
+	//
+	// Stage newWindow = new Stage();
+	//
+	// newWindow.setTitle("Second Stage");
+	//
+	// // Specifies the modality for new window.
+	// newWindow.initModality(Modality.WINDOW_MODAL);
+	//
+	// File list = filechooser.showOpenDialog(newWindow);
+	// if (list != null) {
+	//
+	// try {
+	// Files.move(FileSystems.getDefault().getPath(list.getPath()),
+	// FileSystems.getDefault().getPath(new File("Images/" +
+	// list.getName()).getPath()),
+	// StandardCopyOption.REPLACE_EXISTING);
+	// } catch (IOException e1) {
+	// e1.printStackTrace();
+	// }
+	// TilePaneGalerie.getChildren().clear();
+	// InjectImages();
+	// }
+	// }
+	// });
+	// }
+	//
+	// private void supprimer_image() {
+	// Button7.setOnAction(new EventHandler<ActionEvent>() {
+	//
+	// @Override
+	// public void handle(final ActionEvent e) {
+	// FileChooser filechooser = new FileChooser();
+	// filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files",
+	// "*.png", "*.jpg", "*.gif"));
+	//
+	// filechooser.setInitialDirectory(new File("Images"));
+	//
+	// Stage newWindow = new Stage();
+	//
+	// newWindow.setTitle("Second Stage");
+	//
+	// // Specifies the modality for new window.
+	// newWindow.initModality(Modality.WINDOW_MODAL);
+	//
+	// File list = filechooser.showOpenDialog(newWindow);
+	//
+	// if (list != null) {
+	// try {
+	// Files.delete(FileSystems.getDefault().getPath(new File("Images/" +
+	// list.getName()).getPath()));
+	// } catch (IOException e1) {
+	// e1.printStackTrace();
+	// }
+	// TilePaneGalerie.getChildren().clear();
+	// InjectImages();
+	// }
+	// }
+	// });
+	// }
+
+	
 
 	private void InjectImages(ArrayList<ImageBI> LimagesC) {
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
