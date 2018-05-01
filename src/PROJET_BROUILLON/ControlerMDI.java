@@ -78,15 +78,15 @@ public class ControlerMDI {
 	@FXML
 	private ButtonBar ButtonB;
 	@FXML
-	private ChoiceBox MenuB1;
+	private ChoiceBox<String> MenuB1;
 	@FXML
-	private ChoiceBox MenuB2;
+	private ChoiceBox<String> MenuB2;
 	@FXML
-	private ChoiceBox MenuB3;
+	private ChoiceBox<String> MenuB3;
 	@FXML
 	private TextField MenuB4;
 	@FXML
-	private ChoiceBox MenuB5;
+	private ChoiceBox<String> MenuB5;
 	@FXML
 	private Button MenuB6;
 	@FXML
@@ -131,48 +131,50 @@ public class ControlerMDI {
 	@FXML
 	private ImageView ImageViewImgComplete;
 
+	public Object[] rech = new Object[5];
+
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
 	}
-	
-	public Object[] rech = new Object[5];
+
 	@FXML
 	public void initialize() {
+		SplitP.setDividerPositions(0.1);
 		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5));
-		MenuB1.getItems().addAll("Oui","Non","ND");
-		MenuB2.getItems().addAll("1","2","3","4","5","ND");
-		MenuB3.getItems().addAll("Rouge","Bleu","Vert","Cyan","Magenta","ND");
-		MenuB5.getItems().addAll("Taille","Poids","Nombre d'ouverture","ND");
+		MenuB1.getItems().addAll("Oui", "Non", "ND");
+		MenuB2.getItems().addAll("1", "2", "3", "4", "5", "ND");
+		MenuB3.getItems().addAll("Rouge", "Bleu", "Vert", "Cyan", "Magenta", "ND");
+		MenuB5.getItems().addAll("Taille", "Poids", "Nombre d'ouverture", "ND");
 		ajouter_image();
 		supprimer_image();
-		résultat_recherche();
 		InjectImages();
+		résultat_recherche();
 		System.out.println("SOS");
 	}
 
-	private void résultat_recherche(){
-		MenuB6.setOnAction(new EventHandler<ActionEvent>(){
+	private void résultat_recherche() {
+		MenuB6.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				Object Tf="";
-				if (MenuB4.getCharacters().length()==0){
-					Tf="ND";
-				}else{
-					Tf=MenuB4.getCharacters();
+				Object Tf = "";
+				if (MenuB4.getCharacters().length() == 0) {
+					Tf = "ND";
+				} else {
+					Tf = MenuB4.getCharacters();
 				}
-				Object[] tab = {MenuB1.getValue(),MenuB2.getValue(),MenuB3.getValue(),Tf,MenuB5.getValue()};
-				
-				//System.arraycopy(rech, 0, tab, 0, tab.length);
-				for (int i = 0; i < tab.length; i++) { 
-				       rech[i] = tab[i]; 
-				    } 
-				
+				Object[] tab = { MenuB1.getValue(), MenuB2.getValue(), MenuB3.getValue(), Tf, MenuB5.getValue() };
+
+				// System.arraycopy(rech, 0, tab, 0, tab.length);
+				for (int i = 0; i < tab.length; i++) {
+					rech[i] = tab[i];
+				}
+
 				System.out.println(Arrays.toString(rech));
 			};
 		});
-		
+
 	}
 
 	private void ajouter_image() {
@@ -241,7 +243,7 @@ public class ControlerMDI {
 	}
 
 	private void InjectImages() { // ajouter un paramètre étant une liste de string que sont les paths des images
-									// à display.
+		// à display.
 
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
 		TilePaneGalerie.setHgap(10);
@@ -259,6 +261,7 @@ public class ControlerMDI {
 							TabP.getSelectionModel().selectNext(); // Change de tab
 							String source2 = event.getPickResult().getIntersectedNode().getId();
 							temp_index = source2;
+							System.out.println(temp_index);
 							ImageView temp = new ImageView();
 							final ImageBI img = LimagesC.get(Integer.parseInt(source2));
 							Image tempI = new Image("file:" + img.path);
@@ -293,11 +296,13 @@ public class ControlerMDI {
 							Staille.setEditable(false);
 							Spoids.setEditable(false);
 							Scolors.setEditable(false);
-							HashSet<Integer> toworkValue = new HashSet<Integer>();
+
+							HashSet<String> toworkValue = new HashSet<String>();
 							int toworkKey = 0;
-							// System.out.println("before" + modele.MapImagesCptOpen);
+							System.out.println("before" + modele.MapImagesCptOpen);
 							for (Integer key : modele.MapImagesCptOpen.keySet()) {
-								if (modele.MapImagesCptOpen.get(key).contains(Integer.parseInt(temp_index))) {
+								if (modele.MapImagesCptOpen.get(key)
+										.contains(modele.Limages.get(Integer.parseInt(temp_index)).path)) {
 									toworkValue = modele.MapImagesCptOpen.get(key);
 									toworkKey = key;
 								}
@@ -305,14 +310,17 @@ public class ControlerMDI {
 							}
 
 							if (modele.MapImagesCptOpen.containsKey(toworkKey + 1)) {
-								modele.MapImagesCptOpen.get(toworkKey + 1).add(Integer.parseInt(temp_index));
-								modele.MapImagesCptOpen.get(toworkKey).remove(Integer.parseInt(temp_index));
+								modele.MapImagesCptOpen.get(toworkKey + 1)
+										.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
+								modele.MapImagesCptOpen.get(toworkKey)
+										.remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
 
 							} else {
-								HashSet<Integer> tempAdd = new HashSet<Integer>();
-								tempAdd.add(Integer.parseInt(temp_index));
+								HashSet<String> tempAdd = new HashSet<String>();
+								tempAdd.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
 								modele.MapImagesCptOpen.put(toworkKey + 1, tempAdd);
-								modele.MapImagesCptOpen.get(toworkKey).remove(Integer.parseInt(temp_index));
+								modele.MapImagesCptOpen.get(toworkKey)
+										.remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
 
 							}
 							// System.out.println("after" + modele.MapImagesCptOpen);
@@ -338,7 +346,7 @@ public class ControlerMDI {
 						// System.out.println("after" + " " +
 						// LimagesC.get(Integer.parseInt(temp_index)).mots_clefs);
 						Tags_soustraction(Integer.parseInt(temp_index), before, after);
-						// System.out.println(modele.MapTags);
+						System.out.println(modele.MapTags);
 					}
 				}
 			});
@@ -348,32 +356,49 @@ public class ControlerMDI {
 				@Override
 				public void handle(MouseEvent arg0) {
 					int index = Integer.parseInt(temp_index);
-					modele.Limages.get(Integer.parseInt(temp_index)).Set_Favoris();
-					if (modele.ImagesFav.contains(index)) {
-						modele.ImagesFav.remove(index);
+					modele.Limages.get(index).Set_Favoris();
+					System.out.println(modele.ImagesFav);
+					if (modele.ImagesFav.contains(modele.Limages.get(index).path)) {
+						modele.ImagesFav.remove(modele.Limages.get(index).path);
 					} else {
-						modele.ImagesFav.add(Integer.parseInt(temp_index));
+						modele.ImagesFav.add(modele.Limages.get(index).path);
 
 					}
-				}
+					System.out.println(modele.ImagesFav);
 
+				}
 			});
 
 			Snote.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 				@Override
 
 				public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+					// System.out.println("--------------------");
+					// System.out.println("BEFORE");
+					// System.out.println(modele.SetImages1Etoile);
+					// System.out.println(modele.SetImages2Etoile);
+					// System.out.println(modele.SetImages3Etoile);
+					// System.out.println(modele.SetImages4Etoile);
+					// System.out.println(modele.SetImages5Etoile);
+					// System.out.println();
 					if ((int) number == -1) {
 						return;
 					}
-					ArrayList<HashSet<Integer>> temp = new ArrayList<HashSet<Integer>>(
+					ArrayList<HashSet<String>> temp = new ArrayList<HashSet<String>>(
 							Arrays.asList(modele.SetImages1Etoile, modele.SetImages2Etoile, modele.SetImages3Etoile,
 									modele.SetImages4Etoile, modele.SetImages5Etoile));
 
 					modele.Limages.get(Integer.parseInt(temp_index)).Set_Etoile((Integer) number2);
 					modele.Limages.get(Integer.parseInt(temp_index)).etoile = (Integer) number2 + 1;
-					temp.get((int) number).remove(Integer.parseInt(temp_index));
-					temp.get((int) number2).add(Integer.parseInt(temp_index));
+					temp.get((int) number).remove(LimagesC.get(Integer.parseInt(temp_index)).path);
+					temp.get((int) number2).add(LimagesC.get(Integer.parseInt(temp_index)).path);
+					// System.out.println(modele.SetImages1Etoile);
+					// System.out.println(modele.SetImages2Etoile);
+					// System.out.println(modele.SetImages3Etoile);
+					// System.out.println(modele.SetImages4Etoile);
+					// System.out.println(modele.SetImages5Etoile);
+					// System.out.println("AFTER");
+					// System.out.println("--------------------");
 
 				}
 			});
@@ -402,23 +427,21 @@ public class ControlerMDI {
 		ScrollPaneGalerie.setFitToWidth(true);
 		ScrollPaneGalerie.setContent(TilePaneGalerie);
 
-
-
 	}
 
 	private ImageView createImageView(ImageBI img) {
-		Image temp = new Image("file:" + img.path, 150, 0, true, true);
+		Image temp = new Image("file:" + img.path, 100, 0, true, true);
 		ImageView imageView = new ImageView(temp);
-		imageView.setFitWidth(150);
+		imageView.setFitWidth(100);
 		imageView.getStyleClass().add("image");
 		return imageView;
 	}
 
 	private void Tags_soustraction(int indeximg, ArrayList<String> A, ArrayList<String> B) {
 		for (int i = 1; i < A.size(); i++) {
-			HashSet<Integer> temp = (modele.MapTags.get(A.get(i)));
+			HashSet<String> temp = (modele.MapTags.get(A.get(i)));
 			if (!B.contains(A.get(i))) {
-				temp.remove(indeximg);
+				temp.remove(modele.Limages.get(indeximg).path);
 			}
 		}
 
@@ -431,10 +454,10 @@ public class ControlerMDI {
 			SetDiff.addAll(Bset);
 			for (int j = 0; j < SetDiff.size(); j++) {
 				if (modele.MapTags.containsKey(SetDiff.get(j))) {
-					modele.MapTags.get(SetDiff.get(j)).add(indeximg);
+					modele.MapTags.get(SetDiff.get(j)).add(modele.Limages.get(indeximg).path);
 				} else {
-					HashSet<Integer> tempp = new HashSet<Integer>();
-					tempp.add(indeximg);
+					HashSet<String> tempp = new HashSet<String>();
+					tempp.add(modele.Limages.get(indeximg).path);
 					modele.MapTags.put(SetDiff.get(j), tempp);
 				}
 			}

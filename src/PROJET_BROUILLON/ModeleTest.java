@@ -28,33 +28,30 @@ public class ModeleTest {
 
 	//// TRI
 
-	HashSet<Integer> ImagesFav = new HashSet<Integer>();
+	HashSet<String> ImagesFav = new HashSet<String>();
 
-	HashSet<Integer> SetImages1Etoile = new HashSet<Integer>();
-	HashSet<Integer> SetImages2Etoile = new HashSet<Integer>();
-	HashSet<Integer> SetImages3Etoile = new HashSet<Integer>();
-	HashSet<Integer> SetImages4Etoile = new HashSet<Integer>();
-	HashSet<Integer> SetImages5Etoile = new HashSet<Integer>();
+	HashSet<String> SetImages1Etoile = new HashSet<String>();
+	HashSet<String> SetImages2Etoile = new HashSet<String>();
+	HashSet<String> SetImages3Etoile = new HashSet<String>();
+	HashSet<String> SetImages4Etoile = new HashSet<String>();
+	HashSet<String> SetImages5Etoile = new HashSet<String>();
 
-	// "Red", "Blue", "Green", "Orange", "Cyan", "Magenta"
+	// "YELLOW", "GREEN", "BLUE", "PINK", "BROWN" ;
 
-	HashSet<Integer> SetImagesRed = new HashSet<Integer>();
-	HashSet<Integer> SetImagesBlue = new HashSet<Integer>();
-	HashSet<Integer> SetImagesGreen = new HashSet<Integer>();
-	HashSet<Integer> SetImagesOrange = new HashSet<Integer>();
-	HashSet<Integer> SetImagesCyan = new HashSet<Integer>();
-	HashSet<Integer> SetImagesMagenta = new HashSet<Integer>();
+	HashSet<String> SetImagesRed = new HashSet<String>();
+	HashSet<String> SetImagesBlue = new HashSet<String>();
+	HashSet<String> SetImagesGreen = new HashSet<String>();
+	HashSet<String> SetImagesOrange = new HashSet<String>();
+	HashSet<String> SetImagesCyan = new HashSet<String>();
+	HashSet<String> SetImagesMagenta = new HashSet<String>();
 
-	Map<String, HashSet<Integer>> MapTags = new HashMap<String, HashSet<Integer>>();
+	Map<Integer, HashSet<String>> MapImagesTaille = new TreeMap<Integer, HashSet<String>>();
+	Map<Integer, HashSet<String>> MapImagesPoids = new TreeMap<Integer, HashSet<String>>();
 
-	Map<Integer, HashSet<Integer>> MapImagesTaille = new TreeMap<Integer, HashSet<Integer>>();
-	Map<Integer, HashSet<Integer>> MapImagesPoids = new TreeMap<Integer, HashSet<Integer>>();
+	Map<String, HashSet<String>> MapTags = new HashMap<String, HashSet<String>>();
 
-	// Map<Integer, HashSet<Integer>> MapImagesCptOpen = new TreeMap<Integer,
-	// HashSet<Integer>>();
-
-	Map<Integer, HashSet<Integer>> MapImagesCptOpen = Collections
-			.synchronizedMap(Collections.synchronizedMap(new TreeMap<Integer, HashSet<Integer>>()));
+	Map<Integer, HashSet<String>> MapImagesCptOpen = Collections
+			.synchronizedMap(Collections.synchronizedMap(new TreeMap<Integer, HashSet<String>>()));
 
 	//// TRI
 
@@ -63,7 +60,6 @@ public class ModeleTest {
 	public ModeleTest(String s) throws ClassNotFoundException, IOException {
 		File temp = new File("images.dat");
 		File[] imagesListe = new File(s).listFiles();
-		
 		LoadDataF(s);
 		if (temp.exists() && imagesListe.length == Limages_unserialized.size()) {
 			this.Limages = Limages_unserialized;
@@ -76,29 +72,31 @@ public class ModeleTest {
 		DataFavoris();
 		ImagesEtoiles();
 		ImagesTags();
-		ImagesCouleurs();
 		ImagesTailles();
-		ImagesPoids();
 		ImagesCptOpen();
-		 System.out.println(this.MapImagesTaille);
-		 for (Integer key : MapImagesCptOpen.keySet()) {
-		 System.out.println(key + " " + MapImagesCptOpen.get(key));
-		 }
-		 System.out.println(this.ImagesFav);
-		 System.out.println("--------------------");
+		this.MapImagesPoids = this.MapImagesTaille;
+		// ImagesPoids();
+		// ImagesCouleurs();
+		// System.out.println(this.MapImagesTaille);
+		// for (Integer key : MapImagesCptOpen.keySet()) {
+		// System.out.println(key + " " + MapImagesCptOpen.get(key));
+		// }
+		// System.out.println(this.ImagesFav);
+		// System.out.println("--------------------");
 		 System.out.println(this.MapTags);
-		 System.out.println("--------------------");
-		 System.out.println(this.SetImages1Etoile);
-		 System.out.println(this.SetImages2Etoile);
-		 System.out.println(this.SetImages3Etoile);
-		 System.out.println(this.SetImages4Etoile);
-		 System.out.println(this.SetImages5Etoile);
-		 System.out.println("--------------------");
-		 System.out.println(this.SetImagesRed);
-		 System.out.println(this.SetImagesBlue);
-		 System.out.println(this.SetImagesGreen);
-		 System.out.println(this.SetImagesCyan);
-		 System.out.println(this.SetImagesMagenta);
+		// System.out.println("--------------------");
+		// System.out.println(this.SetImages1Etoile);
+		// System.out.println(this.SetImages2Etoile);
+		// System.out.println(this.SetImages3Etoile);
+		// System.out.println(this.SetImages4Etoile);
+		// System.out.println(this.SetImages5Etoile);
+		// System.out.println("--------------------");
+		// System.out.println(this.SetImagesRed);
+		// System.out.println(this.SetImagesBlue);
+		// System.out.println(this.SetImagesGreen);
+		// System.out.println(this.SetImagesCyan);
+		// System.out.println(this.SetImagesMagenta);
+		// System.out.println(this.MapImagesTaille);
 
 	}
 
@@ -137,7 +135,7 @@ public class ModeleTest {
 	public void DataFavoris() {
 		for (int i = 0; i < this.Limages.size(); i++) {
 			if (this.Limages.get(i).favoris == true) {
-				this.ImagesFav.add(i);
+				this.ImagesFav.add(this.Limages.get(i).path);
 			}
 
 		}
@@ -145,22 +143,24 @@ public class ModeleTest {
 
 	public void ImagesEtoiles() {
 		for (int i = 0; i < this.Limages.size(); i++) {
-			if (this.Limages.get(i).etoile == 1) {
-				this.SetImages1Etoile.add(i);
-			} else if (this.Limages.get(i).etoile == 1) {
-				this.SetImages1Etoile.add(i);
+			String temp = this.Limages.get(i).path;
+			int tempstar = this.Limages.get(i).etoile;
+			if (tempstar == 1) {
+				this.SetImages1Etoile.add(temp);
+			} else if (tempstar == 1) {
+				this.SetImages1Etoile.add(temp);
 
-			} else if (this.Limages.get(i).etoile == 2) {
-				this.SetImages2Etoile.add(i);
+			} else if (tempstar == 2) {
+				this.SetImages2Etoile.add(temp);
 
-			} else if (this.Limages.get(i).etoile == 3) {
-				this.SetImages3Etoile.add(i);
+			} else if (tempstar == 3) {
+				this.SetImages3Etoile.add(temp);
 
-			} else if (this.Limages.get(i).etoile == 4) {
-				this.SetImages4Etoile.add(i);
+			} else if (tempstar == 4) {
+				this.SetImages4Etoile.add(temp);
 
-			} else if (this.Limages.get(i).etoile == 5) {
-				this.SetImages5Etoile.add(i);
+			} else if (tempstar == 5) {
+				this.SetImages5Etoile.add(temp);
 
 			}
 		}
@@ -170,22 +170,22 @@ public class ModeleTest {
 		for (int i = 0; i < this.Limages.size(); i++) {
 			String couleur = CouleurDominante.getDomintanteColor(this.Limages.get(i).path);
 			if (couleur == "Red") {
-				this.SetImagesRed.add(i);
+				this.SetImagesRed.add(couleur);
 			}
 			if (couleur == "Blue") {
-				this.SetImagesBlue.add(i);
+				this.SetImagesBlue.add(couleur);
 			}
 			if (couleur == "Green") {
-				this.SetImagesGreen.add(i);
+				this.SetImagesGreen.add(couleur);
 			}
 			if (couleur.equals("Cyan")) {
-				this.SetImagesCyan.add(i);
+				this.SetImagesCyan.add(couleur);
 			}
 			if (couleur == "Magenta") {
-				this.SetImagesMagenta.add(i);
+				this.SetImagesMagenta.add(couleur);
 			}
 			if (couleur == "Orange") {
-				this.SetImagesOrange.add(i);
+				this.SetImagesOrange.add(couleur);
 			}
 		}
 	}
@@ -194,11 +194,11 @@ public class ModeleTest {
 		for (int i = 0; i < this.Limages.size(); i++) {
 			for (int j = 1; j < this.Limages.get(i).mots_clefs.size(); j++) {
 				if (this.MapTags.containsKey(this.Limages.get(i).mots_clefs.get(j))) {
-					this.MapTags.get(this.Limages.get(i).mots_clefs.get(j)).add(i);
+					this.MapTags.get(this.Limages.get(i).mots_clefs.get(j)).add(this.Limages.get(i).path);
 
 				} else {
-					HashSet<Integer> temp = new HashSet<Integer>();
-					temp.add(i);
+					HashSet<String> temp = new HashSet<String>();
+					temp.add(this.Limages.get(i).path);
 					this.MapTags.put(this.Limages.get(i).mots_clefs.get(j), temp);
 				}
 			}
@@ -212,42 +212,42 @@ public class ModeleTest {
 			int taille = (int) Math.round(tempImage.getWidth() * tempImage.getHeight());
 			// int poids = taille * 4;
 			if (this.MapImagesTaille.containsKey(taille)) {
-				this.MapImagesTaille.get(taille).add(i);
+				this.MapImagesTaille.get(taille).add(this.Limages.get(i).path);
 			} else {
-				HashSet<Integer> temp1 = new HashSet<Integer>();
-				temp1.add(i);
+				HashSet<String> temp1 = new HashSet<String>();
+				temp1.add(this.Limages.get(i).path);
 				this.MapImagesTaille.put(taille, temp1);
 			}
 
 		}
 	}
 
-	public void ImagesPoids() {
-		for (int i = 0; i < this.Limages.size(); i++) {
-			ImageBI tempImagePerso = this.Limages.get(i);
-			Image tempImage = new Image("file:" + tempImagePerso.path);
-			int taille = (int) Math.round(tempImage.getWidth() * tempImage.getHeight());
-			int poids = taille * 4;
-			if (this.MapImagesPoids.containsKey(poids)) {
-				this.MapImagesPoids.get(poids).add(i);
-			} else {
-				HashSet<Integer> temp1 = new HashSet<Integer>();
-				temp1.add(i);
-				this.MapImagesPoids.put(poids, temp1);
-			}
-
-		}
-	}
+	// public void ImagesPoids() {
+	// for (int i = 0; i < this.Limages.size(); i++) {
+	// ImageBI tempImagePerso = this.Limages.get(i);
+	// Image tempImage = new Image("file:" + tempImagePerso.path);
+	// int taille = (int) Math.round(tempImage.getWidth() * tempImage.getHeight());
+	// int poids = taille * 4;
+	// if (this.MapImagesPoids.containsKey(poids)) {
+	// this.MapImagesPoids.get(poids).add(i);
+	// } else {
+	// HashSet<Integer> temp1 = new HashSet<Integer>();
+	// temp1.add(i);
+	// this.MapImagesPoids.put(poids, temp1);
+	// }
+	//
+	// }
+	// }
 
 	public void ImagesCptOpen() {
 		for (int i = 0; i < this.Limages.size(); i++) {
 			ImageBI tempImagePerso = this.Limages.get(i);
 			int tempCpt = tempImagePerso.nb_ouverture;
 			if (this.MapImagesCptOpen.containsKey(tempCpt)) {
-				this.MapImagesCptOpen.get(tempCpt).add(i);
+				this.MapImagesCptOpen.get(tempCpt).add(this.Limages.get(i).path);
 			} else {
-				HashSet<Integer> temp1 = new HashSet<Integer>();
-				temp1.add(i);
+				HashSet<String> temp1 = new HashSet<String>();
+				temp1.add(this.Limages.get(i).path);
 				this.MapImagesCptOpen.put(tempCpt, temp1);
 			}
 
