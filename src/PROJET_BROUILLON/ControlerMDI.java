@@ -125,7 +125,7 @@ public class ControlerMDI {
 
 	public String[] requete = new String[5];
 	public ArrayList<String> ColorChoose = new ArrayList<String>(
-			Arrays.asList("Rouge", "Bleu", "Vert", "Cyan", "Magenta"));
+			Arrays.asList("Rouge", "Bleu", "Vert", "Orange", "Cyan", "Magenta"));
 
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
@@ -148,7 +148,6 @@ public class ControlerMDI {
 		MenuB1.getItems().addAll("Oui", "Non", "ND");
 		MenuB5.getItems().addAll("Taille", "Poids", "Nombre d'ouverture", "ND");
 		MenuB1.setValue("Oui");
-		MenuB4.setText("Paysage");
 		MenuB5.setValue("Taille");
 
 	}
@@ -189,8 +188,31 @@ public class ControlerMDI {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				String[] tab = { MenuB1.getSelectionModel().getSelectedItem(), MenuB2.getText(), MenuB3.getText(),
-						MenuB4.getText(), MenuB5.getSelectionModel().getSelectedItem() };
+
+				String menub2 = "";
+				String menub3 = "";
+				String menub4 = "";
+				if (MenuB2.getText() == null || MenuB2.getText().trim().isEmpty()) {
+					menub2 = "null";
+				} else {
+					menub2 = MenuB2.getText();
+				}
+				if (MenuB3.getText() == null || MenuB3.getText().trim().isEmpty()) {
+					menub3 = "null";
+
+				} else {
+					menub3 = MenuB3.getText();
+				}
+
+				if (MenuB4.getText() == null || MenuB4.getText().trim().isEmpty()) {
+					menub4 = "null";
+
+				} else {
+					menub4 = MenuB4.getText();
+				}
+
+				String[] tab = { MenuB1.getSelectionModel().getSelectedItem(), menub2, menub3, menub4,
+						MenuB5.getSelectionModel().getSelectedItem() };
 
 				buildListeTri(tab);
 
@@ -225,6 +247,87 @@ public class ControlerMDI {
 		// System.out.println("COLOR " + " " + ColorChoose.indexOf(requete[2]));
 		// System.out.println("MOT CLES" + " " + modele.MapTags.get(requete[3]));
 
+		HashSet<String> SetEveryImagesNameCopy = new HashSet<>(modele.SetEveryImagesName);
+		ArrayList<String> RenvoiFinal = new ArrayList<String>();
+
+		if (requete[0] == "Oui") {
+			// System.out.println("seulement FAV" + " " + modele.ImagesFav);
+			TriBin.addAll(modele.ImagesFav);
+		} else if (requete[0] == "Non") {
+			// System.out.println("seulement non FAV" + " " + "todo");
+			SetEveryImagesNameCopy.removeAll(modele.ImagesFav);
+			TriBin.addAll(SetEveryImagesNameCopy);
+			// System.out.println(SetEveryImagesNameCopy);
+
+		} else {
+			// System.out.println("toutes FAV" + " " + "todo");
+			TriBin.addAll(modele.SetEveryImagesName);
+
+		}
+
+		if (requete[1] != "null") {
+			ArrayList<String> Notesrequetes = new ArrayList<String>(Arrays.asList(requete[1].split(" ")));
+			for (int i = 0; i < Notesrequetes.size(); i++) {
+				int tempNote = Integer.parseInt(Notesrequetes.get(i));
+				if (tempNote == 1) {
+					TriBin.retainAll(modele.SetImages1Etoile);
+				} else if (tempNote == 2) {
+					TriBin.retainAll(modele.SetImages2Etoile);
+				} else if (tempNote == 3) {
+					TriBin.retainAll(modele.SetImages3Etoile);
+				} else if (tempNote == 4) {
+					TriBin.retainAll(modele.SetImages4Etoile);
+				} else {
+					TriBin.retainAll(modele.SetImages5Etoile);
+				}
+			}
+		}
+
+		if (requete[2] != "null") {
+			ArrayList<String> Couleursrequetes = new ArrayList<String>(Arrays.asList(requete[2].split(" ")));
+			// System.out.println(Couleursrequetes);
+			for (int i = 0; i < Couleursrequetes.size(); i++) {
+				// System.out.println(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
+				//TriBin.retainAll(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
+			}
+		}
+
+		if (requete[3] != "null") {
+			ArrayList<String> Tagsrequetes = new ArrayList<String>(Arrays.asList(requete[3].split(" ")));
+			// System.out.println(Tagsrequetes);
+			// System.out.println(Tagsrequetes);
+			for (int i = 0; i < Tagsrequetes.size(); i++) {
+				// System.out.println(Tagsrequetes.get(i) + " " +
+				// modele.MapTags.get(Tagsrequetes.get(i)));
+				TriBin.retainAll(modele.MapTags.get(Tagsrequetes.get(i)));
+			}
+		}
+
+		System.out.println(TriBin);
+		System.out.println(requete[4]);
+
+		if (requete[4] == "Taille" || requete[4] == "Poids") {
+			for (Integer key : modele.MapImagesTaille.keySet()) {
+				// System.out.println(key + " " + modele.MapImagesTaille.get(key));
+				for (String s : TriBin) {
+					// System.out.println(modele.MapImagesTaille.get(key) + " " + s + " | " +
+					// modele.MapImagesTaille.get(key).contains(s));
+					if (modele.MapImagesTaille.get(key).contains(s)) {
+						RenvoiFinal.add(s);
+					}
+				}
+			}
+		} else {
+			for (Integer key : modele.MapImagesCptOpen.keySet()) {
+				System.out.println(key + " " + modele.MapImagesCptOpen.get(key));
+				for (String s : TriBin) {
+					if ((modele.MapImagesCptOpen.get(key).contains(s))) {
+						RenvoiFinal.add(s);
+					}
+				}
+			}
+		}
+		System.out.println(RenvoiFinal);
 	}
 
 	// private void ajouter_image() {
