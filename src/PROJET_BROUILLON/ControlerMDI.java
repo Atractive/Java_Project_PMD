@@ -275,99 +275,99 @@ public class ControlerMDI {
 			RenvoiFinalDisplay.add(modele.Limages.get(indexTempImageBI));
 		}
 		System.out.println(RenvoiFinalDisplay); // IMAGESBI DU TRI DE L'UTILISATEUR
+		TilePaneGalerie.getChildren().clear();
 		InjectImages(RenvoiFinalDisplay);
 
 	}
 
-	
-
-	private void InjectImages(ArrayList<ImageBI> LimagesC) {											
-		// à display.
+	private void InjectImages(ArrayList<ImageBI> LimagesC) {
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
 		TilePaneGalerie.setHgap(10);
 
-		// ArrayList<ImageBI> LimagesC = this.modele.Limages;
-		// System.out.println(this.modele.Limages);
 		for (int i = 0; i < LimagesC.size(); i++) {
 			ImageView imageView;
 			imageView = createImageView(LimagesC.get(i));
 			imageView.setId(String.valueOf(i));
-			imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) { // Au clic, changement de tab et affichage de l'image
-					if (event.getButton().equals(MouseButton.PRIMARY)) {
-						if (event.getClickCount() == 2) {
-							TabP.getSelectionModel().selectNext(); // Change de tab
-							String source2 = event.getPickResult().getIntersectedNode().getId();
-							temp_index = source2;
-							// System.out.println(temp_index);
-							ImageView temp = new ImageView();
-							final ImageBI img = LimagesC.get(Integer.parseInt(source2));
-							Image tempI = new Image("file:" + img.path);
-							BorderPane borderPane = new BorderPane();
-							temp.setImage(tempI);
-							temp.setStyle("-fx-background-color: BLACK");
-							temp.setFitHeight(LeftImgComplete.getHeight());
-							temp.setPreserveRatio(true);
-							temp.setSmooth(true);
-							temp.setCache(true);
-							borderPane.setCenter(temp);
-							borderPane.setStyle("-fx-background-color: BLACK");
-							LeftImgComplete.getChildren().add(borderPane);
-							LeftImgComplete.getChildren().clear();
-							LeftImgComplete.getChildren().add(temp);
-
-							Snom.textProperty().setValue(img.nom);
-							Staille.textProperty().setValue(
-									(int) Math.round(tempI.getWidth()) + " x " + (int) Math.round(tempI.getHeight()));
-							Spoids.textProperty()
-									.setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() * 4)));
-							Stags.textProperty().setValue(img.show_Tags(img.mots_clefs));
-							SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
-							img.Increase_nbOuverture();
-							Sopen.setText(String.valueOf(img.nb_ouverture));
-
-							Scolors.setText(img.couleur);
-							Sfavoris.setSelected(img.favoris);
-							Snote.setValue(img.etoile);
-
-							Snom.setEditable(false);
-							Staille.setEditable(false);
-							Spoids.setEditable(false);
-							Scolors.setEditable(false);
-
-							@SuppressWarnings("unused")
-							HashSet<String> toworkValue = new HashSet<String>();
-							int toworkKey = 0;
-							// System.out.println("before" + modele.MapImagesCptOpen);
-							for (Integer key : modele.MapImagesCptOpen.keySet()) {
-								if (modele.MapImagesCptOpen.get(key)
-										.contains(modele.Limages.get(Integer.parseInt(temp_index)).path)) {
-									toworkValue = modele.MapImagesCptOpen.get(key);
-									toworkKey = key;
-								}
-
-							}
-
-							if (modele.MapImagesCptOpen.containsKey(toworkKey + 1)) {
-								modele.MapImagesCptOpen.get(toworkKey + 1)
-										.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
-								modele.MapImagesCptOpen.get(toworkKey)
-										.remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
-
-							} else {
-								HashSet<String> tempAdd = new HashSet<String>();
-								tempAdd.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
-								modele.MapImagesCptOpen.put(toworkKey + 1, tempAdd);
-								modele.MapImagesCptOpen.get(toworkKey)
-										.remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
-
-							}
-							// System.out.println("after" + modele.MapImagesCptOpen);
-							// System.out.println("-------------------");
-						}
-					}
-				}
-			});
+			System.out.println(LimagesC.get(i));
+			// imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			// public void handle(MouseEvent event) { // Au clic, changement de tab et
+			// affichage de l'image
+			// if (event.getButton().equals(MouseButton.PRIMARY)) {
+			// if (event.getClickCount() == 2) {
+			// TabP.getSelectionModel().selectNext(); // Change de tab
+			// String source2 = event.getPickResult().getIntersectedNode().getId();
+			// temp_index = source2;
+			// // System.out.println(temp_index);
+			// ImageView temp = new ImageView();
+			// final ImageBI img = LimagesC.get(Integer.parseInt(source2));
+			// Image tempI = new Image("file:" + img.path);
+			// BorderPane borderPane = new BorderPane();
+			// temp.setImage(tempI);
+			// temp.setStyle("-fx-background-color: BLACK");
+			// temp.setFitHeight(LeftImgComplete.getHeight());
+			// temp.setPreserveRatio(true);
+			// temp.setSmooth(true);
+			// temp.setCache(true);
+			// borderPane.setCenter(temp);
+			// borderPane.setStyle("-fx-background-color: BLACK");
+			// LeftImgComplete.getChildren().add(borderPane);
+			// LeftImgComplete.getChildren().clear();
+			// LeftImgComplete.getChildren().add(temp);
+			//
+			// Snom.textProperty().setValue(img.nom);
+			// Staille.textProperty().setValue(
+			// (int) Math.round(tempI.getWidth()) + " x " + (int)
+			// Math.round(tempI.getHeight()));
+			// Spoids.textProperty()
+			// .setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() *
+			// 4)));
+			// Stags.textProperty().setValue(img.show_Tags(img.mots_clefs));
+			// SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
+			// img.Increase_nbOuverture();
+			// Sopen.setText(String.valueOf(img.nb_ouverture));
+			//
+			// Scolors.setText(img.couleur);
+			// Sfavoris.setSelected(img.favoris);
+			// Snote.setValue(img.etoile);
+			//
+			// Snom.setEditable(false);
+			// Staille.setEditable(false);
+			// Spoids.setEditable(false);
+			// Scolors.setEditable(false);
+			//
+			// @SuppressWarnings("unused")
+			// HashSet<String> toworkValue = new HashSet<String>();
+			// int toworkKey = 0;
+			// // System.out.println("before" + modele.MapImagesCptOpen);
+			// for (Integer key : modele.MapImagesCptOpen.keySet()) {
+			// if (modele.MapImagesCptOpen.get(key)
+			// .contains(modele.Limages.get(Integer.parseInt(temp_index)).path)) {
+			// toworkValue = modele.MapImagesCptOpen.get(key);
+			// toworkKey = key;
+			// }
+			//
+			// }
+			//
+			// if (modele.MapImagesCptOpen.containsKey(toworkKey + 1)) {
+			// modele.MapImagesCptOpen.get(toworkKey + 1)
+			// .add(modele.Limages.get(Integer.parseInt(temp_index)).path);
+			// modele.MapImagesCptOpen.get(toworkKey)
+			// .remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
+			//
+			// } else {
+			// HashSet<String> tempAdd = new HashSet<String>();
+			// tempAdd.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
+			// modele.MapImagesCptOpen.put(toworkKey + 1, tempAdd);
+			// modele.MapImagesCptOpen.get(toworkKey)
+			// .remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
+			//
+			// }
+			// // System.out.println("after" + modele.MapImagesCptOpen);
+			// // System.out.println("-------------------");
+			// }
+			// }
+			// }
+			// });
 
 			Stags.setOnKeyPressed(new EventHandler<KeyEvent>() {
 				@Override
@@ -505,71 +505,71 @@ public class ControlerMDI {
 	}
 
 	// private void ajouter_image() {
-		// Button6.setOnAction(new EventHandler<ActionEvent>() {
-		//
-		// @Override
-		// public void handle(final ActionEvent e) {
-		// FileChooser filechooser = new FileChooser();
-		// filechooser.getExtensionFilters()
-		// .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
-		// "*jpeg"));
-		//
-		// Stage newWindow = new Stage();
-		//
-		// newWindow.setTitle("Second Stage");
-		//
-		// // Specifies the modality for new window.
-		// newWindow.initModality(Modality.WINDOW_MODAL);
-		//
-		// File list = filechooser.showOpenDialog(newWindow);
-		// if (list != null) {
-		//
-		// try {
-		// Files.move(FileSystems.getDefault().getPath(list.getPath()),
-		// FileSystems.getDefault().getPath(new File("Images/" +
-		// list.getName()).getPath()),
-		// StandardCopyOption.REPLACE_EXISTING);
-		// } catch (IOException e1) {
-		// e1.printStackTrace();
-		// }
-		// TilePaneGalerie.getChildren().clear();
-		// InjectImages();
-		// }
-		// }
-		// });
-		// }
-		//
-		// private void supprimer_image() {
-		// Button7.setOnAction(new EventHandler<ActionEvent>() {
-		//
-		// @Override
-		// public void handle(final ActionEvent e) {
-		// FileChooser filechooser = new FileChooser();
-		// filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files",
-		// "*.png", "*.jpg", "*.gif"));
-		//
-		// filechooser.setInitialDirectory(new File("Images"));
-		//
-		// Stage newWindow = new Stage();
-		//
-		// newWindow.setTitle("Second Stage");
-		//
-		// // Specifies the modality for new window.
-		// newWindow.initModality(Modality.WINDOW_MODAL);
-		//
-		// File list = filechooser.showOpenDialog(newWindow);
-		//
-		// if (list != null) {
-		// try {
-		// Files.delete(FileSystems.getDefault().getPath(new File("Images/" +
-		// list.getName()).getPath()));
-		// } catch (IOException e1) {
-		// e1.printStackTrace();
-		// }
-		// TilePaneGalerie.getChildren().clear();
-		// InjectImages();
-		// }
-		// }
-		// });
-		// }
+	// Button6.setOnAction(new EventHandler<ActionEvent>() {
+	//
+	// @Override
+	// public void handle(final ActionEvent e) {
+	// FileChooser filechooser = new FileChooser();
+	// filechooser.getExtensionFilters()
+	// .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
+	// "*jpeg"));
+	//
+	// Stage newWindow = new Stage();
+	//
+	// newWindow.setTitle("Second Stage");
+	//
+	// // Specifies the modality for new window.
+	// newWindow.initModality(Modality.WINDOW_MODAL);
+	//
+	// File list = filechooser.showOpenDialog(newWindow);
+	// if (list != null) {
+	//
+	// try {
+	// Files.move(FileSystems.getDefault().getPath(list.getPath()),
+	// FileSystems.getDefault().getPath(new File("Images/" +
+	// list.getName()).getPath()),
+	// StandardCopyOption.REPLACE_EXISTING);
+	// } catch (IOException e1) {
+	// e1.printStackTrace();
+	// }
+	// TilePaneGalerie.getChildren().clear();
+	// InjectImages();
+	// }
+	// }
+	// });
+	// }
+	//
+	// private void supprimer_image() {
+	// Button7.setOnAction(new EventHandler<ActionEvent>() {
+	//
+	// @Override
+	// public void handle(final ActionEvent e) {
+	// FileChooser filechooser = new FileChooser();
+	// filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files",
+	// "*.png", "*.jpg", "*.gif"));
+	//
+	// filechooser.setInitialDirectory(new File("Images"));
+	//
+	// Stage newWindow = new Stage();
+	//
+	// newWindow.setTitle("Second Stage");
+	//
+	// // Specifies the modality for new window.
+	// newWindow.initModality(Modality.WINDOW_MODAL);
+	//
+	// File list = filechooser.showOpenDialog(newWindow);
+	//
+	// if (list != null) {
+	// try {
+	// Files.delete(FileSystems.getDefault().getPath(new File("Images/" +
+	// list.getName()).getPath()));
+	// } catch (IOException e1) {
+	// e1.printStackTrace();
+	// }
+	// TilePaneGalerie.getChildren().clear();
+	// InjectImages();
+	// }
+	// }
+	// });
+	// }
 }
