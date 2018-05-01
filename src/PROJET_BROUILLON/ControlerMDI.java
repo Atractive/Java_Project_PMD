@@ -19,8 +19,11 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ChoiceBox;
@@ -95,7 +98,8 @@ public class ControlerMDI {
 	private Tab ImageComplete;
 	@FXML
 	private SplitPane SplitPaneImgComplete;
-
+	@FXML
+	private Button Aide_recherche;
 	@FXML
 	private TextField Snom;
 	@FXML
@@ -134,6 +138,7 @@ public class ControlerMDI {
 		ModifFXML();
 		InjectImages(modele.Limages);
 		résultat_requeteerche();
+		aide_recherche();
 		System.out.println("SOS");
 	}
 
@@ -145,6 +150,37 @@ public class ControlerMDI {
 		MenuB1.setValue("Oui");
 		MenuB4.setText("Paysage");
 		MenuB5.setValue("Taille");
+
+	}
+
+	private void new_contro() throws Exception{
+		FXMLLoader secondLoader = new FXMLLoader(getClass().getResource("AideRecherche.fxml"));
+		//secondLoader.setController(ControlerAR.class);
+
+
+		Stage stage = new Stage();
+		//AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("AideRecherche.fxml"));
+
+        Scene scene = new Scene(secondLoader.load(),400,400);
+        stage.setScene(scene);
+        stage.show();
+	}
+	private void aide_recherche(){
+		Aide_recherche.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0){
+				// TODO Auto-generated method stub
+				System.out.println("coucou");
+				try {
+					new_contro();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			};
+		});
 
 	}
 
@@ -169,9 +205,9 @@ public class ControlerMDI {
 		ArrayList<String> CouleursRequetes = new ArrayList<String>(Arrays.asList(requete[2].split(" ")));
 		System.out.println(NotesRequetes);
 		System.out.println(CouleursRequetes);
-		
-		
-	
+
+
+
 		// System.out.println(modele.ImagesFav);
 		// System.out.println(modele.SetEveryImagesName);
 		//
