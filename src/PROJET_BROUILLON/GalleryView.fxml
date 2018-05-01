@@ -38,13 +38,13 @@
                         <VBox alignment="CENTER" prefHeight="56.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Notes" />
-                              <ChoiceBox fx:id="MenuB2" prefWidth="150.0" />
+                              <TextField fx:id="MenuB2" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="56.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Couleur" />
-                              <ChoiceBox fx:id="MenuB3" prefWidth="150.0" />
+                              <TextField fx:id="MenuB3" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="56.0">

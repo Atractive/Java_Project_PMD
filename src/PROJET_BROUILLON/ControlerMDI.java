@@ -68,9 +68,9 @@ public class ControlerMDI {
 	@FXML
 	private ChoiceBox<String> MenuB1;
 	@FXML
-	private ChoiceBox<String> MenuB2;
+	private TextField MenuB2;
 	@FXML
-	private ChoiceBox<String> MenuB3;
+	private TextField MenuB3;
 	@FXML
 	private TextField MenuB4;
 	@FXML
@@ -121,7 +121,7 @@ public class ControlerMDI {
 
 	public String[] requete = new String[5];
 	public ArrayList<String> ColorChoose = new ArrayList<String>(
-			Arrays.asList("Rouge", "Bleu", "Vert", "Cyan", "Magenta", "ND"));
+			Arrays.asList("Rouge", "Bleu", "Vert", "Cyan", "Magenta"));
 
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
@@ -141,13 +141,8 @@ public class ControlerMDI {
 		SplitP.setDividerPositions(0.1);
 		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5));
 		MenuB1.getItems().addAll("Oui", "Non", "ND");
-		MenuB2.getItems().addAll("1", "2", "3", "4", "5", "ND");
-		MenuB3.getItems().addAll(ColorChoose.get(0), ColorChoose.get(1), ColorChoose.get(2), ColorChoose.get(3),
-				ColorChoose.get(4), ColorChoose.get(5));
 		MenuB5.getItems().addAll("Taille", "Poids", "Nombre d'ouverture", "ND");
 		MenuB1.setValue("Oui");
-		MenuB2.setValue("3");
-		MenuB3.setValue("Vert");
 		MenuB4.setText("Paysage");
 		MenuB5.setValue("Taille");
 
@@ -158,8 +153,7 @@ public class ControlerMDI {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				String[] tab = { MenuB1.getSelectionModel().getSelectedItem(),
-						MenuB2.getSelectionModel().getSelectedItem(), MenuB3.getSelectionModel().getSelectedItem(),
+				String[] tab = { MenuB1.getSelectionModel().getSelectedItem(), MenuB2.getText(), MenuB3.getText(),
 						MenuB4.getText(), MenuB5.getSelectionModel().getSelectedItem() };
 
 				buildListeTri(tab);
@@ -171,17 +165,29 @@ public class ControlerMDI {
 
 	private void buildListeTri(String[] requete) {
 		HashSet<String> TriBin = new HashSet<String>();
-
-		if (requete[0] == "oui") {
-			System.out.println("FAV" + " " + modele.ImagesFav);
-		} else if (requete[0] == "non") {
-			System.out.println("FAV" + " " + "todo");
-		} else {
-			System.out.println("FAV" + " " + "todo");
-		}
-		System.out.println("NOTES " + ((Integer.parseInt(requete[1])) - 1));
-		System.out.println("COLOR " + " " + ColorChoose.indexOf(requete[2]));
-		System.out.println("MOT CLES" + " " + modele.MapTags.get(requete[3]));
+		ArrayList<String> NotesRequetes = new ArrayList<String>(Arrays.asList(requete[1].split(" ")));
+		ArrayList<String> CouleursRequetes = new ArrayList<String>(Arrays.asList(requete[2].split(" ")));
+		System.out.println(NotesRequetes);
+		System.out.println(CouleursRequetes);
+		
+		
+	
+		// System.out.println(modele.ImagesFav);
+		// System.out.println(modele.SetEveryImagesName);
+		//
+		// System.out.println(requete[0] + " " + requete[1] + " " + requete[2] + " " +
+		// requete[3] + " " + requete[4]);
+		// if (requete[0] == "oui") {
+		// System.out.println("seulement FAV" + " " + modele.ImagesFav);
+		// } else if (requete[0] == "non") {
+		// System.out.println("seulement non FAV" + " " + "todo");
+		// } else {
+		// System.out.println("toutes FAV" + " " + "todo");
+		// }
+		//
+		// System.out.println("NOTES " + ((Integer.parseInt(requete[1])) - 1));
+		// System.out.println("COLOR " + " " + ColorChoose.indexOf(requete[2]));
+		// System.out.println("MOT CLES" + " " + modele.MapTags.get(requete[3]));
 
 	}
 

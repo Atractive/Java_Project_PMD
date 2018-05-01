@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -25,7 +26,7 @@ public class ModeleTest {
 
 	ArrayList<ImageBI> Limages_unserialized = new ArrayList<ImageBI>();
 	ArrayList<ImageBI> Limages_loaddata = new ArrayList<ImageBI>();
-
+	
 	//// TRI
 
 	HashSet<String> ImagesFav = new HashSet<String>();
@@ -53,6 +54,9 @@ public class ModeleTest {
 	Map<Integer, HashSet<String>> MapImagesCptOpen = Collections
 			.synchronizedMap(Collections.synchronizedMap(new TreeMap<Integer, HashSet<String>>()));
 
+	HashSet<String> SetEveryImagesName = new HashSet<String>();
+	
+	
 	//// TRI
 
 	private ModeleTest modele;
@@ -69,7 +73,7 @@ public class ModeleTest {
 		}
 
 		System.out.println(this.Limages.size());
-		DataFavoris();
+		DataFavoris(); // On rempli aussi dans cette fonction SetEveryImagesName
 		ImagesEtoiles();
 		ImagesTags();
 		ImagesTailles();
@@ -134,6 +138,7 @@ public class ModeleTest {
 
 	public void DataFavoris() {
 		for (int i = 0; i < this.Limages.size(); i++) {
+			this.SetEveryImagesName.add(this.Limages.get(i).path);
 			if (this.Limages.get(i).favoris == true) {
 				this.ImagesFav.add(this.Limages.get(i).path);
 			}
