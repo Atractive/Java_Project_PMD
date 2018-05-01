@@ -22,8 +22,7 @@ public class Main extends Application {
 		Parent firstUI = firstLoader.load();
 
 		Scene scene = new Scene(firstUI);
-		String css = getClass().getResource("style.css").toExternalForm();
-		scene.getStylesheets().add(css);
+
 		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		stage.setTitle("FXML Welcome");
 		stage.setScene(scene);
