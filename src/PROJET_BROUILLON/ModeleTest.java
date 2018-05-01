@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,6 +27,8 @@ public class ModeleTest {
 	ArrayList<ImageBI> Limages_unserialized = new ArrayList<ImageBI>();
 	ArrayList<ImageBI> Limages_loaddata = new ArrayList<ImageBI>();
 
+	ArrayList<String> LimagesPATH = new ArrayList<String>();
+
 	//// TRI
 
 	// FAVORIS
@@ -38,7 +41,9 @@ public class ModeleTest {
 	HashSet<String> SetImages4Etoile = new HashSet<String>();
 	HashSet<String> SetImages5Etoile = new HashSet<String>();
 
-	// "YELLOW", "GREEN", "BLUE", "PINK", "BROWN" ;
+	ArrayList<HashSet<String>> ListeSetImagesEtoiles = new ArrayList<HashSet<String>>(
+			Arrays.asList(SetImages1Etoile, SetImages2Etoile, SetImages3Etoile, SetImages4Etoile, SetImages5Etoile));
+
 	HashSet<String> SetImagesRed = new HashSet<String>();
 	HashSet<String> SetImagesBlue = new HashSet<String>();
 	HashSet<String> SetImagesGreen = new HashSet<String>();
@@ -46,7 +51,10 @@ public class ModeleTest {
 	HashSet<String> SetImagesCyan = new HashSet<String>();
 	HashSet<String> SetImagesMagenta = new HashSet<String>();
 
-	// TAILLE
+	ArrayList<HashSet<String>> ListeSetImagesCouleurs = new ArrayList<HashSet<String>>(Arrays.asList(SetImagesRed,
+			SetImagesBlue, SetImagesGreen, SetImagesOrange, SetImagesCyan, SetImagesMagenta));
+
+
 	Map<Integer, HashSet<String>> MapImagesTaille = new TreeMap<Integer, HashSet<String>>();
 
 	// POIDS
@@ -59,6 +67,9 @@ public class ModeleTest {
 	Map<Integer, HashSet<String>> MapImagesCptOpen = Collections
 			.synchronizedMap(Collections.synchronizedMap(new TreeMap<Integer, HashSet<String>>()));
 
+	HashSet<String> SetEveryImagesName = new HashSet<String>();
+
+	//// TRI
 
 	private ModeleTest modele;
 
@@ -74,21 +85,22 @@ public class ModeleTest {
 		}
 
 		System.out.println(this.Limages.size());
-		DataFavoris();
+		DataFavoris(); // On rempli aussi dans cette fonction SetEveryImagesName
 		ImagesEtoiles();
 		ImagesTags();
 		ImagesTailles();
 		ImagesCptOpen();
 		this.MapImagesPoids = this.MapImagesTaille;
+		this.SetEveryImagesName = new HashSet<String>(this.LimagesPATH);
 		// ImagesPoids();
-		// ImagesCouleurs();
+		ImagesCouleurs();
 		// System.out.println(this.MapImagesTaille);
 		// for (Integer key : MapImagesCptOpen.keySet()) {
 		// System.out.println(key + " " + MapImagesCptOpen.get(key));
 		// }
 		// System.out.println(this.ImagesFav);
 		// System.out.println("--------------------");
-		System.out.println(this.MapTags);
+		// System.out.println(this.MapTags);
 		// System.out.println("--------------------");
 		// System.out.println(this.SetImages1Etoile);
 		// System.out.println(this.SetImages2Etoile);
@@ -96,12 +108,12 @@ public class ModeleTest {
 		// System.out.println(this.SetImages4Etoile);
 		// System.out.println(this.SetImages5Etoile);
 		// System.out.println("--------------------");
-		// System.out.println(this.SetImagesRed);
-		// System.out.println(this.SetImagesBlue);
-		// System.out.println(this.SetImagesGreen);
-		// System.out.println(this.SetImagesCyan);
-		// System.out.println(this.SetImagesMagenta);
-		// System.out.println(this.MapImagesTaille);
+		// System.out.println("ROUGE" + this.SetImagesRed);
+		// System.out.println("BLUE" + this.SetImagesBlue);
+		// System.out.println("GREEN" + this.SetImagesGreen);
+		// System.out.println("CYAN" + this.SetImagesCyan);
+		// System.out.println("MAGENTA" + this.SetImagesMagenta);
+		// System.out.println("TAILLE" + this.MapImagesTaille);
 
 	}
 
@@ -139,6 +151,7 @@ public class ModeleTest {
 
 	public void DataFavoris() {
 		for (int i = 0; i < this.Limages.size(); i++) {
+			this.LimagesPATH.add(this.Limages.get(i).path);
 			if (this.Limages.get(i).favoris == true) {
 				this.ImagesFav.add(this.Limages.get(i).path);
 			}
@@ -174,23 +187,24 @@ public class ModeleTest {
 	public void ImagesCouleurs() {
 		for (int i = 0; i < this.Limages.size(); i++) {
 			String couleur = CouleurDominante.getDomintanteColor(this.Limages.get(i).path);
+			String chemin = this.Limages.get(i).path;
 			if (couleur == "Red") {
-				this.SetImagesRed.add(couleur);
+				this.SetImagesRed.add(chemin);
 			}
 			if (couleur == "Blue") {
-				this.SetImagesBlue.add(couleur);
+				this.SetImagesBlue.add(chemin);
 			}
 			if (couleur == "Green") {
-				this.SetImagesGreen.add(couleur);
+				this.SetImagesGreen.add(chemin);
 			}
 			if (couleur.equals("Cyan")) {
-				this.SetImagesCyan.add(couleur);
+				this.SetImagesCyan.add(chemin);
 			}
 			if (couleur == "Magenta") {
-				this.SetImagesMagenta.add(couleur);
+				this.SetImagesMagenta.add(chemin);
 			}
 			if (couleur == "Orange") {
-				this.SetImagesOrange.add(couleur);
+				this.SetImagesOrange.add(chemin);
 			}
 		}
 	}

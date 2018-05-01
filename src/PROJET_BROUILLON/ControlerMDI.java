@@ -19,8 +19,11 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ChoiceBox;
@@ -67,9 +70,9 @@ public class ControlerMDI {
 	@FXML
 	private ChoiceBox<String> MenuB1;
 	@FXML
-	private ChoiceBox<String> MenuB2;
+	private TextField MenuB2;
 	@FXML
-	private ChoiceBox<String> MenuB3;
+	private TextField MenuB3;
 	@FXML
 	private TextField MenuB4;
 	@FXML
@@ -95,6 +98,8 @@ public class ControlerMDI {
 	@FXML
 	private SplitPane SplitPaneImgComplete;
 	@FXML
+	private Button Aide_recherche;
+	@FXML
 	private TextField Snom;
 	@FXML
 	private TextField Staille;
@@ -119,7 +124,7 @@ public class ControlerMDI {
 
 	public String[] requete = new String[5];
 	public ArrayList<String> ColorChoose = new ArrayList<String>(
-			Arrays.asList("Rouge", "Bleu", "Vert", "Cyan", "Magenta", "ND"));
+			Arrays.asList("Rouge", "Bleu", "Vert", "Orange", "Cyan", "Magenta"));
 
 	//Constructeur et lien avec le MODELE
 	public ControlerMDI(ModeleTest modele) {
@@ -135,6 +140,7 @@ public class ControlerMDI {
 		ModifFXML();
 		InjectImages(modele.Limages);
 		résultat_requeteerche();
+		aide_recherche();
 		System.out.println("SOS");
 
 	}
@@ -147,13 +153,11 @@ public class ControlerMDI {
 
 		//Configuration des choix possibles pour les boutons
 		MenuB1.getItems().addAll("Oui", "Non", "ND");
-		MenuB2.getItems().addAll("1", "2", "3", "4", "5", "ND");
-		MenuB3.getItems().addAll(ColorChoose.get(0), ColorChoose.get(1), ColorChoose.get(2), ColorChoose.get(3),
-				ColorChoose.get(4), ColorChoose.get(5));
 		MenuB5.getItems().addAll("Taille", "Poids", "Nombre d'ouverture", "ND");
 
 		//Mise en place des choix par défault sur les boutons
 		MenuB1.setValue("Oui");
+
 		MenuB1.getStyleClass().add("but");
 		MenuB2.setValue("3");
 		MenuB2.getStyleClass().add("but");
@@ -168,15 +172,69 @@ public class ControlerMDI {
 
 	}
 
+
 	//Configuration du bouton de validation
+	private void new_contro() throws Exception{
+		FXMLLoader secondLoader = new FXMLLoader(getClass().getResource("AideRecherche.fxml"));
+		//secondLoader.setController(ControlerAR.class);
+
+
+		Stage stage = new Stage();
+		//AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("AideRecherche.fxml"));
+
+        Scene scene = new Scene(secondLoader.load(),400,400);
+        stage.setScene(scene);
+        stage.show();
+	}
+	private void aide_recherche(){
+		Aide_recherche.setOnAction(new EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent arg0){
+				// TODO Auto-generated method stub
+				System.out.println("coucou");
+				try {
+					new_contro();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			};
+		});
+
+	}
+
 	private void résultat_requeteerche() {
 		MenuB6.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				String[] tab = { MenuB1.getSelectionModel().getSelectedItem(),
-						MenuB2.getSelectionModel().getSelectedItem(), MenuB3.getSelectionModel().getSelectedItem(),
-						MenuB4.getText(), MenuB5.getSelectionModel().getSelectedItem() };
+
+				String menub2 = "";
+				String menub3 = "";
+				String menub4 = "";
+				if (MenuB2.getText() == null || MenuB2.getText().trim().isEmpty()) {
+					menub2 = "null";
+				} else {
+					menub2 = MenuB2.getText();
+				}
+				if (MenuB3.getText() == null || MenuB3.getText().trim().isEmpty()) {
+					menub3 = "null";
+
+				} else {
+					menub3 = MenuB3.getText();
+				}
+
+				if (MenuB4.getText() == null || MenuB4.getText().trim().isEmpty()) {
+					menub4 = "null";
+
+				} else {
+					menub4 = MenuB4.getText();
+				}
+
+				String[] tab = { MenuB1.getSelectionModel().getSelectedItem(), menub2, menub3, menub4,
+						MenuB5.getSelectionModel().getSelectedItem() };
 
 				buildListeTri(tab);
 
@@ -188,18 +246,123 @@ public class ControlerMDI {
 	//Methode pour trier les images en fonction des choix sur les boutons
 	private void buildListeTri(String[] requete) {
 		HashSet<String> TriBin = new HashSet<String>();
+		ArrayList<String> NotesRequetes = new ArrayList<String>(Arrays.asList(requete[1].split(" ")));
+		ArrayList<String> CouleursRequetes = new ArrayList<String>(Arrays.asList(requete[2].split(" ")));
+		System.out.println(NotesRequetes);
+		System.out.println(CouleursRequetes);
 
-		if (requete[0] == "oui") {
-			System.out.println("FAV" + " " + modele.ImagesFav);
-		} else if (requete[0] == "non") {
-			System.out.println("FAV" + " " + "todo");
+
+
+		// System.out.println(modele.ImagesFav);
+		// System.out.println(modele.SetEveryImagesName);
+		//
+		// System.out.println(requete[0] + " " + requete[1] + " " + requete[2] + " " +
+		// requete[3] + " " + requete[4]);
+		// if (requete[0] == "oui") {
+		// System.out.println("seulement FAV" + " " + modele.ImagesFav);
+		// } else if (requete[0] == "non") {
+		// System.out.println("seulement non FAV" + " " + "todo");
+		// } else {
+		// System.out.println("toutes FAV" + " " + "todo");
+		// }
+		//
+		// System.out.println("NOTES " + ((Integer.parseInt(requete[1])) - 1));
+		// System.out.println("COLOR " + " " + ColorChoose.indexOf(requete[2]));
+		// System.out.println("MOT CLES" + " " + modele.MapTags.get(requete[3]));
+
+		HashSet<String> SetEveryImagesNameCopy = new HashSet<>(modele.SetEveryImagesName);
+		ArrayList<String> RenvoiFinal = new ArrayList<String>();
+		ArrayList<ImageBI> RenvoiFinalDisplay = new ArrayList<ImageBI>();
+
+		if (requete[0] == "Oui") {
+			// System.out.println("seulement FAV" + " " + modele.ImagesFav);
+			TriBin.addAll(modele.ImagesFav);
+		} else if (requete[0] == "Non") {
+			// System.out.println("seulement non FAV" + " " + "todo");
+			SetEveryImagesNameCopy.removeAll(modele.ImagesFav);
+			TriBin.addAll(SetEveryImagesNameCopy);
+			// System.out.println(SetEveryImagesNameCopy);
+
 		} else {
-			System.out.println("FAV" + " " + "todo");
-		}
-		System.out.println("NOTES " + ((Integer.parseInt(requete[1])) - 1));
-		System.out.println("COLOR " + " " + ColorChoose.indexOf(requete[2]));
-		System.out.println("MOT CLES" + " " + modele.MapTags.get(requete[3]));
+			// System.out.println("toutes FAV" + " " + "todo");
+			TriBin.addAll(modele.SetEveryImagesName);
 
+		}
+
+		if (requete[1] != "null") {
+			ArrayList<String> Notesrequetes = new ArrayList<String>(Arrays.asList(requete[1].split(" ")));
+			for (int i = 0; i < Notesrequetes.size(); i++) {
+				int tempNote = Integer.parseInt(Notesrequetes.get(i));
+				if (tempNote == 1) {
+					TriBin.retainAll(modele.SetImages1Etoile);
+				} else if (tempNote == 2) {
+					TriBin.retainAll(modele.SetImages2Etoile);
+				} else if (tempNote == 3) {
+					TriBin.retainAll(modele.SetImages3Etoile);
+				} else if (tempNote == 4) {
+					TriBin.retainAll(modele.SetImages4Etoile);
+				} else {
+					TriBin.retainAll(modele.SetImages5Etoile);
+				}
+			}
+		}
+
+		if (requete[2] != "null") {
+			ArrayList<String> Couleursrequetes = new ArrayList<String>(Arrays.asList(requete[2].split(" ")));
+			// System.out.println(Couleursrequetes);
+			for (int i = 0; i < Couleursrequetes.size(); i++) {
+				// System.out.println(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
+				//TriBin.retainAll(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
+			}
+		}
+
+		if (requete[3] != "null") {
+			ArrayList<String> Tagsrequetes = new ArrayList<String>(Arrays.asList(requete[3].split(" ")));
+			// System.out.println(Tagsrequetes);
+			// System.out.println(Tagsrequetes);
+			for (int i = 0; i < Tagsrequetes.size(); i++) {
+				// System.out.println(Tagsrequetes.get(i) + " " +
+				// modele.MapTags.get(Tagsrequetes.get(i)));
+				TriBin.retainAll(modele.MapTags.get(Tagsrequetes.get(i)));
+			}
+		}
+
+		// System.out.println(TriBin);
+		// System.out.println(requete[4]);
+
+		if (requete[4] == "Taille" || requete[4] == "Poids") {
+			for (Integer key : modele.MapImagesTaille.keySet()) {
+				// System.out.println(key + " " + modele.MapImagesTaille.get(key));
+				for (String s : TriBin) {
+					// System.out.println(modele.MapImagesTaille.get(key) + " " + s + " | " +
+					// modele.MapImagesTaille.get(key).contains(s));
+					if (modele.MapImagesTaille.get(key).contains(s)) {
+						RenvoiFinal.add(s);
+					}
+				}
+			}
+		} else {
+			for (Integer key : modele.MapImagesCptOpen.keySet()) {
+				// System.out.println(key + " " + modele.MapImagesCptOpen.get(key));
+				for (String s : TriBin) {
+					if ((modele.MapImagesCptOpen.get(key).contains(s))) {
+						RenvoiFinal.add(s);
+					}
+				}
+			}
+		}
+
+
+		// System.out.println(RenvoiFinal);
+		for (int i = 0; i < RenvoiFinal.size(); i++) {
+			int indexTempImageBI = (modele.LimagesPATH.indexOf(RenvoiFinal.get(i)));
+			RenvoiFinalDisplay.add(modele.Limages.get(indexTempImageBI));
+		}
+		System.out.println(RenvoiFinalDisplay); // IMAGESBI DU TRI DE L'UTILISATEUR
+		TilePaneGalerie.getChildren().clear();
+		InjectImages(RenvoiFinalDisplay);
+
+		System.out.println(RenvoiFinal);
 	}
 
 	// private void ajouter_image() {
@@ -271,97 +434,104 @@ public class ControlerMDI {
 	// });
 	// }
 
+<<<<<<< HEAD
 	//Méthode qui assure le chargement des images
 	private void InjectImages(ArrayList<ImageBI> LimagesC) { // ajouter un paramètre étant une liste de string que sont
 																// les paths des images
 		// à display.
+=======
 
+>>>>>>> 175703589699e826877178b373eb075550532ee9
+
+	private void InjectImages(ArrayList<ImageBI> LimagesC) {
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
 		TilePaneGalerie.setHgap(10);
 		TilePaneGalerie.getStyleClass().add("tpg");
 
-		// ArrayList<ImageBI> LimagesC = this.modele.Limages;
-		// System.out.println(this.modele.Limages);
 		for (int i = 0; i < LimagesC.size(); i++) {
 			ImageView imageView;
 			imageView = createImageView(LimagesC.get(i));
 			imageView.setId(String.valueOf(i));
-			imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				public void handle(MouseEvent event) { // Au clic, changement de tab et affichage de l'image
-					if (event.getButton().equals(MouseButton.PRIMARY)) {
-						if (event.getClickCount() == 2) {
-							TabP.getSelectionModel().selectNext(); // Change de tab
-							String source2 = event.getPickResult().getIntersectedNode().getId();
-							temp_index = source2;
-							// System.out.println(temp_index);
-							ImageView temp = new ImageView();
-							final ImageBI img = LimagesC.get(Integer.parseInt(source2));
-							Image tempI = new Image("file:" + img.path);
-							BorderPane borderPane = new BorderPane();
-							temp.setImage(tempI);
-							temp.setStyle("-fx-background-color: BLACK");
-							temp.setFitHeight(LeftImgComplete.getHeight());
-							temp.setPreserveRatio(true);
-							temp.setSmooth(true);
-							temp.setCache(true);
-							borderPane.setCenter(temp);
-							borderPane.setStyle("-fx-background-color: BLACK");
-							LeftImgComplete.getChildren().add(borderPane);
-							LeftImgComplete.getChildren().clear();
-							LeftImgComplete.getChildren().add(temp);
-
-							Snom.textProperty().setValue(img.nom);
-							Staille.textProperty().setValue(
-									(int) Math.round(tempI.getWidth()) + " x " + (int) Math.round(tempI.getHeight()));
-							Spoids.textProperty()
-									.setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() * 4)));
-							Stags.textProperty().setValue(img.show_Tags(img.mots_clefs));
-							SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
-							img.Increase_nbOuverture();
-							Sopen.setText(String.valueOf(img.nb_ouverture));
-
-							Scolors.setText(img.couleur);
-							Sfavoris.setSelected(img.favoris);
-							Snote.setValue(img.etoile);
-
-							Snom.setEditable(false);
-							Staille.setEditable(false);
-							Spoids.setEditable(false);
-							Scolors.setEditable(false);
-
-							@SuppressWarnings("unused")
-							HashSet<String> toworkValue = new HashSet<String>();
-							int toworkKey = 0;
-							// System.out.println("before" + modele.MapImagesCptOpen);
-							for (Integer key : modele.MapImagesCptOpen.keySet()) {
-								if (modele.MapImagesCptOpen.get(key)
-										.contains(modele.Limages.get(Integer.parseInt(temp_index)).path)) {
-									toworkValue = modele.MapImagesCptOpen.get(key);
-									toworkKey = key;
-								}
-
-							}
-
-							if (modele.MapImagesCptOpen.containsKey(toworkKey + 1)) {
-								modele.MapImagesCptOpen.get(toworkKey + 1)
-										.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
-								modele.MapImagesCptOpen.get(toworkKey)
-										.remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
-
-							} else {
-								HashSet<String> tempAdd = new HashSet<String>();
-								tempAdd.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
-								modele.MapImagesCptOpen.put(toworkKey + 1, tempAdd);
-								modele.MapImagesCptOpen.get(toworkKey)
-										.remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
-
-							}
-							// System.out.println("after" + modele.MapImagesCptOpen);
-							// System.out.println("-------------------");
-						}
-					}
-				}
-			});
+			System.out.println(LimagesC.get(i));
+			// imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			// public void handle(MouseEvent event) { // Au clic, changement de tab et
+			// affichage de l'image
+			// if (event.getButton().equals(MouseButton.PRIMARY)) {
+			// if (event.getClickCount() == 2) {
+			// TabP.getSelectionModel().selectNext(); // Change de tab
+			// String source2 = event.getPickResult().getIntersectedNode().getId();
+			// temp_index = source2;
+			// // System.out.println(temp_index);
+			// ImageView temp = new ImageView();
+			// final ImageBI img = LimagesC.get(Integer.parseInt(source2));
+			// Image tempI = new Image("file:" + img.path);
+			// BorderPane borderPane = new BorderPane();
+			// temp.setImage(tempI);
+			// temp.setStyle("-fx-background-color: BLACK");
+			// temp.setFitHeight(LeftImgComplete.getHeight());
+			// temp.setPreserveRatio(true);
+			// temp.setSmooth(true);
+			// temp.setCache(true);
+			// borderPane.setCenter(temp);
+			// borderPane.setStyle("-fx-background-color: BLACK");
+			// LeftImgComplete.getChildren().add(borderPane);
+			// LeftImgComplete.getChildren().clear();
+			// LeftImgComplete.getChildren().add(temp);
+			//
+			// Snom.textProperty().setValue(img.nom);
+			// Staille.textProperty().setValue(
+			// (int) Math.round(tempI.getWidth()) + " x " + (int)
+			// Math.round(tempI.getHeight()));
+			// Spoids.textProperty()
+			// .setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() *
+			// 4)));
+			// Stags.textProperty().setValue(img.show_Tags(img.mots_clefs));
+			// SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
+			// img.Increase_nbOuverture();
+			// Sopen.setText(String.valueOf(img.nb_ouverture));
+			//
+			// Scolors.setText(img.couleur);
+			// Sfavoris.setSelected(img.favoris);
+			// Snote.setValue(img.etoile);
+			//
+			// Snom.setEditable(false);
+			// Staille.setEditable(false);
+			// Spoids.setEditable(false);
+			// Scolors.setEditable(false);
+			//
+			// @SuppressWarnings("unused")
+			// HashSet<String> toworkValue = new HashSet<String>();
+			// int toworkKey = 0;
+			// // System.out.println("before" + modele.MapImagesCptOpen);
+			// for (Integer key : modele.MapImagesCptOpen.keySet()) {
+			// if (modele.MapImagesCptOpen.get(key)
+			// .contains(modele.Limages.get(Integer.parseInt(temp_index)).path)) {
+			// toworkValue = modele.MapImagesCptOpen.get(key);
+			// toworkKey = key;
+			// }
+			//
+			// }
+			//
+			// if (modele.MapImagesCptOpen.containsKey(toworkKey + 1)) {
+			// modele.MapImagesCptOpen.get(toworkKey + 1)
+			// .add(modele.Limages.get(Integer.parseInt(temp_index)).path);
+			// modele.MapImagesCptOpen.get(toworkKey)
+			// .remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
+			//
+			// } else {
+			// HashSet<String> tempAdd = new HashSet<String>();
+			// tempAdd.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
+			// modele.MapImagesCptOpen.put(toworkKey + 1, tempAdd);
+			// modele.MapImagesCptOpen.get(toworkKey)
+			// .remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
+			//
+			// }
+			// // System.out.println("after" + modele.MapImagesCptOpen);
+			// // System.out.println("-------------------");
+			// }
+			// }
+			// }
+			// });
 
 			//Configuration de la zone de texte pour les tags
 			Stags.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -502,4 +672,72 @@ public class ControlerMDI {
 
 	}
 
+	// private void ajouter_image() {
+	// Button6.setOnAction(new EventHandler<ActionEvent>() {
+	//
+	// @Override
+	// public void handle(final ActionEvent e) {
+	// FileChooser filechooser = new FileChooser();
+	// filechooser.getExtensionFilters()
+	// .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
+	// "*jpeg"));
+	//
+	// Stage newWindow = new Stage();
+	//
+	// newWindow.setTitle("Second Stage");
+	//
+	// // Specifies the modality for new window.
+	// newWindow.initModality(Modality.WINDOW_MODAL);
+	//
+	// File list = filechooser.showOpenDialog(newWindow);
+	// if (list != null) {
+	//
+	// try {
+	// Files.move(FileSystems.getDefault().getPath(list.getPath()),
+	// FileSystems.getDefault().getPath(new File("Images/" +
+	// list.getName()).getPath()),
+	// StandardCopyOption.REPLACE_EXISTING);
+	// } catch (IOException e1) {
+	// e1.printStackTrace();
+	// }
+	// TilePaneGalerie.getChildren().clear();
+	// InjectImages();
+	// }
+	// }
+	// });
+	// }
+	//
+	// private void supprimer_image() {
+	// Button7.setOnAction(new EventHandler<ActionEvent>() {
+	//
+	// @Override
+	// public void handle(final ActionEvent e) {
+	// FileChooser filechooser = new FileChooser();
+	// filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files",
+	// "*.png", "*.jpg", "*.gif"));
+	//
+	// filechooser.setInitialDirectory(new File("Images"));
+	//
+	// Stage newWindow = new Stage();
+	//
+	// newWindow.setTitle("Second Stage");
+	//
+	// // Specifies the modality for new window.
+	// newWindow.initModality(Modality.WINDOW_MODAL);
+	//
+	// File list = filechooser.showOpenDialog(newWindow);
+	//
+	// if (list != null) {
+	// try {
+	// Files.delete(FileSystems.getDefault().getPath(new File("Images/" +
+	// list.getName()).getPath()));
+	// } catch (IOException e1) {
+	// e1.printStackTrace();
+	// }
+	// TilePaneGalerie.getChildren().clear();
+	// InjectImages();
+	// }
+	// }
+	// });
+	// }
 }
