@@ -435,7 +435,7 @@ public class ControlerMDI {
 					}
 				}
 			}
-		} else if (requete[4] == "NB") {
+		} else if (requete[4] == "ND") {
 			RenvoiFinal.addAll(TriBin);
 			RenvoiFinal.sort(String::compareToIgnoreCase);
 

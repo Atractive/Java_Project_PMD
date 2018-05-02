@@ -37,8 +37,14 @@
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Favoris" />
                               <ChoiceBox fx:id="MenuB1" prefHeight="25.0" prefWidth="85.0" />
                               <Separator prefWidth="200.0" />
-                              <RadioButton fx:id="MenuB1et" mnemonicParsing="false" text="ET" />
-                              <RadioButton fx:id="MenuB1ou" mnemonicParsing="false" text="OU" />
+                              <RadioButton fx:id="MenuB1et" mnemonicParsing="false" text="ET">
+                                 <font>
+                                    <Font name="Liberation Mono" size="12.0" />
+                                 </font></RadioButton>
+                              <RadioButton fx:id="MenuB1ou" mnemonicParsing="false" text="OU">
+                                 <font>
+                                    <Font name="Liberation Mono" size="12.0" />
+                                 </font></RadioButton>
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER" prefHeight="56.0">
@@ -46,24 +52,45 @@
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Notes" />
                               <HBox alignment="CENTER">
                                  <children>
-                                    <CheckBox fx:id="MenuB21" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="1 " />
-                                    <CheckBox fx:id="MenuB22" mnemonicParsing="false" text="2" />
+                                    <CheckBox fx:id="MenuB21" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="1">
+                                       <font>
+                                          <Font name="Liberation Mono" size="12.0" />
+                                       </font></CheckBox>
+                                    <CheckBox fx:id="MenuB22" mnemonicParsing="false" text="2">
+                                       <font>
+                                          <Font name="Liberation Mono" size="12.0" />
+                                       </font></CheckBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <CheckBox fx:id="MenuB23" mnemonicParsing="false" text="3 " />
-                                    <CheckBox fx:id="MenuB24" mnemonicParsing="false" text="4" />
+                                    <CheckBox fx:id="MenuB23" mnemonicParsing="false" text="3">
+                                       <font>
+                                          <Font name="Liberation Mono" size="12.0" />
+                                       </font></CheckBox>
+                                    <CheckBox fx:id="MenuB24" mnemonicParsing="false" text="4">
+                                       <font>
+                                          <Font name="Liberation Mono" size="12.0" />
+                                       </font></CheckBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <CheckBox fx:id="MenuB25" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="5" />
+                                    <CheckBox fx:id="MenuB25" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="5">
+                                       <font>
+                                          <Font name="Liberation Mono" size="12.0" />
+                                       </font></CheckBox>
                                  </children>
                               </HBox>
                               <Separator prefWidth="200.0" />
-                              <RadioButton fx:id="MenuB2et" mnemonicParsing="false" text="ET" />
-                              <RadioButton fx:id="MenuB2ou" mnemonicParsing="false" text="OU" />
+                              <RadioButton fx:id="MenuB2et" mnemonicParsing="false" text="ET">
+                                 <font>
+                                    <Font name="Liberation Mono" size="12.0" />
+                                 </font></RadioButton>
+                              <RadioButton fx:id="MenuB2ou" mnemonicParsing="false" text="OU">
+                                 <font>
+                                    <Font name="Liberation Mono" size="12.0" />
+                                 </font></RadioButton>
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER" prefHeight="56.0">
@@ -71,25 +98,49 @@
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Couleur" />
                               <HBox alignment="CENTER">
                                  <children>
-                                    <CheckBox fx:id="MenuB3r" mnemonicParsing="false" text="R " textFill="RED" />
-                                    <CheckBox fx:id="MenuB3b" mnemonicParsing="false" text="B" textFill="#0400ff" />
+                                    <CheckBox fx:id="MenuB3r" mnemonicParsing="false" text="R " textFill="RED">
+                                       <font>
+                                          <Font name="Liberation Mono Bold" size="12.0" />
+                                       </font></CheckBox>
+                                    <CheckBox fx:id="MenuB3b" mnemonicParsing="false" text="B" textFill="#0400ff">
+                                       <font>
+                                          <Font name="Liberation Mono Bold" size="12.0" />
+                                       </font></CheckBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <CheckBox fx:id="MenuB3v" mnemonicParsing="false" text="V " textFill="#49bc37" />
-                                    <CheckBox fx:id="MenuB3c" mnemonicParsing="false" text="C" textFill="#10bdfc" />
+                                    <CheckBox fx:id="MenuB3v" mnemonicParsing="false" text="V " textFill="#49bc37">
+                                       <font>
+                                          <Font name="Liberation Mono Bold" size="12.0" />
+                                       </font></CheckBox>
+                                    <CheckBox fx:id="MenuB3c" mnemonicParsing="false" text="C" textFill="#10bdfc">
+                                       <font>
+                                          <Font name="Liberation Mono Bold" size="12.0" />
+                                       </font></CheckBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <CheckBox fx:id="MenuB3m" mnemonicParsing="false" text="M" textFill="#cd2389" />
-                                    <CheckBox fx:id="MenuB3o" mnemonicParsing="false" text="O" textFill="#e1a51b" />
+                                    <CheckBox fx:id="MenuB3m" mnemonicParsing="false" text="M " textFill="#cd2389">
+                                       <font>
+                                          <Font name="Liberation Mono Bold" size="12.0" />
+                                       </font></CheckBox>
+                                    <CheckBox fx:id="MenuB3o" mnemonicParsing="false" text="O" textFill="#e1a51b">
+                                       <font>
+                                          <Font name="Liberation Mono Bold" size="12.0" />
+                                       </font></CheckBox>
                                  </children>
                               </HBox>
                               <Separator prefWidth="200.0" />
-                              <RadioButton fx:id="MenuB3et" mnemonicParsing="false" text="ET" />
-                              <RadioButton fx:id="MenuB3ou" mnemonicParsing="false" text="OU" />
+                              <RadioButton fx:id="MenuB3et" mnemonicParsing="false" text="ET">
+                                 <font>
+                                    <Font name="Liberation Mono" size="12.0" />
+                                 </font></RadioButton>
+                              <RadioButton fx:id="MenuB3ou" mnemonicParsing="false" text="OU">
+                                 <font>
+                                    <Font name="Liberation Mono" size="12.0" />
+                                 </font></RadioButton>
                               <Label prefHeight="23.0" prefWidth="1.0" />
                            </children>
                         </VBox>
