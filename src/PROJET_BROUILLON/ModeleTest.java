@@ -95,17 +95,21 @@ public class ModeleTest {
 		// System.out.println("--------------------");
 		// System.out.println(this.MapTags);
 		// System.out.println("--------------------");
-		// System.out.println(this.SetImages1Etoile);
-		// System.out.println(this.SetImages2Etoile);
-		// System.out.println(this.SetImages3Etoile);
-		// System.out.println(this.SetImages4Etoile);
-		// System.out.println(this.SetImages5Etoile);
+//		 System.out.println(this.SetImages1Etoile);
+//		 System.out.println(this.SetImages2Etoile);
+//		 System.out.println(this.SetImages3Etoile);
+//		 System.out.println(this.SetImages4Etoile);
+//		 System.out.println(this.SetImages5Etoile);
 		// System.out.println("--------------------");
-		// System.out.println("ROUGE" + this.SetImagesRed);
-		// System.out.println("BLUE" + this.SetImagesBlue);
-		// System.out.println("GREEN" + this.SetImagesGreen);
-		// System.out.println("CYAN" + this.SetImagesCyan);
-		// System.out.println("MAGENTA" + this.SetImagesMagenta);
+		System.out.println("ROUGE" + this.SetImagesRed);
+		System.out.println("BLUE" + this.SetImagesBlue);
+		System.out.println("GREEN" + this.SetImagesGreen);
+		System.out.println("CYAN" + this.SetImagesCyan);
+		System.out.println("MAGENTA" + this.SetImagesMagenta);
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
 		// System.out.println("TAILLE" + this.MapImagesTaille);
 
 	}

@@ -26,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -35,7 +36,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -68,12 +69,47 @@ public class ControlerMDI {
 	private AnchorPane SplitAnchor1;
 	@FXML
 	private ButtonBar ButtonB;
+
+	@FXML
+	private RadioButton MenuB1et;
+	@FXML
+	private RadioButton MenuB1ou;
+	@FXML
+	private RadioButton MenuB2et;
+	@FXML
+	private RadioButton MenuB2ou;
+	@FXML
+	private RadioButton MenuB3et;
+	@FXML
+	private RadioButton MenuB3ou;
+	@FXML
+	private RadioButton MenuB4et;
+	@FXML
+	private RadioButton MenuB4ou;
 	@FXML
 	private ChoiceBox<String> MenuB1;
 	@FXML
-	private TextField MenuB2;
+	private CheckBox MenuB21;
 	@FXML
-	private TextField MenuB3;
+	private CheckBox MenuB22;
+	@FXML
+	private CheckBox MenuB23;
+	@FXML
+	private CheckBox MenuB24;
+	@FXML
+	private CheckBox MenuB25;
+	@FXML
+	private CheckBox MenuB3r;
+	@FXML
+	private CheckBox MenuB3v;
+	@FXML
+	private CheckBox MenuB3b;
+	@FXML
+	private CheckBox MenuB3c;
+	@FXML
+	private CheckBox MenuB3m;
+	@FXML
+	private CheckBox MenuB3o;
 	@FXML
 	private TextField MenuB4;
 	@FXML
@@ -122,10 +158,14 @@ public class ControlerMDI {
 	private AnchorPane RightImgComplete;
 	@FXML
 	private ImageView ImageViewImgComplete;
+	ToggleGroup toggleGroup1 = new ToggleGroup();
+	ToggleGroup toggleGroup2 = new ToggleGroup();
+	ToggleGroup toggleGroup3 = new ToggleGroup();
+	ToggleGroup toggleGroup4 = new ToggleGroup();
 
 	public String[] requete = new String[5];
 	public ArrayList<String> ColorChoose = new ArrayList<String>(
-			Arrays.asList("Rouge", "Bleu", "Vert", "Orange", "Cyan", "Magenta"));
+			Arrays.asList("Rouge", "Bleu", "Vert", "Cyan", "Magenta", "Orange"));
 
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
@@ -143,6 +183,15 @@ public class ControlerMDI {
 	}
 
 	private void ModifFXML() {
+
+		MenuB1et.setToggleGroup(toggleGroup1);
+		MenuB1ou.setToggleGroup(toggleGroup1);
+		MenuB2et.setToggleGroup(toggleGroup2);
+		MenuB2ou.setToggleGroup(toggleGroup2);
+		MenuB3et.setToggleGroup(toggleGroup3);
+		MenuB3ou.setToggleGroup(toggleGroup3);
+		MenuB4et.setToggleGroup(toggleGroup4);
+		MenuB4ou.setToggleGroup(toggleGroup4);
 		SplitP.setDividerPositions(0.1);
 		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5));
 		MenuB1.getItems().addAll("Oui", "Non", "ND");
@@ -152,23 +201,24 @@ public class ControlerMDI {
 
 	}
 
-	private void new_contro() throws Exception{
+	private void new_contro() throws Exception {
 		FXMLLoader secondLoader = new FXMLLoader(getClass().getResource("AideRecherche.fxml"));
-		//secondLoader.setController(ControlerAR.class);
-
+		// secondLoader.setController(ControlerAR.class);
 
 		Stage stage = new Stage();
-		//AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("AideRecherche.fxml"));
+		// AnchorPane root = (AnchorPane)
+		// FXMLLoader.load(getClass().getResource("AideRecherche.fxml"));
 
-        Scene scene = new Scene(secondLoader.load(),400,400);
-        stage.setScene(scene);
-        stage.show();
+		Scene scene = new Scene(secondLoader.load(), 400, 400);
+		stage.setScene(scene);
+		stage.show();
 	}
-	private void aide_recherche(){
-		Aide_recherche.setOnAction(new EventHandler<ActionEvent>(){
+
+	private void aide_recherche() {
+		Aide_recherche.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
-			public void handle(ActionEvent arg0){
+			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				System.out.println("coucou");
 				try {
@@ -188,20 +238,32 @@ public class ControlerMDI {
 
 			@Override
 			public void handle(ActionEvent arg0) {
+				ArrayList<CheckBox> EtoilesCB = new ArrayList<CheckBox>(
+						Arrays.asList(MenuB21, MenuB22, MenuB23, MenuB24, MenuB25));
+				ArrayList<CheckBox> ColorsCB = new ArrayList<CheckBox>(
+						Arrays.asList(MenuB3r, MenuB3b, MenuB3v, MenuB3c, MenuB3m, MenuB3o));
+				ArrayList<RadioButton> RB = new ArrayList<RadioButton>(
+						Arrays.asList(MenuB1et, MenuB2et, MenuB3et, MenuB4et));
+				String MenuB2E = "";
+				String MenuB3E = "";
 
-				String menub2 = "";
-				String menub3 = "";
-				String menub4 = "";
-				if (MenuB2.getText() == null || MenuB2.getText().trim().isEmpty()) {
-					menub2 = "null";
-				} else {
-					menub2 = MenuB2.getText();
+				for (int i = 0; i < EtoilesCB.size(); i++) {
+					if (EtoilesCB.get(i).isSelected() == true) {
+						MenuB2E += (i + 1) + " ";
+					}
 				}
-				if (MenuB3.getText() == null || MenuB3.getText().trim().isEmpty()) {
-					menub3 = "null";
+				for (int i = 0; i < ColorsCB.size(); i++) {
+					if (ColorsCB.get(i).isSelected() == true) {
+						MenuB3E += ColorChoose.get(i) + " ";
+					}
+				}
 
-				} else {
-					menub3 = MenuB3.getText();
+				String menub4 = "";
+				if (MenuB2E.equals("")) {
+					MenuB2E = "null";
+				}
+				if (MenuB3E.equals("")) {
+					MenuB3E = "null";
 				}
 
 				if (MenuB4.getText() == null || MenuB4.getText().trim().isEmpty()) {
@@ -210,39 +272,37 @@ public class ControlerMDI {
 				} else {
 					menub4 = MenuB4.getText();
 				}
-
-				String[] tab = { MenuB1.getSelectionModel().getSelectedItem(), menub2, menub3, menub4,
+				String[] tab = { MenuB1.getSelectionModel().getSelectedItem(), MenuB2E, MenuB3E, menub4,
 						MenuB5.getSelectionModel().getSelectedItem() };
+				String ETOR = "";
 
-				buildListeTri(tab);
+				for (int i = 0; i < RB.size(); i++) {
+					if (RB.get(i).isSelected() == true) {
+						ETOR += "1" + " ";
+					} else {
+						ETOR += "0" + " ";
+					}
+				}
 
+				buildListeTri(tab, ETOR);
+				// ET -> 1 | OU -> 0
 			};
 		});
 
 	}
 
-	private void buildListeTri(String[] requete) {
+	private void buildListeTri(String[] requete, String ETOR) {
 		HashSet<String> TriBin = new HashSet<String>();
 		ArrayList<String> NotesRequetes = new ArrayList<String>(Arrays.asList(requete[1].split(" ")));
 		ArrayList<String> CouleursRequetes = new ArrayList<String>(Arrays.asList(requete[2].split(" ")));
-		System.out.println(NotesRequetes);
-		System.out.println(CouleursRequetes);
+		ArrayList<String> ANDOR = new ArrayList<String>(Arrays.asList(ETOR.split(" ")));
+		String ETOUfav = ANDOR.get(0);
+		String ETOUnote = ANDOR.get(1);
+		String ETOUcouleur = ANDOR.get(2);
+		String ETOUtag = ANDOR.get(3);
+		// System.out.println(NotesRequetes);
+		// System.out.println(CouleursRequetes);
 
-
-
-		// System.out.println(modele.ImagesFav);
-		// System.out.println(modele.SetEveryImagesName);
-		//
-		// System.out.println(requete[0] + " " + requete[1] + " " + requete[2] + " " +
-		// requete[3] + " " + requete[4]);
-		// if (requete[0] == "oui") {
-		// System.out.println("seulement FAV" + " " + modele.ImagesFav);
-		// } else if (requete[0] == "non") {
-		// System.out.println("seulement non FAV" + " " + "todo");
-		// } else {
-		// System.out.println("toutes FAV" + " " + "todo");
-		// }
-		//
 		// System.out.println("NOTES " + ((Integer.parseInt(requete[1])) - 1));
 		// System.out.println("COLOR " + " " + ColorChoose.indexOf(requete[2]));
 		// System.out.println("MOT CLES" + " " + modele.MapTags.get(requete[3]));
@@ -251,62 +311,81 @@ public class ControlerMDI {
 		ArrayList<String> RenvoiFinal = new ArrayList<String>();
 		ArrayList<ImageBI> RenvoiFinalDisplay = new ArrayList<ImageBI>();
 
+		HashSet<String> TriBinFav = new HashSet<String>();
 		if (requete[0] == "Oui") {
 			// System.out.println("seulement FAV" + " " + modele.ImagesFav);
-			TriBin.addAll(modele.ImagesFav);
+			TriBinFav.addAll(modele.ImagesFav);
 		} else if (requete[0] == "Non") {
 			// System.out.println("seulement non FAV" + " " + "todo");
 			SetEveryImagesNameCopy.removeAll(modele.ImagesFav);
-			TriBin.addAll(SetEveryImagesNameCopy);
+			TriBinFav.addAll(SetEveryImagesNameCopy);
 			// System.out.println(SetEveryImagesNameCopy);
 
 		} else {
 			// System.out.println("toutes FAV" + " " + "todo");
-			TriBin.addAll(modele.SetEveryImagesName);
-
+			TriBinFav.addAll(modele.SetEveryImagesName);
 		}
 
+		HashSet<String> TriBinNotes = new HashSet<String>();
 		if (requete[1] != "null") {
 			ArrayList<String> Notesrequetes = new ArrayList<String>(Arrays.asList(requete[1].split(" ")));
 			for (int i = 0; i < Notesrequetes.size(); i++) {
 				int tempNote = Integer.parseInt(Notesrequetes.get(i));
 				if (tempNote == 1) {
-					TriBin.retainAll(modele.SetImages1Etoile);
+					TriBinNotes.addAll(modele.SetImages1Etoile);
 				} else if (tempNote == 2) {
-					TriBin.retainAll(modele.SetImages2Etoile);
+					TriBinNotes.addAll(modele.SetImages2Etoile);
 				} else if (tempNote == 3) {
-					TriBin.retainAll(modele.SetImages3Etoile);
+					TriBinNotes.addAll(modele.SetImages3Etoile);
 				} else if (tempNote == 4) {
-					TriBin.retainAll(modele.SetImages4Etoile);
+					TriBinNotes.addAll(modele.SetImages4Etoile);
 				} else {
-					TriBin.retainAll(modele.SetImages5Etoile);
+					TriBinNotes.addAll(modele.SetImages5Etoile);
 				}
 			}
 		}
-
+		HashSet<String> TriBinCouleurs = new HashSet<String>();
 		if (requete[2] != "null") {
 			ArrayList<String> Couleursrequetes = new ArrayList<String>(Arrays.asList(requete[2].split(" ")));
 			// System.out.println(Couleursrequetes);
 			for (int i = 0; i < Couleursrequetes.size(); i++) {
 				// System.out.println(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
-				//TriBin.retainAll(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
+				TriBinCouleurs.addAll(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
 			}
 		}
 
+		HashSet<String> TriBinTags = new HashSet<String>();
 		if (requete[3] != "null") {
 			ArrayList<String> Tagsrequetes = new ArrayList<String>(Arrays.asList(requete[3].split(" ")));
-			// System.out.println(Tagsrequetes);
-			// System.out.println(Tagsrequetes);
+			System.out.println(Tagsrequetes);
 			for (int i = 0; i < Tagsrequetes.size(); i++) {
 				// System.out.println(Tagsrequetes.get(i) + " " +
 				// modele.MapTags.get(Tagsrequetes.get(i)));
-				TriBin.retainAll(modele.MapTags.get(Tagsrequetes.get(i)));
+				TriBinTags.addAll(modele.MapTags.get(Tagsrequetes.get(i)));
 			}
 		}
 
+		TriBin.addAll(TriBinFav);
+		if (ETOUfav.equals("1")) {
+			TriBin.retainAll(TriBinNotes);
+		} else {
+			TriBin.addAll(TriBinNotes);
+		}
+		if (ETOUnote.equals("1")) {
+			TriBin.retainAll(TriBinCouleurs);
+		} else {
+			TriBin.addAll(TriBinCouleurs);
+		}
+		if (ETOUnote.equals("1")) {
+			TriBin.retainAll(TriBinTags);
+		} else {
+			TriBin.addAll(TriBinTags);
+		}
+
+		System.out.println("HERE MODIF" + " " + TriBin);
+
 		// System.out.println(TriBin);
 		// System.out.println(requete[4]);
-
 		if (requete[4] == "Taille" || requete[4] == "Poids") {
 			for (Integer key : modele.MapImagesTaille.keySet()) {
 				// System.out.println(key + " " + modele.MapImagesTaille.get(key));
@@ -318,7 +397,7 @@ public class ControlerMDI {
 					}
 				}
 			}
-		} else {
+		} else if (requete[4] == "Nombre d'ouverture") {
 			for (Integer key : modele.MapImagesCptOpen.keySet()) {
 				// System.out.println(key + " " + modele.MapImagesCptOpen.get(key));
 				for (String s : TriBin) {
@@ -327,91 +406,31 @@ public class ControlerMDI {
 					}
 				}
 			}
+		} else {
+			RenvoiFinal.addAll(TriBin);
+			// System.out.println("BEFORE" + " " + RenvoiFinal);
+			RenvoiFinal.sort(String::compareToIgnoreCase);
+			// System.out.println("AFTER" + " " + RenvoiFinal);
 		}
 
+		// System.out.println(requete[4]);
 
-		// System.out.println(RenvoiFinal);
 		for (int i = 0; i < RenvoiFinal.size(); i++) {
 			int indexTempImageBI = (modele.LimagesPATH.indexOf(RenvoiFinal.get(i)));
 			RenvoiFinalDisplay.add(modele.Limages.get(indexTempImageBI));
 		}
-		System.out.println(RenvoiFinalDisplay); // IMAGESBI DU TRI DE L'UTILISATEUR
+
+		System.out.println("last" + " " + RenvoiFinalDisplay); // IMAGESBI DU TRI DE L'UTILISATEUR
 		TilePaneGalerie.getChildren().clear();
-		InjectImages(RenvoiFinalDisplay);
 
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
 		System.out.println(RenvoiFinal);
+		InjectImages(RenvoiFinalDisplay);
 	}
-
-	// private void ajouter_image() {
-	// Button6.setOnAction(new EventHandler<ActionEvent>() {
-	//
-	// @Override
-	// public void handle(final ActionEvent e) {
-	// FileChooser filechooser = new FileChooser();
-	// filechooser.getExtensionFilters()
-	// .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
-	// "*jpeg"));
-	//
-	// Stage newWindow = new Stage();
-	//
-	// newWindow.setTitle("Second Stage");
-	//
-	// // Specifies the modality for new window.
-	// newWindow.initModality(Modality.WINDOW_MODAL);
-	//
-	// File list = filechooser.showOpenDialog(newWindow);
-	// if (list != null) {
-	//
-	// try {
-	// Files.move(FileSystems.getDefault().getPath(list.getPath()),
-	// FileSystems.getDefault().getPath(new File("Images/" +
-	// list.getName()).getPath()),
-	// StandardCopyOption.REPLACE_EXISTING);
-	// } catch (IOException e1) {
-	// e1.printStackTrace();
-	// }
-	// TilePaneGalerie.getChildren().clear();
-	// InjectImages();
-	// }
-	// }
-	// });
-	// }
-	//
-	// private void supprimer_image() {
-	// Button7.setOnAction(new EventHandler<ActionEvent>() {
-	//
-	// @Override
-	// public void handle(final ActionEvent e) {
-	// FileChooser filechooser = new FileChooser();
-	// filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files",
-	// "*.png", "*.jpg", "*.gif"));
-	//
-	// filechooser.setInitialDirectory(new File("Images"));
-	//
-	// Stage newWindow = new Stage();
-	//
-	// newWindow.setTitle("Second Stage");
-	//
-	// // Specifies the modality for new window.
-	// newWindow.initModality(Modality.WINDOW_MODAL);
-	//
-	// File list = filechooser.showOpenDialog(newWindow);
-	//
-	// if (list != null) {
-	// try {
-	// Files.delete(FileSystems.getDefault().getPath(new File("Images/" +
-	// list.getName()).getPath()));
-	// } catch (IOException e1) {
-	// e1.printStackTrace();
-	// }
-	// TilePaneGalerie.getChildren().clear();
-	// InjectImages();
-	// }
-	// }
-	// });
-	// }
-
-	
 
 	private void InjectImages(ArrayList<ImageBI> LimagesC) {
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
@@ -421,86 +440,89 @@ public class ControlerMDI {
 			ImageView imageView;
 			imageView = createImageView(LimagesC.get(i));
 			imageView.setId(String.valueOf(i));
-			System.out.println(LimagesC.get(i));
-			// imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			// public void handle(MouseEvent event) { // Au clic, changement de tab et
-			// affichage de l'image
-			// if (event.getButton().equals(MouseButton.PRIMARY)) {
-			// if (event.getClickCount() == 2) {
-			// TabP.getSelectionModel().selectNext(); // Change de tab
-			// String source2 = event.getPickResult().getIntersectedNode().getId();
-			// temp_index = source2;
-			// // System.out.println(temp_index);
-			// ImageView temp = new ImageView();
-			// final ImageBI img = LimagesC.get(Integer.parseInt(source2));
-			// Image tempI = new Image("file:" + img.path);
-			// BorderPane borderPane = new BorderPane();
-			// temp.setImage(tempI);
-			// temp.setStyle("-fx-background-color: BLACK");
-			// temp.setFitHeight(LeftImgComplete.getHeight());
-			// temp.setPreserveRatio(true);
-			// temp.setSmooth(true);
-			// temp.setCache(true);
-			// borderPane.setCenter(temp);
-			// borderPane.setStyle("-fx-background-color: BLACK");
-			// LeftImgComplete.getChildren().add(borderPane);
-			// LeftImgComplete.getChildren().clear();
-			// LeftImgComplete.getChildren().add(temp);
-			//
-			// Snom.textProperty().setValue(img.nom);
-			// Staille.textProperty().setValue(
-			// (int) Math.round(tempI.getWidth()) + " x " + (int)
-			// Math.round(tempI.getHeight()));
-			// Spoids.textProperty()
-			// .setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() *
-			// 4)));
-			// Stags.textProperty().setValue(img.show_Tags(img.mots_clefs));
-			// SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
-			// img.Increase_nbOuverture();
-			// Sopen.setText(String.valueOf(img.nb_ouverture));
-			//
-			// Scolors.setText(img.couleur);
-			// Sfavoris.setSelected(img.favoris);
-			// Snote.setValue(img.etoile);
-			//
-			// Snom.setEditable(false);
-			// Staille.setEditable(false);
-			// Spoids.setEditable(false);
-			// Scolors.setEditable(false);
-			//
-			// @SuppressWarnings("unused")
-			// HashSet<String> toworkValue = new HashSet<String>();
-			// int toworkKey = 0;
-			// // System.out.println("before" + modele.MapImagesCptOpen);
-			// for (Integer key : modele.MapImagesCptOpen.keySet()) {
-			// if (modele.MapImagesCptOpen.get(key)
-			// .contains(modele.Limages.get(Integer.parseInt(temp_index)).path)) {
-			// toworkValue = modele.MapImagesCptOpen.get(key);
-			// toworkKey = key;
-			// }
-			//
-			// }
-			//
-			// if (modele.MapImagesCptOpen.containsKey(toworkKey + 1)) {
-			// modele.MapImagesCptOpen.get(toworkKey + 1)
-			// .add(modele.Limages.get(Integer.parseInt(temp_index)).path);
-			// modele.MapImagesCptOpen.get(toworkKey)
-			// .remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
-			//
-			// } else {
-			// HashSet<String> tempAdd = new HashSet<String>();
-			// tempAdd.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
-			// modele.MapImagesCptOpen.put(toworkKey + 1, tempAdd);
-			// modele.MapImagesCptOpen.get(toworkKey)
-			// .remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
-			//
-			// }
-			// // System.out.println("after" + modele.MapImagesCptOpen);
-			// // System.out.println("-------------------");
-			// }
-			// }
-			// }
-			// });
+			imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				public void handle(MouseEvent event) { // Au clic, changement de tab et
+					// affichage de l'image
+					if (event.getButton().equals(MouseButton.PRIMARY)) {
+						if (event.getClickCount() == 2) {
+							TabP.getSelectionModel().selectNext(); // Change de tab
+							String source2 = event.getPickResult().getIntersectedNode().getId();
+							temp_index = source2;
+							// System.out.println(temp_index);
+							ImageView temp = new ImageView();
+							final ImageBI img = LimagesC.get(Integer.parseInt(source2));
+							Image tempI = new Image("file:" + img.path);
+							BorderPane borderPane = new BorderPane();
+							temp.setImage(tempI);
+							temp.setStyle("-fx-background-color: BLACK");
+							temp.setFitHeight(LeftImgComplete.getHeight());
+							temp.setPreserveRatio(true);
+							temp.setSmooth(true);
+							temp.setCache(true);
+							borderPane.setCenter(temp);
+							borderPane.setStyle("-fx-background-color: BLACK");
+							LeftImgComplete.getChildren().add(borderPane);
+							LeftImgComplete.getChildren().clear();
+							LeftImgComplete.getChildren().add(temp);
+
+							Snom.textProperty().setValue(img.nom);
+							Staille.textProperty().setValue(
+									(int) Math.round(tempI.getWidth()) + " x " + (int) Math.round(tempI.getHeight()));
+							Spoids.textProperty()
+									.setValue(String.valueOf(Math.round(tempI.getWidth() * tempI.getHeight() * 4)));
+							Stags.textProperty().setValue(img.show_Tags(img.mots_clefs));
+							SplitPaneImgComplete.setDividerPositions(0.8f, 0.2f);
+							img.Increase_nbOuverture();
+							Sopen.setText(String.valueOf(img.nb_ouverture));
+
+							Scolors.setText(img.couleur);
+							Sfavoris.setSelected(img.favoris);
+							Snote.setValue(img.etoile);
+
+							Snom.setEditable(false);
+							Staille.setEditable(false);
+							Spoids.setEditable(false);
+							Scolors.setEditable(false);
+							Sopen.setEditable(false);
+
+							@SuppressWarnings("unused")
+							HashSet<String> toworkValue = new HashSet<String>();
+							int toworkKey = 0;
+							// System.out.println("before" + modele.MapImagesCptOpen);
+							for (Integer key : modele.MapImagesCptOpen.keySet()) {
+								if (modele.MapImagesCptOpen.get(key)
+										.contains(modele.Limages.get(Integer.parseInt(temp_index)).path)) {
+									toworkValue = modele.MapImagesCptOpen.get(key);
+									toworkKey = key;
+								}
+
+							}
+
+							if (modele.MapImagesCptOpen.containsKey(toworkKey + 1)) {
+								modele.MapImagesCptOpen.get(toworkKey + 1)
+										.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
+								modele.MapImagesCptOpen.get(toworkKey)
+										.remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
+
+							} else {
+								HashSet<String> tempAdd = new HashSet<String>();
+								tempAdd.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
+								modele.MapImagesCptOpen.put(toworkKey + 1, tempAdd);
+								modele.MapImagesCptOpen.get(toworkKey)
+										.remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
+
+							}
+							// System.out.println("after" + modele.MapImagesCptOpen);
+							// System.out.println("-------------------");
+							// System.out.println("chemin" + " " + img.path);
+							// System.out.println("stars" + " " + img.etoile);
+							// System.out.println("fav" + " " + img.favoris);
+							// System.out.println("cpt open" + " " + img.nb_ouverture);
+							// System.out.println("tags" + " " + img.tags);
+						}
+					}
+				}
+			});
 
 			Stags.setOnKeyPressed(new EventHandler<KeyEvent>() {
 				@Override
@@ -517,7 +539,7 @@ public class ControlerMDI {
 						after = LimagesC.get(Integer.parseInt(temp_index)).mots_clefs;
 						// System.out.println("after" + " " +
 						// LimagesC.get(Integer.parseInt(temp_index)).mots_clefs);
-						Tags_soustraction(Integer.parseInt(temp_index), before, after);
+						Tags_soustraction(Integer.parseInt(temp_index), before, after, LimagesC);
 						// System.out.println(modele.MapTags);
 					}
 				}
@@ -528,12 +550,12 @@ public class ControlerMDI {
 				@Override
 				public void handle(MouseEvent arg0) {
 					int index = Integer.parseInt(temp_index);
-					modele.Limages.get(index).Set_Favoris();
+					LimagesC.get(index).Set_Favoris();
 					// System.out.println(modele.ImagesFav);
-					if (modele.ImagesFav.contains(modele.Limages.get(index).path)) {
-						modele.ImagesFav.remove(modele.Limages.get(index).path);
+					if (modele.ImagesFav.contains(LimagesC.get(index).path)) {
+						modele.ImagesFav.remove(LimagesC.get(index).path);
 					} else {
-						modele.ImagesFav.add(modele.Limages.get(index).path);
+						modele.ImagesFav.add(LimagesC.get(index).path);
 
 					}
 					// System.out.println(modele.ImagesFav);
@@ -560,8 +582,8 @@ public class ControlerMDI {
 							Arrays.asList(modele.SetImages1Etoile, modele.SetImages2Etoile, modele.SetImages3Etoile,
 									modele.SetImages4Etoile, modele.SetImages5Etoile));
 
-					modele.Limages.get(Integer.parseInt(temp_index)).Set_Etoile((Integer) number2);
-					modele.Limages.get(Integer.parseInt(temp_index)).etoile = (Integer) number2 + 1;
+					LimagesC.get(Integer.parseInt(temp_index)).Set_Etoile((Integer) number2);
+					LimagesC.get(Integer.parseInt(temp_index)).etoile = (Integer) number2 + 1;
 					temp.get((int) number).remove(LimagesC.get(Integer.parseInt(temp_index)).path);
 					temp.get((int) number2).add(LimagesC.get(Integer.parseInt(temp_index)).path);
 					// System.out.println(modele.SetImages1Etoile);
@@ -573,16 +595,15 @@ public class ControlerMDI {
 					// System.out.println("--------------------");
 
 				}
+
 			});
 
 			VBox vbox = new VBox();
-
-			String nom = new String(this.modele.Limages.get(i).path.toString().split("\\\\")[1].split("\\.")[0]);
+			String nom = new String(LimagesC.get(i).path.toString().split("\\\\")[1].split("\\.")[0]);
 			if (nom.length() > 15) {
-				nom = nom.substring(0, 15) + "..."
-						+ this.modele.Limages.get(i).path.toString().split("\\\\")[1].split("\\.")[1];
+				nom = nom.substring(0, 15) + "..." + LimagesC.get(i).path.toString().split("\\\\")[1].split("\\.")[1];
 			} else {
-				nom = nom + "." + this.modele.Limages.get(i).path.toString().split("\\\\")[1].split("\\.")[1];
+				nom = nom + "." + LimagesC.get(i).path.toString().split("\\\\")[1].split("\\.")[1];
 			}
 
 			Label label1 = new Label(nom);
@@ -609,11 +630,12 @@ public class ControlerMDI {
 		return imageView;
 	}
 
-	private void Tags_soustraction(int indeximg, ArrayList<String> A, ArrayList<String> B) {
+	private void Tags_soustraction(int indeximg, ArrayList<String> A, ArrayList<String> B,
+			ArrayList<ImageBI> LimagesC) {
 		for (int i = 1; i < A.size(); i++) {
 			HashSet<String> temp = (modele.MapTags.get(A.get(i)));
 			if (!B.contains(A.get(i))) {
-				temp.remove(modele.Limages.get(indeximg).path);
+				temp.remove(LimagesC.get(indeximg).path);
 			}
 		}
 
@@ -626,10 +648,10 @@ public class ControlerMDI {
 			SetDiff.addAll(Bset);
 			for (int j = 0; j < SetDiff.size(); j++) {
 				if (modele.MapTags.containsKey(SetDiff.get(j))) {
-					modele.MapTags.get(SetDiff.get(j)).add(modele.Limages.get(indeximg).path);
+					modele.MapTags.get(SetDiff.get(j)).add(LimagesC.get(indeximg).path);
 				} else {
 					HashSet<String> tempp = new HashSet<String>();
-					tempp.add(modele.Limages.get(indeximg).path);
+					tempp.add(LimagesC.get(indeximg).path);
 					modele.MapTags.put(SetDiff.get(j), tempp);
 				}
 			}
