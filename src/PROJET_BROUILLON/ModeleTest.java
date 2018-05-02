@@ -54,7 +54,6 @@ public class ModeleTest {
 	ArrayList<HashSet<String>> ListeSetImagesCouleurs = new ArrayList<HashSet<String>>(Arrays.asList(SetImagesRed,
 			SetImagesBlue, SetImagesGreen, SetImagesOrange, SetImagesCyan, SetImagesMagenta));
 
-
 	Map<Integer, HashSet<String>> MapImagesTaille = new TreeMap<Integer, HashSet<String>>();
 
 	// POIDS
@@ -102,11 +101,11 @@ public class ModeleTest {
 		// System.out.println("--------------------");
 		// System.out.println(this.MapTags);
 		// System.out.println("--------------------");
-//		 System.out.println(this.SetImages1Etoile);
-//		 System.out.println(this.SetImages2Etoile);
-//		 System.out.println(this.SetImages3Etoile);
-//		 System.out.println(this.SetImages4Etoile);
-//		 System.out.println(this.SetImages5Etoile);
+		// System.out.println(this.SetImages1Etoile);
+		// System.out.println(this.SetImages2Etoile);
+		// System.out.println(this.SetImages3Etoile);
+		// System.out.println(this.SetImages4Etoile);
+		// System.out.println(this.SetImages5Etoile);
 		// System.out.println("--------------------");
 		System.out.println("ROUGE" + this.SetImagesRed);
 		System.out.println("BLUE" + this.SetImagesBlue);

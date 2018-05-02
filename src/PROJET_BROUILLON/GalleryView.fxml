@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.TilePane?>
@@ -25,106 +26,99 @@
 
 <AnchorPane fx:id="AnchorP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<SplitPane fx:id="SplitP" dividerPositions="0.41260744985673353" layoutX="45.0" layoutY="82.0" maxWidth="100.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<SplitPane fx:id="SplitP" dividerPositions="0.19054441260744986" layoutX="45.0" layoutY="82.0" maxWidth="100.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<items>
 				<AnchorPane fx:id="SplitAnchor1">
 					<children>
 						<ButtonBar fx:id="ButtonB" layoutX="38.0" layoutY="7.0" prefHeight="42.0" prefWidth="1019.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<buttons>
-                        <VBox alignment="CENTER" layoutX="384.0" layoutY="10.0" prefHeight="56.0">
+                        <VBox alignment="TOP_CENTER" layoutX="384.0" layoutY="10.0" prefHeight="56.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Favoris" />
                               <ChoiceBox fx:id="MenuB1" prefHeight="25.0" prefWidth="85.0" />
                               <Separator prefWidth="200.0" />
                               <RadioButton fx:id="MenuB1et" mnemonicParsing="false" text="ET" />
                               <RadioButton fx:id="MenuB1ou" mnemonicParsing="false" text="OU" />
-                              <Label />
-                              <Label />
-                              <Label />
-                              <Label />
-                              <Label />
-                              <Label />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="56.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="56.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Notes" />
-                              <CheckBox fx:id="MenuB21" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="1 " />
-                              <CheckBox fx:id="MenuB22" mnemonicParsing="false" text="2" />
-                              <CheckBox fx:id="MenuB23" mnemonicParsing="false" text="3" />
-                              <CheckBox fx:id="MenuB24" mnemonicParsing="false" text="4" />
-                              <CheckBox fx:id="MenuB25" mnemonicParsing="false" text="5" />
+                              <HBox>
+                                 <children>
+                                    <CheckBox fx:id="MenuB21" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="1 " />
+                                    <CheckBox fx:id="MenuB22" mnemonicParsing="false" text="2" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <CheckBox fx:id="MenuB23" mnemonicParsing="false" text="3 " />
+                                    <CheckBox fx:id="MenuB24" mnemonicParsing="false" text="4" />
+                                 </children>
+                              </HBox>
+                              <CheckBox fx:id="MenuB25" mnemonicParsing="false" text="5 " />
                               <Separator prefWidth="200.0" />
                               <RadioButton fx:id="MenuB2et" mnemonicParsing="false" text="ET" />
                               <RadioButton fx:id="MenuB2ou" mnemonicParsing="false" text="OU" />
-                              <Label />
-                              <Label prefHeight="23.0" prefWidth="1.0" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="56.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="56.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Couleur" />
-                              <CheckBox fx:id="MenuB3r" mnemonicParsing="false" text="R" textFill="RED" />
-                              <CheckBox fx:id="MenuB3b" mnemonicParsing="false" text="B" textFill="#0400ff" />
-                              <CheckBox fx:id="MenuB3v" mnemonicParsing="false" text="V" textFill="#49bc37" />
-                              <CheckBox fx:id="MenuB3c" mnemonicParsing="false" text="C" textFill="#10bdfc" />
-                              <CheckBox fx:id="MenuB3m" mnemonicParsing="false" text="M" textFill="#cd2389" />
-                              <CheckBox fx:id="MenuB3o" mnemonicParsing="false" text="O" textFill="#e1a51b" />
+                              <HBox>
+                                 <children>
+                                    <CheckBox fx:id="MenuB3r" mnemonicParsing="false" text="R " textFill="RED" />
+                                    <CheckBox fx:id="MenuB3b" mnemonicParsing="false" text="B" textFill="#0400ff" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <CheckBox fx:id="MenuB3v" mnemonicParsing="false" text="V " textFill="#49bc37" />
+                                    <CheckBox fx:id="MenuB3c" mnemonicParsing="false" text="C" textFill="#10bdfc" />
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <children>
+                                    <CheckBox fx:id="MenuB3m" mnemonicParsing="false" text="M" textFill="#cd2389" />
+                                    <CheckBox fx:id="MenuB3o" mnemonicParsing="false" text="O" textFill="#e1a51b" />
+                                 </children>
+                              </HBox>
                               <Separator prefWidth="200.0" />
                               <RadioButton fx:id="MenuB3et" mnemonicParsing="false" text="ET" />
                               <RadioButton fx:id="MenuB3ou" mnemonicParsing="false" text="OU" />
                               <Label prefHeight="23.0" prefWidth="1.0" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="56.0">
+                        <VBox prefHeight="56.0">
                            <children>
-                              <RadioButton fx:id="MenuB4et" mnemonicParsing="false" text="ET" visible="false" />
-                              <RadioButton fx:id="MenuB4ou" mnemonicParsing="false" text="OU" visible="false" />
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Mots-Clé" />
                               <TextField fx:id="MenuB4" />
-                              <Label />
-                              <Label />
-                              <Label />
-                              <Label />
-                              <Label />
-                              <Label />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="56.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="56.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Classement" />
                               <ChoiceBox fx:id="MenuB5" prefWidth="150.0" />
-                              <Label />
-                              <Label />
-                              <Label prefHeight="17.0" prefWidth="1.0" />
-                              <Label />
-                              <Label />
-                              <Label />
+                              <Label prefHeight="51.0" prefWidth="0.0" />
                               <Label />
                               <Label />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="TOP_CENTER">
                            <children>
                               <Label />
                               <Button fx:id="MenuB6" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Valider" />
                               <Label />
-                              <Label prefWidth="0.0" />
-                              <Label />
-                              <Label />
                               <Label />
                               <Label />
                               <Label />
                               <Label />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="TOP_CENTER">
                            <children>
                               <Label />
                               <Button fx:id="Aide_recherche" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Aide" />
-                              <Label />
-                              <Label />
-                              <Label />
                               <Label />
                               <Label />
                               <Label />
@@ -180,32 +174,32 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
-                                                <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="207.0" text=" Nom">
+                                                <Label prefHeight="33.0" prefWidth="207.0" text="Nom">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="s_couleurd" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="201.0" text="     Favoris" GridPane.rowIndex="6">
+                                                <Label fx:id="s_couleurd" prefHeight="33.0" prefWidth="201.0" text="Favoris" GridPane.rowIndex="6">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Label alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="234.0" text="Taille" GridPane.rowIndex="1">
+                                                <Label prefHeight="33.0" prefWidth="234.0" text="Taille" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="s_couleurd11" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="224.0" text="  Poids" GridPane.rowIndex="2">
+                                                <Label fx:id="s_couleurd11" prefHeight="33.0" prefWidth="224.0" text="Poids" GridPane.rowIndex="2">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="s_tags1" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="222.0" text="  Note" GridPane.rowIndex="7">
+                                                <Label fx:id="s_tags1" prefHeight="33.0" prefWidth="222.0" text="Note" GridPane.rowIndex="7">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="s_tags" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="223.0" text="Tags" GridPane.rowIndex="3">
+                                                <Label fx:id="s_tags" prefHeight="33.0" prefWidth="223.0" text="Tags" GridPane.rowIndex="3">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
@@ -215,13 +209,13 @@
                                                 <TextField fx:id="Spoids" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                 <RadioButton fx:id="Sfavoris" mnemonicParsing="false" prefHeight="17.0" prefWidth="5.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                                 <ChoiceBox fx:id="Snote" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                                <Label fx:id="s_couleurd1" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="167.0" text="Couleur" GridPane.rowIndex="4">
+                                                <Label fx:id="s_couleurd1" prefHeight="33.0" prefWidth="167.0" text="Couleur" GridPane.rowIndex="4">
                                                    <font>
                                                       <Font name="Roboto" size="24.0" />
                                                    </font>
                                                 </Label>
                                                 <TextField fx:id="Scolors" alignment="TOP_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                                <Label fx:id="s_couleurd12" alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="167.0" text="Nombre d'ouverture" GridPane.rowIndex="5">
+                                                <Label fx:id="s_couleurd12" prefHeight="33.0" prefWidth="167.0" text="Nombre d'ouverture" GridPane.rowIndex="5">
                                                    <font>
                                                       <Font name="Roboto" size="18.0" />
                                                    </font>

@@ -81,10 +81,7 @@ public class ControlerMDI {
 	private RadioButton MenuB3et;
 	@FXML
 	private RadioButton MenuB3ou;
-	@FXML
-	private RadioButton MenuB4et;
-	@FXML
-	private RadioButton MenuB4ou;
+
 	@FXML
 	private ChoiceBox<String> MenuB1;
 	@FXML
@@ -195,8 +192,6 @@ public class ControlerMDI {
 		MenuB2ou.setToggleGroup(toggleGroup2);
 		MenuB3et.setToggleGroup(toggleGroup3);
 		MenuB3ou.setToggleGroup(toggleGroup3);
-		MenuB4et.setToggleGroup(toggleGroup4);
-		MenuB4ou.setToggleGroup(toggleGroup4);
 
 
 		SplitP.setDividerPositions(0.1);
@@ -264,7 +259,7 @@ public class ControlerMDI {
 				ArrayList<CheckBox> ColorsCB = new ArrayList<CheckBox>(
 						Arrays.asList(MenuB3r, MenuB3b, MenuB3v, MenuB3c, MenuB3m, MenuB3o));
 				ArrayList<RadioButton> RB = new ArrayList<RadioButton>(
-						Arrays.asList(MenuB1et, MenuB2et, MenuB3et, MenuB4et));
+						Arrays.asList(MenuB1et, MenuB2et, MenuB3et));
 				String MenuB2E = "";
 				String MenuB3E = "";
 
@@ -345,6 +340,7 @@ public class ControlerMDI {
 			// System.out.println(SetEveryImagesNameCopy);
 
 		} else {
+			System.out.println(requete[0]);
 			// System.out.println("toutes FAV" + " " + "todo");
 			TriBinFav.addAll(modele.SetEveryImagesName);
 		}
@@ -455,75 +451,6 @@ public class ControlerMDI {
 		InjectImages(RenvoiFinalDisplay);
 	}
 
-
-	// private void ajouter_image() {
-	// Button6.setOnAction(new EventHandler<ActionEvent>() {
-	//
-	// @Override
-	// public void handle(final ActionEvent e) {
-	// FileChooser filechooser = new FileChooser();
-	// filechooser.getExtensionFilters()
-	// .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
-	// "*jpeg"));
-	//
-	// Stage newWindow = new Stage();
-	//
-	// newWindow.setTitle("Second Stage");
-	//
-	// // Specifies the modality for new window.
-	// newWindow.initModality(Modality.WINDOW_MODAL);
-	//
-	// File list = filechooser.showOpenDialog(newWindow);
-	// if (list != null) {
-	//
-	// try {
-	// Files.move(FileSystems.getDefault().getPath(list.getPath()),
-	// FileSystems.getDefault().getPath(new File("Images/" +
-	// list.getName()).getPath()),
-	// StandardCopyOption.REPLACE_EXISTING);
-	// } catch (IOException e1) {
-	// e1.printStackTrace();
-	// }
-	// TilePaneGalerie.getChildren().clear();
-	// InjectImages();
-	// }
-	// }
-	// });
-	// }
-	//
-	// private void supprimer_image() {
-	// Button7.setOnAction(new EventHandler<ActionEvent>() {
-	//
-	// @Override
-	// public void handle(final ActionEvent e) {
-	// FileChooser filechooser = new FileChooser();
-	// filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files",
-	// "*.png", "*.jpg", "*.gif"));
-	//
-	// filechooser.setInitialDirectory(new File("Images"));
-	//
-	// Stage newWindow = new Stage();
-	//
-	// newWindow.setTitle("Second Stage");
-	//
-	// // Specifies the modality for new window.
-	// newWindow.initModality(Modality.WINDOW_MODAL);
-	//
-	// File list = filechooser.showOpenDialog(newWindow);
-	//
-	// if (list != null) {
-	// try {
-	// Files.delete(FileSystems.getDefault().getPath(new File("Images/" +
-	// list.getName()).getPath()));
-	// } catch (IOException e1) {
-	// e1.printStackTrace();
-	// }
-	// TilePaneGalerie.getChildren().clear();
-	// InjectImages();
-	// }
-	// }
-	// });
-	// }
 
 	//Méthode qui assure le chargement des images
 	private void InjectImages(ArrayList<ImageBI> LimagesC) { // ajouter un paramètre étant une liste de string que sont
