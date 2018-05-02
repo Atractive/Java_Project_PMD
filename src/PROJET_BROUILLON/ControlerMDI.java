@@ -9,7 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import Modele.ImageBI;
 import javafx.beans.value.ChangeListener;
@@ -58,6 +60,8 @@ public class ControlerMDI {
 
 	@FXML
 	public ModeleTest modele;
+	@FXML
+	private Button homeGallery;
 	@FXML
 	public String temp_index;
 	@FXML
@@ -163,12 +167,12 @@ public class ControlerMDI {
 	public ArrayList<String> ColorChoose = new ArrayList<String>(
 			Arrays.asList("Rouge", "Bleu", "Vert", "Cyan", "Magenta", "Orange"));
 
-	//Constructeur et lien avec le MODELE
+	// Constructeur et lien avec le MODELE
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
 	}
 
-	//Methode d'initialisation de tout les éléments de l'application
+	// Methode d'initialisation de tout les éléments de l'application
 	@FXML
 	public void initialize() {
 
@@ -182,9 +186,8 @@ public class ControlerMDI {
 
 	}
 
-	//Configuration des boutons pour le tri
+	// Configuration des boutons pour le tri
 	private void ModifFXML() {
-
 
 		MenuB1et.setToggleGroup(toggleGroup1);
 		MenuB1ou.setToggleGroup(toggleGroup1);
@@ -193,15 +196,14 @@ public class ControlerMDI {
 		MenuB3et.setToggleGroup(toggleGroup3);
 		MenuB3ou.setToggleGroup(toggleGroup3);
 
-
 		SplitP.setDividerPositions(0.1);
 		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5));
 
-		//Configuration des choix possibles pour les boutons
+		// Configuration des choix possibles pour les boutons
 		MenuB1.getItems().addAll("Oui", "Non", "ND");
-		MenuB5.getItems().addAll("Taille", "Poids", "Nombre d'ouverture", "ND");
+		MenuB5.getItems().addAll("Taille", "Poids", "Nombre d'ouverture", "Note", "ND");
 
-		//Mise en place des choix par défault sur les boutons
+		// Mise en place des choix par défault sur les boutons
 		MenuB1.setValue("Oui");
 
 		MenuB1.getStyleClass().add("but");
@@ -212,12 +214,18 @@ public class ControlerMDI {
 
 		MenuB6.getStyleClass().add("val");
 
+		homeGallery.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				TilePaneGalerie.getChildren().clear();
+				InjectImages(modele.Limages);
+			}
+		});
+
 	}
 
-
-
-	//Configuration du bouton de validation
-	private void new_contro() throws Exception{
+	// Configuration du bouton de validation
+	private void new_contro() throws Exception {
 		FXMLLoader secondLoader = new FXMLLoader(getClass().getResource("AideRecherche.fxml"));
 		// secondLoader.setController(ControlerAR.class);
 
@@ -258,8 +266,7 @@ public class ControlerMDI {
 						Arrays.asList(MenuB21, MenuB22, MenuB23, MenuB24, MenuB25));
 				ArrayList<CheckBox> ColorsCB = new ArrayList<CheckBox>(
 						Arrays.asList(MenuB3r, MenuB3b, MenuB3v, MenuB3c, MenuB3m, MenuB3o));
-				ArrayList<RadioButton> RB = new ArrayList<RadioButton>(
-						Arrays.asList(MenuB1et, MenuB2et, MenuB3et));
+				ArrayList<RadioButton> RB = new ArrayList<RadioButton>(Arrays.asList(MenuB1et, MenuB2et, MenuB3et));
 				String MenuB2E = "";
 				String MenuB3E = "";
 
@@ -307,17 +314,14 @@ public class ControlerMDI {
 
 	}
 
-	//Methode pour trier les images en fonction des choix sur les boutons
+	// Methode pour trier les images en fonction des choix sur les boutons
 
 	private void buildListeTri(String[] requete, String ETOR) {
 		HashSet<String> TriBin = new HashSet<String>();
-		ArrayList<String> NotesRequetes = new ArrayList<String>(Arrays.asList(requete[1].split(" ")));
-		ArrayList<String> CouleursRequetes = new ArrayList<String>(Arrays.asList(requete[2].split(" ")));
 		ArrayList<String> ANDOR = new ArrayList<String>(Arrays.asList(ETOR.split(" ")));
 		String ETOUfav = ANDOR.get(0);
 		String ETOUnote = ANDOR.get(1);
 		String ETOUcouleur = ANDOR.get(2);
-		String ETOUtag = ANDOR.get(3);
 		// System.out.println(NotesRequetes);
 		// System.out.println(CouleursRequetes);
 
@@ -339,7 +343,7 @@ public class ControlerMDI {
 			TriBinFav.addAll(SetEveryImagesNameCopy);
 			// System.out.println(SetEveryImagesNameCopy);
 
-		} else {
+		} else if (requete[0] == "ND") {
 			System.out.println(requete[0]);
 			// System.out.println("toutes FAV" + " " + "todo");
 			TriBinFav.addAll(modele.SetEveryImagesName);
@@ -395,16 +399,21 @@ public class ControlerMDI {
 		} else {
 			TriBin.addAll(TriBinCouleurs);
 		}
-		if (ETOUnote.equals("1")) {
+		if (ETOUcouleur.equals("1")) {
 			TriBin.retainAll(TriBinTags);
 		} else {
 			TriBin.addAll(TriBinTags);
 		}
 
-		System.out.println("HERE MODIF" + " " + TriBin);
+		Map<Integer, HashSet<String>> MapEtoiles = new HashMap<Integer, HashSet<String>>();
+		MapEtoiles.put(1, modele.SetImages1Etoile);
+		MapEtoiles.put(2, modele.SetImages2Etoile);
+		MapEtoiles.put(3, modele.SetImages3Etoile);
+		MapEtoiles.put(4, modele.SetImages4Etoile);
+		MapEtoiles.put(5, modele.SetImages5Etoile);
 
-		// System.out.println(TriBin);
-		// System.out.println(requete[4]);
+		System.out.println(MapEtoiles);
+
 		if (requete[4] == "Taille" || requete[4] == "Poids") {
 			for (Integer key : modele.MapImagesTaille.keySet()) {
 				// System.out.println(key + " " + modele.MapImagesTaille.get(key));
@@ -417,6 +426,7 @@ public class ControlerMDI {
 				}
 			}
 		} else if (requete[4] == "Nombre d'ouverture") {
+			System.out.println(modele.MapImagesCptOpen);
 			for (Integer key : modele.MapImagesCptOpen.keySet()) {
 				// System.out.println(key + " " + modele.MapImagesCptOpen.get(key));
 				for (String s : TriBin) {
@@ -425,38 +435,40 @@ public class ControlerMDI {
 					}
 				}
 			}
-		} else {
+		} else if (requete[4] == "NB") {
 			RenvoiFinal.addAll(TriBin);
-			// System.out.println("BEFORE" + " " + RenvoiFinal);
 			RenvoiFinal.sort(String::compareToIgnoreCase);
-			// System.out.println("AFTER" + " " + RenvoiFinal);
-		}
 
-		// System.out.println(requete[4]);
+		} else if (requete[4] == "Note") {
+			for (Integer key : MapEtoiles.keySet()) {
+				System.out.println(key + " " + MapEtoiles.get(key));
+				for (String s : TriBin) {
+					if (MapEtoiles.get(key).contains(s)) {
+						RenvoiFinal.add(s);
+					}
+				}
+			}
+		}
 
 		for (int i = 0; i < RenvoiFinal.size(); i++) {
 			int indexTempImageBI = (modele.LimagesPATH.indexOf(RenvoiFinal.get(i)));
 			RenvoiFinalDisplay.add(modele.Limages.get(indexTempImageBI));
 		}
-
-		System.out.println("last" + " " + RenvoiFinalDisplay); // IMAGESBI DU TRI DE L'UTILISATEUR
+		System.out.println("before last " + " " + RenvoiFinal);
 		TilePaneGalerie.getChildren().clear();
-
 		System.out.println();
 		System.out.println();
 		System.out.println();
 		System.out.println();
 		System.out.println();
-		System.out.println(RenvoiFinal);
+		System.out.println("last" + " " + RenvoiFinalDisplay); // IMAGESBI DU TRI DE L'UTILISATEUR
 		InjectImages(RenvoiFinalDisplay);
 	}
 
-
-	//Méthode qui assure le chargement des images
+	// Méthode qui assure le chargement des images
 	private void InjectImages(ArrayList<ImageBI> LimagesC) { // ajouter un paramètre étant une liste de string que sont
 																// les paths des images
 		// à display.
-
 
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
 		TilePaneGalerie.setHgap(10);
@@ -517,7 +529,7 @@ public class ControlerMDI {
 							// System.out.println("before" + modele.MapImagesCptOpen);
 							for (Integer key : modele.MapImagesCptOpen.keySet()) {
 								if (modele.MapImagesCptOpen.get(key)
-										.contains(modele.Limages.get(Integer.parseInt(temp_index)).path)) {
+										.contains(LimagesC.get(Integer.parseInt(temp_index)).path)) {
 									toworkValue = modele.MapImagesCptOpen.get(key);
 									toworkKey = key;
 								}
@@ -526,9 +538,9 @@ public class ControlerMDI {
 
 							if (modele.MapImagesCptOpen.containsKey(toworkKey + 1)) {
 								modele.MapImagesCptOpen.get(toworkKey + 1)
-										.add(modele.Limages.get(Integer.parseInt(temp_index)).path);
+										.add(LimagesC.get(Integer.parseInt(temp_index)).path);
 								modele.MapImagesCptOpen.get(toworkKey)
-										.remove(modele.Limages.get(Integer.parseInt(temp_index)).path);
+										.remove(LimagesC.get(Integer.parseInt(temp_index)).path);
 
 							} else {
 								HashSet<String> tempAdd = new HashSet<String>();
@@ -550,7 +562,7 @@ public class ControlerMDI {
 				}
 			});
 
-			//Configuration de la zone de texte pour les tags
+			// Configuration de la zone de texte pour les tags
 			Stags.setOnKeyPressed(new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent keyEvent) {
@@ -572,7 +584,7 @@ public class ControlerMDI {
 				}
 			});
 
-			//Configuration du bouton qui gère les favoris
+			// Configuration du bouton qui gère les favoris
 			Sfavoris.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 				@Override
@@ -591,7 +603,7 @@ public class ControlerMDI {
 				}
 			});
 
-			//Configuration de la boite qui permet de gérer les notes
+			// Configuration de la boite qui permet de gérer les notes
 			Snote.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 				@Override
 
@@ -627,7 +639,6 @@ public class ControlerMDI {
 
 			});
 
-
 			VBox vbox = new VBox();
 			String nom = new String(LimagesC.get(i).path.toString().split("\\\\")[1].split("\\.")[0]);
 			if (nom.length() > 15) {
@@ -636,10 +647,9 @@ public class ControlerMDI {
 				nom = nom + "." + LimagesC.get(i).path.toString().split("\\\\")[1].split("\\.")[1];
 			}
 
-
 			Label label1 = new Label(nom);
 			label1.getStyleClass().add("label1");
-			//Création de la VBox qui accueille l'imageView et le label1
+			// Création de la VBox qui accueille l'imageView et le label1
 			vbox.setSpacing(10);
 			vbox.getChildren().addAll(imageView, label1);
 			vbox.setAlignment(Pos.CENTER);
@@ -655,7 +665,7 @@ public class ControlerMDI {
 
 	}
 
-	//Méthode qui permet la création de l'imageView
+	// Méthode qui permet la création de l'imageView
 	private ImageView createImageView(ImageBI img) {
 		Image temp = new Image("file:" + img.path, 100, 0, true, true);
 		ImageView imageView = new ImageView(temp);

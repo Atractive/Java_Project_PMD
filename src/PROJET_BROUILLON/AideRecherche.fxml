@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PROJET_BROUILLON.ControlerAR">
+<AnchorPane maxHeight="500.0" maxWidth="835.0" minHeight="500.0" minWidth="835.0" prefHeight="500.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PROJET_BROUILLON.ControlerAR">
    <children>
-      <VBox alignment="CENTER_LEFT" prefHeight="597.0" prefWidth="842.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER_LEFT">
          <children>
-            <TextFlow fx:id="TF_Explicatif" prefHeight="91.0" prefWidth="783.0" textAlignment="CENTER" />
-            <GridPane alignment="CENTER" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="393.0" prefWidth="782.0">
+            <TextFlow fx:id="TF_Explicatif" prefHeight="100.0" prefWidth="100.0" textAlignment="CENTER" />
+            <GridPane alignment="CENTER" gridLinesVisible="true" prefHeight="400.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="413.0" minWidth="10.0" prefWidth="171.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="665.0" minWidth="10.0" prefWidth="665.0" />

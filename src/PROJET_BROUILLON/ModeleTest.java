@@ -25,6 +25,7 @@ public class ModeleTest {
 	ArrayList<ImageBI> Limages = new ArrayList<ImageBI>();
 
 	ArrayList<ImageBI> Limages_unserialized = new ArrayList<ImageBI>();
+
 	ArrayList<ImageBI> Limages_loaddata = new ArrayList<ImageBI>();
 
 	ArrayList<String> LimagesPATH = new ArrayList<String>();
@@ -84,15 +85,17 @@ public class ModeleTest {
 		}
 
 		System.out.println(this.Limages.size());
-		DataFavoris(); // On rempli aussi dans cette fonction SetEveryImagesName
+		DataFavoris(); 
 		ImagesEtoiles();
 		ImagesTags();
 		ImagesTailles();
 		ImagesCptOpen();
+		ImagesCouleurs();
+
 		this.MapImagesPoids = this.MapImagesTaille;
 		this.SetEveryImagesName = new HashSet<String>(this.LimagesPATH);
+		
 		// ImagesPoids();
-		ImagesCouleurs();
 		// System.out.println(this.MapImagesTaille);
 		// for (Integer key : MapImagesCptOpen.keySet()) {
 		// System.out.println(key + " " + MapImagesCptOpen.get(key));
@@ -107,15 +110,15 @@ public class ModeleTest {
 		// System.out.println(this.SetImages4Etoile);
 		// System.out.println(this.SetImages5Etoile);
 		// System.out.println("--------------------");
-		System.out.println("ROUGE" + this.SetImagesRed);
-		System.out.println("BLUE" + this.SetImagesBlue);
-		System.out.println("GREEN" + this.SetImagesGreen);
-		System.out.println("CYAN" + this.SetImagesCyan);
-		System.out.println("MAGENTA" + this.SetImagesMagenta);
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
+//		System.out.println("ROUGE" + this.SetImagesRed);
+//		System.out.println("BLUE" + this.SetImagesBlue);
+//		System.out.println("GREEN" + this.SetImagesGreen);
+//		System.out.println("CYAN" + this.SetImagesCyan);
+//		System.out.println("MAGENTA" + this.SetImagesMagenta);
+//		System.out.println();
+//		System.out.println();
+//		System.out.println();
+//		System.out.println();
 		// System.out.println("TAILLE" + this.MapImagesTaille);
 
 	}
