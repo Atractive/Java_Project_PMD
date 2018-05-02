@@ -58,9 +58,8 @@ public class ControlerMDI {
 
 	@FXML
 	public ModeleTest modele;
-
+	@FXML
 	public String temp_index;
-
 	@FXML
 	private AnchorPane AnchorP;
 	@FXML
@@ -167,12 +166,15 @@ public class ControlerMDI {
 	public ArrayList<String> ColorChoose = new ArrayList<String>(
 			Arrays.asList("Rouge", "Bleu", "Vert", "Cyan", "Magenta", "Orange"));
 
+	//Constructeur et lien avec le MODELE
 	public ControlerMDI(ModeleTest modele) {
 		this.modele = modele;
 	}
 
+	//Methode d'initialisation de tout les éléments de l'application
 	@FXML
 	public void initialize() {
+
 		// ajouter_image();
 		// supprimer_image();
 		ModifFXML();
@@ -180,9 +182,12 @@ public class ControlerMDI {
 		résultat_requeteerche();
 		aide_recherche();
 		System.out.println("SOS");
+
 	}
 
+	//Configuration des boutons pour le tri
 	private void ModifFXML() {
+
 
 		MenuB1et.setToggleGroup(toggleGroup1);
 		MenuB1ou.setToggleGroup(toggleGroup1);
@@ -192,16 +197,32 @@ public class ControlerMDI {
 		MenuB3ou.setToggleGroup(toggleGroup3);
 		MenuB4et.setToggleGroup(toggleGroup4);
 		MenuB4ou.setToggleGroup(toggleGroup4);
+
+
 		SplitP.setDividerPositions(0.1);
 		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5));
+
+		//Configuration des choix possibles pour les boutons
 		MenuB1.getItems().addAll("Oui", "Non", "ND");
 		MenuB5.getItems().addAll("Taille", "Poids", "Nombre d'ouverture", "ND");
+
+		//Mise en place des choix par défault sur les boutons
 		MenuB1.setValue("Oui");
+
+		MenuB1.getStyleClass().add("but");
+		MenuB4.setText("Paysage");
+		MenuB4.getStyleClass().add("but");
 		MenuB5.setValue("Taille");
+		MenuB5.getStyleClass().add("but");
+
+		MenuB6.getStyleClass().add("val");
 
 	}
 
-	private void new_contro() throws Exception {
+
+
+	//Configuration du bouton de validation
+	private void new_contro() throws Exception{
 		FXMLLoader secondLoader = new FXMLLoader(getClass().getResource("AideRecherche.fxml"));
 		// secondLoader.setController(ControlerAR.class);
 
@@ -290,6 +311,8 @@ public class ControlerMDI {
 		});
 
 	}
+
+	//Methode pour trier les images en fonction des choix sur les boutons
 
 	private void buildListeTri(String[] requete, String ETOR) {
 		HashSet<String> TriBin = new HashSet<String>();
@@ -432,9 +455,85 @@ public class ControlerMDI {
 		InjectImages(RenvoiFinalDisplay);
 	}
 
-	private void InjectImages(ArrayList<ImageBI> LimagesC) {
+
+	// private void ajouter_image() {
+	// Button6.setOnAction(new EventHandler<ActionEvent>() {
+	//
+	// @Override
+	// public void handle(final ActionEvent e) {
+	// FileChooser filechooser = new FileChooser();
+	// filechooser.getExtensionFilters()
+	// .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
+	// "*jpeg"));
+	//
+	// Stage newWindow = new Stage();
+	//
+	// newWindow.setTitle("Second Stage");
+	//
+	// // Specifies the modality for new window.
+	// newWindow.initModality(Modality.WINDOW_MODAL);
+	//
+	// File list = filechooser.showOpenDialog(newWindow);
+	// if (list != null) {
+	//
+	// try {
+	// Files.move(FileSystems.getDefault().getPath(list.getPath()),
+	// FileSystems.getDefault().getPath(new File("Images/" +
+	// list.getName()).getPath()),
+	// StandardCopyOption.REPLACE_EXISTING);
+	// } catch (IOException e1) {
+	// e1.printStackTrace();
+	// }
+	// TilePaneGalerie.getChildren().clear();
+	// InjectImages();
+	// }
+	// }
+	// });
+	// }
+	//
+	// private void supprimer_image() {
+	// Button7.setOnAction(new EventHandler<ActionEvent>() {
+	//
+	// @Override
+	// public void handle(final ActionEvent e) {
+	// FileChooser filechooser = new FileChooser();
+	// filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files",
+	// "*.png", "*.jpg", "*.gif"));
+	//
+	// filechooser.setInitialDirectory(new File("Images"));
+	//
+	// Stage newWindow = new Stage();
+	//
+	// newWindow.setTitle("Second Stage");
+	//
+	// // Specifies the modality for new window.
+	// newWindow.initModality(Modality.WINDOW_MODAL);
+	//
+	// File list = filechooser.showOpenDialog(newWindow);
+	//
+	// if (list != null) {
+	// try {
+	// Files.delete(FileSystems.getDefault().getPath(new File("Images/" +
+	// list.getName()).getPath()));
+	// } catch (IOException e1) {
+	// e1.printStackTrace();
+	// }
+	// TilePaneGalerie.getChildren().clear();
+	// InjectImages();
+	// }
+	// }
+	// });
+	// }
+
+	//Méthode qui assure le chargement des images
+	private void InjectImages(ArrayList<ImageBI> LimagesC) { // ajouter un paramètre étant une liste de string que sont
+																// les paths des images
+		// à display.
+
+
 		TilePaneGalerie.setPadding(new Insets(15, 15, 15, 15));
 		TilePaneGalerie.setHgap(10);
+		TilePaneGalerie.getStyleClass().add("tpg");
 
 		for (int i = 0; i < LimagesC.size(); i++) {
 			ImageView imageView;
@@ -524,6 +623,7 @@ public class ControlerMDI {
 				}
 			});
 
+			//Configuration de la zone de texte pour les tags
 			Stags.setOnKeyPressed(new EventHandler<KeyEvent>() {
 				@Override
 				public void handle(KeyEvent keyEvent) {
@@ -545,6 +645,7 @@ public class ControlerMDI {
 				}
 			});
 
+			//Configuration du bouton qui gère les favoris
 			Sfavoris.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 				@Override
@@ -563,6 +664,7 @@ public class ControlerMDI {
 				}
 			});
 
+			//Configuration de la boite qui permet de gérer les notes
 			Snote.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 				@Override
 
@@ -598,6 +700,7 @@ public class ControlerMDI {
 
 			});
 
+
 			VBox vbox = new VBox();
 			String nom = new String(LimagesC.get(i).path.toString().split("\\\\")[1].split("\\.")[0]);
 			if (nom.length() > 15) {
@@ -606,8 +709,10 @@ public class ControlerMDI {
 				nom = nom + "." + LimagesC.get(i).path.toString().split("\\\\")[1].split("\\.")[1];
 			}
 
-			Label label1 = new Label(nom);
 
+			Label label1 = new Label(nom);
+			label1.getStyleClass().add("label1");
+			//Création de la VBox qui accueille l'imageView et le label1
 			vbox.setSpacing(10);
 			vbox.getChildren().addAll(imageView, label1);
 			vbox.setAlignment(Pos.CENTER);
@@ -618,10 +723,12 @@ public class ControlerMDI {
 		ScrollPaneGalerie.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		ScrollPaneGalerie.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 		ScrollPaneGalerie.setFitToWidth(true);
+		ScrollPaneGalerie.getStyleClass().add("spg");
 		ScrollPaneGalerie.setContent(TilePaneGalerie);
 
 	}
 
+	//Méthode qui permet la création de l'imageView
 	private ImageView createImageView(ImageBI img) {
 		Image temp = new Image("file:" + img.path, 100, 0, true, true);
 		ImageView imageView = new ImageView(temp);

@@ -31,8 +31,10 @@ public class ModeleTest {
 
 	//// TRI
 
+	// FAVORIS
 	HashSet<String> ImagesFav = new HashSet<String>();
 
+	// ETOILE
 	HashSet<String> SetImages1Etoile = new HashSet<String>();
 	HashSet<String> SetImages2Etoile = new HashSet<String>();
 	HashSet<String> SetImages3Etoile = new HashSet<String>();
@@ -52,11 +54,16 @@ public class ModeleTest {
 	ArrayList<HashSet<String>> ListeSetImagesCouleurs = new ArrayList<HashSet<String>>(Arrays.asList(SetImagesRed,
 			SetImagesBlue, SetImagesGreen, SetImagesOrange, SetImagesCyan, SetImagesMagenta));
 
+
 	Map<Integer, HashSet<String>> MapImagesTaille = new TreeMap<Integer, HashSet<String>>();
+
+	// POIDS
 	Map<Integer, HashSet<String>> MapImagesPoids = new TreeMap<Integer, HashSet<String>>();
 
+	// TAGS
 	Map<String, HashSet<String>> MapTags = new HashMap<String, HashSet<String>>();
 
+	// NBR D'OUVERTURE
 	Map<Integer, HashSet<String>> MapImagesCptOpen = Collections
 			.synchronizedMap(Collections.synchronizedMap(new TreeMap<Integer, HashSet<String>>()));
 
