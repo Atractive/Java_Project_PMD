@@ -370,7 +370,6 @@ public class ControlerMDI {
 		HashSet<String> TriBinCouleurs = new HashSet<String>();
 		if (requete[2] != "null") {
 			ArrayList<String> Couleursrequetes = new ArrayList<String>(Arrays.asList(requete[2].split(" ")));
-			// System.out.println(Couleursrequetes);
 			for (int i = 0; i < Couleursrequetes.size(); i++) {
 				// System.out.println(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
 				TriBinCouleurs.addAll(modele.ListeSetImagesCouleurs.get(ColorChoose.indexOf(Couleursrequetes.get(i))));
