@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane maxHeight="500.0" maxWidth="835.0" minHeight="500.0" minWidth="835.0" prefHeight="500.0" prefWidth="835.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PROJET_BROUILLON.ControlerAR">
+<AnchorPane fx:id="AP1" maxHeight="1000.0" maxWidth="836.0" minHeight="502.0" minWidth="835.0" prefHeight="502.0" prefWidth="836.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PROJET_BROUILLON.ControlerAR">
    <children>
       <VBox alignment="CENTER_LEFT">
          <children>

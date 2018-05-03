@@ -233,7 +233,7 @@ public class ControlerMDI {
 		// AnchorPane root = (AnchorPane)
 		// FXMLLoader.load(getClass().getResource("AideRecherche.fxml"));
 
-		Scene scene = new Scene(secondLoader.load(), 400, 400);
+		Scene scene = new Scene(secondLoader.load(), 850, 500);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -259,7 +259,7 @@ public class ControlerMDI {
 
 	private void résultat_requeteerche() {
 		MenuB6.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent arg0) {
 				System.out.println("in");
@@ -705,72 +705,41 @@ public class ControlerMDI {
 
 	}
 
-	// private void ajouter_image() {
-	// Button6.setOnAction(new EventHandler<ActionEvent>() {
-	//
-	// @Override
-	// public void handle(final ActionEvent e) {
-	// FileChooser filechooser = new FileChooser();
-	// filechooser.getExtensionFilters()
-	// .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
-	// "*jpeg"));
-	//
-	// Stage newWindow = new Stage();
-	//
-	// newWindow.setTitle("Second Stage");
-	//
-	// // Specifies the modality for new window.
-	// newWindow.initModality(Modality.WINDOW_MODAL);
-	//
-	// File list = filechooser.showOpenDialog(newWindow);
-	// if (list != null) {
-	//
-	// try {
-	// Files.move(FileSystems.getDefault().getPath(list.getPath()),
-	// FileSystems.getDefault().getPath(new File("Images/" +
-	// list.getName()).getPath()),
-	// StandardCopyOption.REPLACE_EXISTING);
-	// } catch (IOException e1) {
-	// e1.printStackTrace();
-	// }
-	// TilePaneGalerie.getChildren().clear();
-	// InjectImages();
-	// }
-	// }
-	// });
-	// }
-	//
-	// private void supprimer_image() {
-	// Button7.setOnAction(new EventHandler<ActionEvent>() {
-	//
-	// @Override
-	// public void handle(final ActionEvent e) {
-	// FileChooser filechooser = new FileChooser();
-	// filechooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files",
-	// "*.png", "*.jpg", "*.gif"));
-	//
-	// filechooser.setInitialDirectory(new File("Images"));
-	//
-	// Stage newWindow = new Stage();
-	//
-	// newWindow.setTitle("Second Stage");
-	//
-	// // Specifies the modality for new window.
-	// newWindow.initModality(Modality.WINDOW_MODAL);
-	//
-	// File list = filechooser.showOpenDialog(newWindow);
-	//
-	// if (list != null) {
-	// try {
-	// Files.delete(FileSystems.getDefault().getPath(new File("Images/" +
-	// list.getName()).getPath()));
-	// } catch (IOException e1) {
-	// e1.printStackTrace();
-	// }
-	// TilePaneGalerie.getChildren().clear();
-	// InjectImages();
-	// }
-	// }
-	// });
-	// }
+	 private void ajouter_image() {
+	 Button6.setOnAction(new EventHandler<ActionEvent>() {
+
+	 @Override
+	 public void handle(final ActionEvent e) {
+	 FileChooser filechooser = new FileChooser();
+	 filechooser.getExtensionFilters()
+	 .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
+	 "*jpeg"));
+
+	 Stage newWindow = new Stage();
+
+	 newWindow.setTitle("Second Stage");
+
+	 // Specifies the modality for new window.
+	 newWindow.initModality(Modality.WINDOW_MODAL);
+
+	 File list = filechooser.showOpenDialog(newWindow);
+	 if (list != null) {
+
+	 try {
+	 Files.copy(FileSystems.getDefault().getPath(list.getPath()),
+	 FileSystems.getDefault().getPath(new File("Images/" +
+	 list.getName()).getPath()),
+	 StandardCopyOption.REPLACE_EXISTING);
+
+	 } catch (IOException e1) {
+	 e1.printStackTrace();
+	 }
+	 TilePaneGalerie.getChildren().clear();
+	 InjectImages(modele.Limages);
+	 }
+	 }
+	 });
+	 }
+
+
 }
