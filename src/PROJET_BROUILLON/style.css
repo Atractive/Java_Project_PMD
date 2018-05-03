@@ -1,10 +1,10 @@
 
 .spg {
-	-fx-background-color: "black";
+	-fx-background-color: #C2C2C2;
 }
 
 .tpg {
-	-fx-background-color: #E1BEE7;
+	-fx-background-color: #C2C2C2;
 }
 
 .image {
@@ -12,7 +12,7 @@
 }
 
 .vbox {
-	-fx-background-color: #E1BEE7;
+	-fx-background-color: #C2C2C2;
 }
 
 .vbox:hover {
@@ -37,13 +37,17 @@
 }
 
 #SplitAnchor1 {
-	-fx-background-color: #E1BEE7;
+	-fx-background-color: #C2C2C2;
 	-fx-font-size: 11pt;
 	-fx-font-family: "Segoe UI Semibold";
 }
 
+#LeftImgComplete {
+	-fx-background-color: #C2C2C2;
+}
+
 #RightImgComplete {
-	-fx-background-color: #E1BEE7;
+	-fx-background-color: #C2C2C2;
 	-fx-font-size: 11pt;
 	-fx-font-family: "Segoe UI Semibold";
 }
