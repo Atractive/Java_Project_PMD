@@ -259,9 +259,10 @@ public class ControlerMDI {
 
 	private void résultat_requeteerche() {
 		MenuB6.setOnAction(new EventHandler<ActionEvent>() {
-
+			
 			@Override
 			public void handle(ActionEvent arg0) {
+				System.out.println("in");
 				ArrayList<CheckBox> EtoilesCB = new ArrayList<CheckBox>(
 						Arrays.asList(MenuB21, MenuB22, MenuB23, MenuB24, MenuB25));
 				ArrayList<CheckBox> ColorsCB = new ArrayList<CheckBox>(
@@ -344,7 +345,7 @@ public class ControlerMDI {
 			// System.out.println(SetEveryImagesNameCopy);
 
 		} else if (requete[0] == "ND") {
-			System.out.println(requete[0]);
+//			System.out.println(requete[0]);
 			// System.out.println("toutes FAV" + " " + "todo");
 			TriBinFav.addAll(modele.SetEveryImagesName);
 		}
@@ -379,11 +380,14 @@ public class ControlerMDI {
 		HashSet<String> TriBinTags = new HashSet<String>();
 		if (requete[3] != "null") {
 			ArrayList<String> Tagsrequetes = new ArrayList<String>(Arrays.asList(requete[3].split(" ")));
-			System.out.println(Tagsrequetes);
+//			System.out.println(Tagsrequetes);
 			for (int i = 0; i < Tagsrequetes.size(); i++) {
-				// System.out.println(Tagsrequetes.get(i) + " " +
-				// modele.MapTags.get(Tagsrequetes.get(i)));
-				TriBinTags.addAll(modele.MapTags.get(Tagsrequetes.get(i)));
+				if (modele.MapTags.containsKey(Tagsrequetes.get(i))) {
+					// System.out.println(Tagsrequetes.get(i) + " " +
+					// modele.MapTags.get(Tagsrequetes.get(i)));
+					TriBinTags.addAll(modele.MapTags.get(Tagsrequetes.get(i)));
+				}
+
 			}
 		}
 
@@ -411,7 +415,7 @@ public class ControlerMDI {
 		MapEtoiles.put(4, modele.SetImages4Etoile);
 		MapEtoiles.put(5, modele.SetImages5Etoile);
 
-		System.out.println(MapEtoiles);
+//		System.out.println(MapEtoiles);
 
 		if (requete[4] == "Taille" || requete[4] == "Poids") {
 			for (Integer key : modele.MapImagesTaille.keySet()) {
@@ -425,7 +429,7 @@ public class ControlerMDI {
 				}
 			}
 		} else if (requete[4] == "Nombre d'ouverture") {
-			System.out.println(modele.MapImagesCptOpen);
+//			System.out.println(modele.MapImagesCptOpen);
 			for (Integer key : modele.MapImagesCptOpen.keySet()) {
 				// System.out.println(key + " " + modele.MapImagesCptOpen.get(key));
 				for (String s : TriBin) {
@@ -440,7 +444,7 @@ public class ControlerMDI {
 
 		} else if (requete[4] == "Note") {
 			for (Integer key : MapEtoiles.keySet()) {
-				System.out.println(key + " " + MapEtoiles.get(key));
+//				System.out.println(key + " " + MapEtoiles.get(key));
 				for (String s : TriBin) {
 					if (MapEtoiles.get(key).contains(s)) {
 						RenvoiFinal.add(s);
@@ -453,14 +457,13 @@ public class ControlerMDI {
 			int indexTempImageBI = (modele.LimagesPATH.indexOf(RenvoiFinal.get(i)));
 			RenvoiFinalDisplay.add(modele.Limages.get(indexTempImageBI));
 		}
-		System.out.println("before last " + " " + RenvoiFinal);
 		TilePaneGalerie.getChildren().clear();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println("last" + " " + RenvoiFinalDisplay); // IMAGESBI DU TRI DE L'UTILISATEUR
+//		System.out.println();
+//		System.out.println();
+//		System.out.println();
+//		System.out.println();
+//		System.out.println();
+//		System.out.println("last" + " " + RenvoiFinalDisplay); // IMAGESBI DU TRI DE L'UTILISATEUR
 		InjectImages(RenvoiFinalDisplay);
 	}
 
