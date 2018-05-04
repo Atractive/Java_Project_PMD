@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
+import java.util.Random;
 import java.util.TreeMap;
 
 import Autre.CouleurDominante;
@@ -77,6 +77,7 @@ public class ModeleTest {
 		File temp = new File("images.dat");
 		File[] imagesListe = new File(s).listFiles();
 		LoadDataF(s);
+
 		if (temp.exists() && imagesListe.length == Limages_unserialized.size()) {
 			this.Limages = Limages_unserialized;
 		} else {
@@ -84,18 +85,20 @@ public class ModeleTest {
 			this.Limages = this.Limages_loaddata;
 		}
 
-		System.out.println(this.Limages.size());
-		DataFavoris(); 
-		ImagesEtoiles();
-		ImagesTags();
-		ImagesTailles();
-		ImagesCptOpen();
-		ImagesCouleurs();
-
-		this.MapImagesPoids = this.MapImagesTaille;
-		this.SetEveryImagesName = new HashSet<String>(this.LimagesPATH);
 		
-		// ImagesPoids();
+		InitData(this.Limages);
+//		System.out.println(this.Limages.size());
+//		GetPathNames(this.Limages); // Rempli le tableau qui contient les noms de toutes les images, NECESSAIRE pour
+//									// le tri.
+//		DataFavoris(this.Limages);
+//		ImagesEtoiles(this.Limages);
+//		ImagesTags(this.Limages);
+//		ImagesTailles(this.Limages);
+//		ImagesCptOpen(this.Limages);
+//		ImagesCouleurs(this.Limages);
+//		this.MapImagesPoids = this.MapImagesTaille;
+//		this.SetEveryImagesName = new HashSet<String>(this.LimagesPATH);
+
 		// System.out.println(this.MapImagesTaille);
 		// for (Integer key : MapImagesCptOpen.keySet()) {
 		// System.out.println(key + " " + MapImagesCptOpen.get(key));
@@ -110,18 +113,35 @@ public class ModeleTest {
 		// System.out.println(this.SetImages4Etoile);
 		// System.out.println(this.SetImages5Etoile);
 		// System.out.println("--------------------");
-//		System.out.println("ROUGE" + this.SetImagesRed);
-//		System.out.println("BLUE" + this.SetImagesBlue);
-//		System.out.println("GREEN" + this.SetImagesGreen);
-//		System.out.println("CYAN" + this.SetImagesCyan);
-//		System.out.println("MAGENTA" + this.SetImagesMagenta);
-//		System.out.println();
-//		System.out.println();
-//		System.out.println();
-//		System.out.println();
+		// System.out.println("ROUGE" + this.SetImagesRed);
+		// System.out.println("BLUE" + this.SetImagesBlue);
+		// System.out.println("GREEN" + this.SetImagesGreen);
+		// System.out.println("CYAN" + this.SetImagesCyan);
+		// System.out.println("MAGENTA" + this.SetImagesMagenta);
+		// System.out.println();
+		// System.out.println();
+		// System.out.println();
+		// System.out.println();
 		// System.out.println("TAILLE" + this.MapImagesTaille);
 
 	}
+
+	public void InitData(ArrayList<ImageBI> L) {
+		GetPathNames(L); // Rempli le tableau qui contient les noms de toutes les images, NECESSAIRE pour
+							// le tri.
+		DataFavoris(L);
+		ImagesEtoiles(L);
+		ImagesTags(L);
+		ImagesTailles(L);
+		ImagesCptOpen(L);
+		ImagesCouleurs(L);
+		this.MapImagesPoids = this.MapImagesTaille;
+		this.SetEveryImagesName = new HashSet<String>(this.LimagesPATH);
+
+		
+
+	}
+	
 
 	public void initModele(ModeleTest modele) {
 		this.modele = modele;
@@ -130,8 +150,11 @@ public class ModeleTest {
 	public void chargerDonnées(String dir) {
 		File[] imagesListe = new File(dir).listFiles();
 		for (File file : imagesListe) {
+			// System.out.println(file.toString());
 			ImageBI Imagetemp = new ImageBI(file.toString());
-			this.Limages_loaddata.add(Imagetemp);
+			if (!this.Limages_loaddata.contains(Imagetemp)) {
+				this.Limages_loaddata.add(Imagetemp);
+			}
 		}
 	}
 
@@ -155,20 +178,25 @@ public class ModeleTest {
 
 	}
 
-	public void DataFavoris() {
-		for (int i = 0; i < this.Limages.size(); i++) {
-			this.LimagesPATH.add(this.Limages.get(i).path);
-			if (this.Limages.get(i).favoris == true) {
-				this.ImagesFav.add(this.Limages.get(i).path);
+	public void GetPathNames(ArrayList<ImageBI> LimagesBI) {
+		for (int i = 0; i < LimagesBI.size(); i++) {
+			this.LimagesPATH.add(LimagesBI.get(i).path);
+		}
+	}
+
+	public void DataFavoris(ArrayList<ImageBI> LimagesBI) {
+		for (int i = 0; i < LimagesBI.size(); i++) {
+			if (LimagesBI.get(i).favoris == true) {
+				this.ImagesFav.add(LimagesBI.get(i).path);
 			}
 
 		}
 	}
 
-	public void ImagesEtoiles() {
-		for (int i = 0; i < this.Limages.size(); i++) {
-			String temp = this.Limages.get(i).path;
-			int tempstar = this.Limages.get(i).etoile;
+	public void ImagesEtoiles(ArrayList<ImageBI> LimagesBI) {
+		for (int i = 0; i < LimagesBI.size(); i++) {
+			String temp = LimagesBI.get(i).path;
+			int tempstar = LimagesBI.get(i).etoile;
 			if (tempstar == 1) {
 				this.SetImages1Etoile.add(temp);
 			} else if (tempstar == 1) {
@@ -190,10 +218,14 @@ public class ModeleTest {
 		}
 	}
 
-	public void ImagesCouleurs() {
-		for (int i = 0; i < this.Limages.size(); i++) {
-			String couleur = CouleurDominante.getDomintanteColor(this.Limages.get(i).path);
-			String chemin = this.Limages.get(i).path;
+	public void ImagesCouleurs(ArrayList<ImageBI> LimagesBI) {
+		for (int i = 0; i < LimagesBI.size(); i++) {
+			// String couleur = CouleurDominante.getDomintanteColor(LimagesBI.get(i).path);
+			Random rng = new Random();
+			String couleur = CouleurDominante.colorName[rng.nextInt(CouleurDominante.colorName.length)];
+			// System.out.println(couleur + " " + couleur2);
+			String chemin = LimagesBI.get(i).path;
+			LimagesBI.get(i).couleur = couleur;
 			if (couleur == "Red") {
 				this.SetImagesRed.add(chemin);
 			}
@@ -215,64 +247,46 @@ public class ModeleTest {
 		}
 	}
 
-	public void ImagesTags() {
-		for (int i = 0; i < this.Limages.size(); i++) {
-			for (int j = 1; j < this.Limages.get(i).mots_clefs.size(); j++) {
-				if (this.MapTags.containsKey(this.Limages.get(i).mots_clefs.get(j))) {
-					this.MapTags.get(this.Limages.get(i).mots_clefs.get(j)).add(this.Limages.get(i).path);
+	public void ImagesTags(ArrayList<ImageBI> LimagesBI) {
+		for (int i = 0; i < LimagesBI.size(); i++) {
+			for (int j = 1; j < LimagesBI.get(i).mots_clefs.size(); j++) {
+				if (this.MapTags.containsKey(LimagesBI.get(i).mots_clefs.get(j))) {
+					this.MapTags.get(LimagesBI.get(i).mots_clefs.get(j)).add(LimagesBI.get(i).path);
 
 				} else {
 					HashSet<String> temp = new HashSet<String>();
-					temp.add(this.Limages.get(i).path);
-					this.MapTags.put(this.Limages.get(i).mots_clefs.get(j), temp);
+					temp.add(LimagesBI.get(i).path);
+					this.MapTags.put(LimagesBI.get(i).mots_clefs.get(j), temp);
 				}
 			}
 		}
 	}
 
-	public void ImagesTailles() {
-		for (int i = 0; i < this.Limages.size(); i++) {
-			ImageBI tempImagePerso = this.Limages.get(i);
+	public void ImagesTailles(ArrayList<ImageBI> LimagesBI) {
+		for (int i = 0; i < LimagesBI.size(); i++) {
+			ImageBI tempImagePerso = LimagesBI.get(i);
 			Image tempImage = new Image("file:" + tempImagePerso.path);
 			int taille = (int) Math.round(tempImage.getWidth() * tempImage.getHeight());
-			// int poids = taille * 4;
 			if (this.MapImagesTaille.containsKey(taille)) {
-				this.MapImagesTaille.get(taille).add(this.Limages.get(i).path);
+				this.MapImagesTaille.get(taille).add(LimagesBI.get(i).path);
 			} else {
 				HashSet<String> temp1 = new HashSet<String>();
-				temp1.add(this.Limages.get(i).path);
+				temp1.add(LimagesBI.get(i).path);
 				this.MapImagesTaille.put(taille, temp1);
 			}
 
 		}
 	}
 
-	// public void ImagesPoids() {
-	// for (int i = 0; i < this.Limages.size(); i++) {
-	// ImageBI tempImagePerso = this.Limages.get(i);
-	// Image tempImage = new Image("file:" + tempImagePerso.path);
-	// int taille = (int) Math.round(tempImage.getWidth() * tempImage.getHeight());
-	// int poids = taille * 4;
-	// if (this.MapImagesPoids.containsKey(poids)) {
-	// this.MapImagesPoids.get(poids).add(i);
-	// } else {
-	// HashSet<Integer> temp1 = new HashSet<Integer>();
-	// temp1.add(i);
-	// this.MapImagesPoids.put(poids, temp1);
-	// }
-	//
-	// }
-	// }
-
-	public void ImagesCptOpen() {
-		for (int i = 0; i < this.Limages.size(); i++) {
-			ImageBI tempImagePerso = this.Limages.get(i);
+	public void ImagesCptOpen(ArrayList<ImageBI> LimagesBI) {
+		for (int i = 0; i < LimagesBI.size(); i++) {
+			ImageBI tempImagePerso = LimagesBI.get(i);
 			int tempCpt = tempImagePerso.nb_ouverture;
 			if (this.MapImagesCptOpen.containsKey(tempCpt)) {
-				this.MapImagesCptOpen.get(tempCpt).add(this.Limages.get(i).path);
+				this.MapImagesCptOpen.get(tempCpt).add(LimagesBI.get(i).path);
 			} else {
 				HashSet<String> temp1 = new HashSet<String>();
-				temp1.add(this.Limages.get(i).path);
+				temp1.add(LimagesBI.get(i).path);
 				this.MapImagesCptOpen.put(tempCpt, temp1);
 			}
 

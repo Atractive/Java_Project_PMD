@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import Modele.ImageBI;
 import javafx.beans.value.ChangeListener;
@@ -158,6 +161,9 @@ public class ControlerMDI {
 	private AnchorPane RightImgComplete;
 	@FXML
 	private ImageView ImageViewImgComplete;
+	@FXML
+	private TextField SearchBar;
+
 	ToggleGroup toggleGroup1 = new ToggleGroup();
 	ToggleGroup toggleGroup2 = new ToggleGroup();
 	ToggleGroup toggleGroup3 = new ToggleGroup();
@@ -176,8 +182,9 @@ public class ControlerMDI {
 	@FXML
 	public void initialize() {
 
-		// ajouter_image();
+		ajouter_image();
 		// supprimer_image();
+		SearchBarListener();
 		ModifFXML();
 		InjectImages(modele.Limages);
 		résultat_requeteerche();
@@ -195,7 +202,9 @@ public class ControlerMDI {
 		MenuB2ou.setToggleGroup(toggleGroup2);
 		MenuB3et.setToggleGroup(toggleGroup3);
 		MenuB3ou.setToggleGroup(toggleGroup3);
-
+		MenuB1ou.setSelected(true);
+		MenuB2ou.setSelected(true);
+		MenuB3ou.setSelected(true);
 		SplitP.setDividerPositions(0.1);
 		Snote.setItems(FXCollections.observableArrayList(1, 2, 3, 4, 5));
 
@@ -204,7 +213,7 @@ public class ControlerMDI {
 		MenuB5.getItems().addAll("Taille", "Poids", "Nombre d'ouverture", "Note", "ND");
 
 		// Mise en place des choix par défault sur les boutons
-		MenuB1.setValue("Oui");
+		MenuB1.setValue("ND");
 
 		MenuB1.getStyleClass().add("but");
 		MenuB4.setText("Paysage");
@@ -212,16 +221,22 @@ public class ControlerMDI {
 		MenuB5.setValue("Taille");
 		MenuB5.getStyleClass().add("but");
 
-		MenuB6.getStyleClass().add("val");
+		// MenuB6.getStyleClass().add("val");
 
-		homeGallery.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+		homeGallery.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(MouseEvent e) {
+			public void handle(ActionEvent arg0) {
 				TilePaneGalerie.getChildren().clear();
 				InjectImages(modele.Limages);
 			}
 		});
 
+	}
+
+	private void SearchBarListener() {
+		SearchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+			System.out.println("textfield changed from " + oldValue + " to " + newValue);
+		});
 	}
 
 	// Configuration du bouton de validation
@@ -233,7 +248,7 @@ public class ControlerMDI {
 		// AnchorPane root = (AnchorPane)
 		// FXMLLoader.load(getClass().getResource("AideRecherche.fxml"));
 
-		Scene scene = new Scene(secondLoader.load(), 850, 500);
+		Scene scene = new Scene(secondLoader.load(), 400, 400);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -244,7 +259,6 @@ public class ControlerMDI {
 			@Override
 			public void handle(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				System.out.println("coucou");
 				try {
 					new_contro();
 				} catch (Exception e) {
@@ -262,7 +276,6 @@ public class ControlerMDI {
 
 			@Override
 			public void handle(ActionEvent arg0) {
-				System.out.println("in");
 				ArrayList<CheckBox> EtoilesCB = new ArrayList<CheckBox>(
 						Arrays.asList(MenuB21, MenuB22, MenuB23, MenuB24, MenuB25));
 				ArrayList<CheckBox> ColorsCB = new ArrayList<CheckBox>(
@@ -330,7 +343,7 @@ public class ControlerMDI {
 		// System.out.println("COLOR " + " " + ColorChoose.indexOf(requete[2]));
 		// System.out.println("MOT CLES" + " " + modele.MapTags.get(requete[3]));
 
-		HashSet<String> SetEveryImagesNameCopy = new HashSet<>(modele.SetEveryImagesName);
+		HashSet<String> SetEveryImagesNameCopy = new HashSet<>(modele.LimagesPATH);
 		ArrayList<String> RenvoiFinal = new ArrayList<String>();
 		ArrayList<ImageBI> RenvoiFinalDisplay = new ArrayList<ImageBI>();
 
@@ -345,7 +358,7 @@ public class ControlerMDI {
 			// System.out.println(SetEveryImagesNameCopy);
 
 		} else if (requete[0] == "ND") {
-//			System.out.println(requete[0]);
+			// System.out.println(requete[0]);
 			// System.out.println("toutes FAV" + " " + "todo");
 			TriBinFav.addAll(modele.SetEveryImagesName);
 		}
@@ -377,14 +390,25 @@ public class ControlerMDI {
 			}
 		}
 
+		HashSet<String> avecTags = new HashSet<String>();
+
+		for (Map.Entry<String, HashSet<String>> entry : modele.MapTags.entrySet()) {
+			avecTags.addAll(entry.getValue());
+		}
+
+		HashSet<String> sansTags = new HashSet<String>();
+		HashSet<String> SetEveryImagesNameCopy2 = new HashSet<>(modele.LimagesPATH);
+		SetEveryImagesNameCopy2.removeAll(sansTags);
+		sansTags = SetEveryImagesNameCopy2;
 		HashSet<String> TriBinTags = new HashSet<String>();
+
 		if (requete[3] != "null") {
 			ArrayList<String> Tagsrequetes = new ArrayList<String>(Arrays.asList(requete[3].split(" ")));
-//			System.out.println(Tagsrequetes);
+			// System.out.println(Tagsrequetes);
 			for (int i = 0; i < Tagsrequetes.size(); i++) {
 				if (modele.MapTags.containsKey(Tagsrequetes.get(i))) {
-					// System.out.println(Tagsrequetes.get(i) + " " +
-					// modele.MapTags.get(Tagsrequetes.get(i)));
+					// System.out.println(Tagsrequetes.get(i) + " "
+					// +modele.MapTags.get(Tagsrequetes.get(i)));
 					TriBinTags.addAll(modele.MapTags.get(Tagsrequetes.get(i)));
 				}
 
@@ -392,20 +416,30 @@ public class ControlerMDI {
 		}
 
 		TriBin.addAll(TriBinFav);
-		if (ETOUfav.equals("1")) {
+		if (ETOUfav.equals("1") && TriBinNotes.size() != 0) {
 			TriBin.retainAll(TriBinNotes);
 		} else {
 			TriBin.addAll(TriBinNotes);
 		}
-		if (ETOUnote.equals("1")) {
+		if (ETOUnote.equals("1") && TriBinCouleurs.size() != 0) {
 			TriBin.retainAll(TriBinCouleurs);
 		} else {
 			TriBin.addAll(TriBinCouleurs);
 		}
-		if (ETOUcouleur.equals("1")) {
-			TriBin.retainAll(TriBinTags);
+		if (requete[3] == "null") {
+			if (ETOUcouleur.equals("1")) {
+				TriBin.retainAll(sansTags);
+			} else {
+				TriBin.addAll(sansTags);
+			}
 		} else {
-			TriBin.addAll(TriBinTags);
+			if (ETOUcouleur.equals("1")) {
+				TriBin.retainAll(TriBinTags);
+			} else {
+				System.out.println(TriBin);
+				System.out.println(TriBinTags);
+				TriBin.addAll(TriBinTags);
+			}
 		}
 
 		Map<Integer, HashSet<String>> MapEtoiles = new HashMap<Integer, HashSet<String>>();
@@ -415,7 +449,7 @@ public class ControlerMDI {
 		MapEtoiles.put(4, modele.SetImages4Etoile);
 		MapEtoiles.put(5, modele.SetImages5Etoile);
 
-//		System.out.println(MapEtoiles);
+		// System.out.println(MapEtoiles);
 
 		if (requete[4] == "Taille" || requete[4] == "Poids") {
 			for (Integer key : modele.MapImagesTaille.keySet()) {
@@ -429,7 +463,7 @@ public class ControlerMDI {
 				}
 			}
 		} else if (requete[4] == "Nombre d'ouverture") {
-//			System.out.println(modele.MapImagesCptOpen);
+			// System.out.println(modele.MapImagesCptOpen);
 			for (Integer key : modele.MapImagesCptOpen.keySet()) {
 				// System.out.println(key + " " + modele.MapImagesCptOpen.get(key));
 				for (String s : TriBin) {
@@ -444,7 +478,7 @@ public class ControlerMDI {
 
 		} else if (requete[4] == "Note") {
 			for (Integer key : MapEtoiles.keySet()) {
-//				System.out.println(key + " " + MapEtoiles.get(key));
+				// System.out.println(key + " " + MapEtoiles.get(key));
 				for (String s : TriBin) {
 					if (MapEtoiles.get(key).contains(s)) {
 						RenvoiFinal.add(s);
@@ -454,16 +488,19 @@ public class ControlerMDI {
 		}
 
 		for (int i = 0; i < RenvoiFinal.size(); i++) {
-			int indexTempImageBI = (modele.LimagesPATH.indexOf(RenvoiFinal.get(i)));
+			int indexTempImageBI = (modele.LimagesPATH.indexOf(RenvoiFinal.get(i))); // récupère l'indice de l'image
+																						// dans le talbeau de départ du
+																						// modèle.
 			RenvoiFinalDisplay.add(modele.Limages.get(indexTempImageBI));
 		}
 		TilePaneGalerie.getChildren().clear();
-//		System.out.println();
-//		System.out.println();
-//		System.out.println();
-//		System.out.println();
-//		System.out.println();
-//		System.out.println("last" + " " + RenvoiFinalDisplay); // IMAGESBI DU TRI DE L'UTILISATEUR
+		// System.out.println();
+		// System.out.println();
+		// System.out.println();
+		// System.out.println();
+		// System.out.println();
+		 System.out.println("last" + " " + RenvoiFinalDisplay); // IMAGESBI DU TRI DE
+		// L'UTILISATEUR
 		InjectImages(RenvoiFinalDisplay);
 	}
 
@@ -491,6 +528,7 @@ public class ControlerMDI {
 							// System.out.println(temp_index);
 							ImageView temp = new ImageView();
 							final ImageBI img = LimagesC.get(Integer.parseInt(source2));
+//							System.out.println("NAME" + " " + img.path);
 							Image tempI = new Image("file:" + img.path);
 							BorderPane borderPane = new BorderPane();
 							temp.setImage(tempI);
@@ -625,17 +663,19 @@ public class ControlerMDI {
 							Arrays.asList(modele.SetImages1Etoile, modele.SetImages2Etoile, modele.SetImages3Etoile,
 									modele.SetImages4Etoile, modele.SetImages5Etoile));
 
+					 System.out.println("AVANT BUG" + " " + (Integer.parseInt(temp_index)));
+					
 					LimagesC.get(Integer.parseInt(temp_index)).Set_Etoile((Integer) number2);
 					LimagesC.get(Integer.parseInt(temp_index)).etoile = (Integer) number2 + 1;
 					temp.get((int) number).remove(LimagesC.get(Integer.parseInt(temp_index)).path);
 					temp.get((int) number2).add(LimagesC.get(Integer.parseInt(temp_index)).path);
-					// System.out.println(modele.SetImages1Etoile);
-					// System.out.println(modele.SetImages2Etoile);
-					// System.out.println(modele.SetImages3Etoile);
-					// System.out.println(modele.SetImages4Etoile);
-					// System.out.println(modele.SetImages5Etoile);
-					// System.out.println("AFTER");
-					// System.out.println("--------------------");
+					 System.out.println(modele.SetImages1Etoile);
+					 System.out.println(modele.SetImages2Etoile);
+					 System.out.println(modele.SetImages3Etoile);
+					 System.out.println(modele.SetImages4Etoile);
+					 System.out.println(modele.SetImages5Etoile);
+					 System.out.println("AFTER");
+					 System.out.println("--------------------");
 
 				}
 
@@ -705,41 +745,59 @@ public class ControlerMDI {
 
 	}
 
-	 private void ajouter_image() {
-	 Button6.setOnAction(new EventHandler<ActionEvent>() {
+	private void ajouter_image() {
+		Button6.setOnAction(new EventHandler<ActionEvent>() {
 
-	 @Override
-	 public void handle(final ActionEvent e) {
-	 FileChooser filechooser = new FileChooser();
-	 filechooser.getExtensionFilters()
-	 .addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif",
-	 "*jpeg"));
+			@Override
+			public void handle(final ActionEvent e) {
 
-	 Stage newWindow = new Stage();
+				Stage stage = new Stage();
+				stage.setTitle("Second Stage");
 
-	 newWindow.setTitle("Second Stage");
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Open Resource File");
+				fileChooser.getExtensionFilters()
+						.addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*jpeg"));
+				List<File> list = fileChooser.showOpenMultipleDialog(stage);
+				if (list != null) {
+					for (File file : list) {
+					}
+				}
+				ArrayList<String> newImageName = new ArrayList<String>();
+				for (int i = 0; i < list.size(); i++) {
+					newImageName.add("Images/" + list.get(i).getName());
+					try {
+						Files.copy(FileSystems.getDefault().getPath(list.get(i).getPath()),
+								FileSystems.getDefault().getPath(new File("Images/" + list.get(i).getName()).getPath()),
+								StandardCopyOption.REPLACE_EXISTING);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 
-	 // Specifies the modality for new window.
-	 newWindow.initModality(Modality.WINDOW_MODAL);
-
-	 File list = filechooser.showOpenDialog(newWindow);
-	 if (list != null) {
-
-	 try {
-	 Files.copy(FileSystems.getDefault().getPath(list.getPath()),
-	 FileSystems.getDefault().getPath(new File("Images/" +
-	 list.getName()).getPath()),
-	 StandardCopyOption.REPLACE_EXISTING);
-
-	 } catch (IOException e1) {
-	 e1.printStackTrace();
-	 }
-	 TilePaneGalerie.getChildren().clear();
-	 InjectImages(modele.Limages);
-	 }
-	 }
-	 });
-	 }
-
+				}
+				ArrayList<ImageBI> newImageBI = new ArrayList<ImageBI>();
+				for (int i = 0; i < newImageName.size(); i++) {
+					if (modele.LimagesPATH.contains(newImageName.get(i))) {
+						newImageName.remove(i);
+					} else {
+						String temp = newImageName.get(i).toString();
+						temp = temp.replace("/", "\\");
+						ImageBI Imagetemp = new ImageBI(temp);
+						newImageBI.add(Imagetemp);
+					}
+				}
+				modele.InitData(newImageBI);
+				modele.LimagesPATH.sort(String::compareToIgnoreCase);
+				modele.Limages.addAll(newImageBI);
+				Stream<ImageBI> T = modele.Limages.stream()
+						.sorted((p1, p2) -> p1.path.toLowerCase().compareTo(p2.path.toLowerCase()));
+				List<ImageBI> A = T.collect(Collectors.toList());
+				ArrayList<ImageBI> temp = new ArrayList<ImageBI>(A);
+				modele.Limages = temp;
+				TilePaneGalerie.getChildren().clear();
+				InjectImages(modele.Limages);
+			}
+		});
+	}
 
 }

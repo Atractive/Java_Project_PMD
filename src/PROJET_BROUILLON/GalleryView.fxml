@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
@@ -7,7 +8,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -24,42 +24,52 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="AnchorP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<SplitPane fx:id="SplitP" dividerPositions="0.18481375358166188" layoutX="45.0" layoutY="82.0" maxWidth="100.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+		<SplitPane fx:id="SplitP" dividerPositions="0.08797327394209355" layoutX="45.0" layoutY="82.0" maxWidth="100.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<items>
 				<AnchorPane fx:id="SplitAnchor1">
 					<children>
 						<ButtonBar fx:id="ButtonB" layoutX="38.0" layoutY="7.0" prefHeight="42.0" prefWidth="1019.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 							<buttons>
-                        <VBox alignment="TOP_CENTER" layoutX="384.0" layoutY="10.0" prefHeight="56.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="56.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Favoris" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="92.0" text="Favoris" />
                               <ChoiceBox fx:id="MenuB1" prefHeight="25.0" prefWidth="85.0" />
-                              <Separator prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
                               <RadioButton fx:id="MenuB1et" mnemonicParsing="false" text="ET">
                                  <font>
                                     <Font name="Liberation Mono" size="12.0" />
-                                 </font></RadioButton>
+                                 </font>
+                              </RadioButton>
                               <RadioButton fx:id="MenuB1ou" mnemonicParsing="false" text="OU">
                                  <font>
                                     <Font name="Liberation Mono" size="12.0" />
-                                 </font></RadioButton>
+                                 </font>
+                              </RadioButton>
                            </children>
+                           <padding>
+                              <Insets top="15.0" />
+                           </padding>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="56.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Notes" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="92.0" text="Notes" />
                               <HBox alignment="CENTER">
                                  <children>
                                     <CheckBox fx:id="MenuB21" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="1">
                                        <font>
                                           <Font name="Liberation Mono" size="12.0" />
-                                       </font></CheckBox>
+                                       </font>
+                                    </CheckBox>
                                     <CheckBox fx:id="MenuB22" mnemonicParsing="false" text="2">
                                        <font>
                                           <Font name="Liberation Mono" size="12.0" />
-                                       </font></CheckBox>
+                                       </font>
+                                    </CheckBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER">
@@ -67,11 +77,13 @@
                                     <CheckBox fx:id="MenuB23" mnemonicParsing="false" text="3">
                                        <font>
                                           <Font name="Liberation Mono" size="12.0" />
-                                       </font></CheckBox>
+                                       </font>
+                                    </CheckBox>
                                     <CheckBox fx:id="MenuB24" mnemonicParsing="false" text="4">
                                        <font>
                                           <Font name="Liberation Mono" size="12.0" />
-                                       </font></CheckBox>
+                                       </font>
+                                    </CheckBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER">
@@ -79,23 +91,36 @@
                                     <CheckBox fx:id="MenuB25" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="5">
                                        <font>
                                           <Font name="Liberation Mono" size="12.0" />
-                                       </font></CheckBox>
+                                       </font>
+                                    </CheckBox>
                                  </children>
                               </HBox>
-                              <Separator prefWidth="200.0" />
-                              <RadioButton fx:id="MenuB2et" mnemonicParsing="false" text="ET">
-                                 <font>
-                                    <Font name="Liberation Mono" size="12.0" />
-                                 </font></RadioButton>
-                              <RadioButton fx:id="MenuB2ou" mnemonicParsing="false" text="OU">
-                                 <font>
-                                    <Font name="Liberation Mono" size="12.0" />
-                                 </font></RadioButton>
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="56.0">
+                        <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Couleur" />
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <RadioButton fx:id="MenuB2et" mnemonicParsing="false" text="ET">
+                                       <font>
+                                          <Font name="Liberation Mono" size="12.0" />
+                                       </font>
+                                    </RadioButton>
+                                    <RadioButton fx:id="MenuB2ou" mnemonicParsing="false" text="OU">
+                                       <font>
+                                          <Font name="Liberation Mono" size="12.0" />
+                                       </font>
+                                    </RadioButton>
+                                 </children>
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="92.0" text="Couleur" />
                               <HBox alignment="CENTER">
                                  <children>
                                     <CheckBox fx:id="MenuB3r" mnemonicParsing="false" text="R " textFill="RED">
@@ -113,11 +138,13 @@
                                     <CheckBox fx:id="MenuB3v" mnemonicParsing="false" text="V " textFill="#49bc37">
                                        <font>
                                           <Font name="Liberation Mono Bold" size="12.0" />
-                                       </font></CheckBox>
+                                       </font>
+                                    </CheckBox>
                                     <CheckBox fx:id="MenuB3c" mnemonicParsing="false" text="C" textFill="#10bdfc">
                                        <font>
                                           <Font name="Liberation Mono Bold" size="12.0" />
-                                       </font></CheckBox>
+                                       </font>
+                                    </CheckBox>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER">
@@ -125,59 +152,66 @@
                                     <CheckBox fx:id="MenuB3m" mnemonicParsing="false" text="M " textFill="#cd2389">
                                        <font>
                                           <Font name="Liberation Mono Bold" size="12.0" />
-                                       </font></CheckBox>
+                                       </font>
+                                    </CheckBox>
                                     <CheckBox fx:id="MenuB3o" mnemonicParsing="false" text="O" textFill="#e1a51b">
                                        <font>
                                           <Font name="Liberation Mono Bold" size="12.0" />
-                                       </font></CheckBox>
+                                       </font>
+                                    </CheckBox>
                                  </children>
                               </HBox>
-                              <Separator prefWidth="200.0" />
-                              <RadioButton fx:id="MenuB3et" mnemonicParsing="false" text="ET">
-                                 <font>
-                                    <Font name="Liberation Mono" size="12.0" />
-                                 </font></RadioButton>
-                              <RadioButton fx:id="MenuB3ou" mnemonicParsing="false" text="OU">
-                                 <font>
-                                    <Font name="Liberation Mono" size="12.0" />
-                                 </font></RadioButton>
-                              <Label prefHeight="23.0" prefWidth="1.0" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="56.0">
+                        <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Mots-Clé" />
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <RadioButton fx:id="MenuB3et" mnemonicParsing="false" text="ET">
+                                       <font>
+                                          <Font name="Liberation Mono" size="12.0" />
+                                       </font>
+                                    </RadioButton>
+                                    <RadioButton fx:id="MenuB3ou" mnemonicParsing="false" text="OU">
+                                       <font>
+                                          <Font name="Liberation Mono" size="12.0" />
+                                       </font>
+                                    </RadioButton>
+                                 </children>
+                                 <padding>
+                                    <Insets top="15.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="92.0" text="Mots-Clé" />
                               <TextField fx:id="MenuB4" />
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="56.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="17.0" prefWidth="92.0" text="Classement" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="92.0" text="Classement" />
                               <ChoiceBox fx:id="MenuB5" prefWidth="150.0" />
-                              <Label prefHeight="51.0" prefWidth="0.0" />
-                              <Label />
-                              <Label />
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label />
-                              <Button fx:id="MenuB6" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Valider" />
-                              <Label />
-                              <Button fx:id="homeGallery" mnemonicParsing="false" text="HOME" />
-                              <Label />
-                              <Button fx:id="Aide_recherche" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Aide" />
+                              <Button fx:id="MenuB6" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="Valider" />
+                              <Button fx:id="homeGallery" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="HOME" />
+                              <TextField fx:id="SearchBar" prefHeight="25.0" prefWidth="21.0" promptText="Search" />
+                              <Button fx:id="Aide_recherche1" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Aide" />
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER">
+								<Region minWidth="0.0" prefHeight="100.0" prefWidth="200.0" />
+                        <VBox alignment="CENTER">
                            <children>
-                              <Label />
-                              <Label prefHeight="17.0" prefWidth="18.0" />
+                              <Button fx:id="Button7" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Supprimer" />
+                              <Button fx:id="Button6" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Ajouter" />
+                              <Button fx:id="Aide_recherche" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Aide" />
                            </children>
                         </VBox>
-								<Region prefHeight="55.0" prefWidth="200.0" />
-								<Button fx:id="Button6" mnemonicParsing="false" text="Ajouter..." />
-                        <Button fx:id="Button7" layoutX="792.0" layoutY="19.0" mnemonicParsing="false" text="Supprimer..." />
 							</buttons>
 						</ButtonBar>
 					</children>
