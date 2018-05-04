@@ -122,8 +122,6 @@ public class ControlerMDI {
 	@FXML
 	private Button Button6;
 	@FXML
-	private Button Button7;
-	@FXML
 	private TabPane TabP;
 	@FXML
 	private Tab TabGalerie;
@@ -161,8 +159,6 @@ public class ControlerMDI {
 	private AnchorPane RightImgComplete;
 	@FXML
 	private ImageView ImageViewImgComplete;
-	@FXML
-	private TextField SearchBar;
 
 	ToggleGroup toggleGroup1 = new ToggleGroup();
 	ToggleGroup toggleGroup2 = new ToggleGroup();
@@ -183,8 +179,6 @@ public class ControlerMDI {
 	public void initialize() {
 
 		ajouter_image();
-		// supprimer_image();
-		SearchBarListener();
 		ModifFXML();
 		InjectImages(modele.Limages);
 		résultat_requeteerche();
@@ -216,7 +210,6 @@ public class ControlerMDI {
 		MenuB1.setValue("ND");
 
 		MenuB1.getStyleClass().add("but");
-		MenuB4.setText("Paysage");
 		MenuB4.getStyleClass().add("but");
 		MenuB5.setValue("Taille");
 		MenuB5.getStyleClass().add("but");
@@ -233,11 +226,6 @@ public class ControlerMDI {
 
 	}
 
-	private void SearchBarListener() {
-		SearchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-			System.out.println("textfield changed from " + oldValue + " to " + newValue);
-		});
-	}
 
 	// Configuration du bouton de validation
 	private void new_contro() throws Exception {
