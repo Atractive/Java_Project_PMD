@@ -85,19 +85,19 @@ public class ModeleTest {
 			this.Limages = this.Limages_loaddata;
 		}
 
-		
 		InitData(this.Limages);
-//		System.out.println(this.Limages.size());
-//		GetPathNames(this.Limages); // Rempli le tableau qui contient les noms de toutes les images, NECESSAIRE pour
-//									// le tri.
-//		DataFavoris(this.Limages);
-//		ImagesEtoiles(this.Limages);
-//		ImagesTags(this.Limages);
-//		ImagesTailles(this.Limages);
-//		ImagesCptOpen(this.Limages);
-//		ImagesCouleurs(this.Limages);
-//		this.MapImagesPoids = this.MapImagesTaille;
-//		this.SetEveryImagesName = new HashSet<String>(this.LimagesPATH);
+		// System.out.println(this.Limages.size());
+		// GetPathNames(this.Limages); // Rempli le tableau qui contient les noms de
+		// toutes les images, NECESSAIRE pour
+		// // le tri.
+		// DataFavoris(this.Limages);
+		// ImagesEtoiles(this.Limages);
+		// ImagesTags(this.Limages);
+		// ImagesTailles(this.Limages);
+		// ImagesCptOpen(this.Limages);
+		// ImagesCouleurs(this.Limages);
+		// this.MapImagesPoids = this.MapImagesTaille;
+		// this.SetEveryImagesName = new HashSet<String>(this.LimagesPATH);
 
 		// System.out.println(this.MapImagesTaille);
 		// for (Integer key : MapImagesCptOpen.keySet()) {
@@ -107,17 +107,24 @@ public class ModeleTest {
 		// System.out.println("--------------------");
 		// System.out.println(this.MapTags);
 		// System.out.println("--------------------");
-		// System.out.println(this.SetImages1Etoile);
-		// System.out.println(this.SetImages2Etoile);
-		// System.out.println(this.SetImages3Etoile);
-		// System.out.println(this.SetImages4Etoile);
-		// System.out.println(this.SetImages5Etoile);
-		// System.out.println("--------------------");
-		// System.out.println("ROUGE" + this.SetImagesRed);
-		// System.out.println("BLUE" + this.SetImagesBlue);
-		// System.out.println("GREEN" + this.SetImagesGreen);
-		// System.out.println("CYAN" + this.SetImagesCyan);
-		// System.out.println("MAGENTA" + this.SetImagesMagenta);
+		 System.out.println(this.SetImages1Etoile);
+		 System.out.println(this.SetImages2Etoile);
+		 System.out.println(this.SetImages3Etoile);
+		 System.out.println(this.SetImages4Etoile);
+		 System.out.println(this.SetImages5Etoile);
+		 System.out.println("--------------------");
+		 System.out.println("ROUGE" + this.SetImagesRed.size() + " " +
+		 this.SetImagesRed);
+		 System.out.println("BLUE" + this.SetImagesBlue.size() + " " +
+		 this.SetImagesBlue);
+		 System.out.println("GREEN" + this.SetImagesGreen.size() + " " +
+		 this.SetImagesGreen);
+		 System.out.println("GREEN" + this.SetImagesOrange.size() + " " +
+		 this.SetImagesOrange);
+		 System.out.println("CYAN" + this.SetImagesCyan.size() + " " +
+		 this.SetImagesCyan);
+		 System.out.println("MAGENTA" + this.SetImagesMagenta.size() + " " +
+		 this.SetImagesMagenta);
 		// System.out.println();
 		// System.out.println();
 		// System.out.println();
@@ -138,10 +145,7 @@ public class ModeleTest {
 		this.MapImagesPoids = this.MapImagesTaille;
 		this.SetEveryImagesName = new HashSet<String>(this.LimagesPATH);
 
-		
-
 	}
-	
 
 	public void initModele(ModeleTest modele) {
 		this.modele = modele;
@@ -220,9 +224,9 @@ public class ModeleTest {
 
 	public void ImagesCouleurs(ArrayList<ImageBI> LimagesBI) {
 		for (int i = 0; i < LimagesBI.size(); i++) {
-			// String couleur = CouleurDominante.getDomintanteColor(LimagesBI.get(i).path);
+			 String couleur = CouleurDominante.getDomintanteColor(LimagesBI.get(i).path);
 			Random rng = new Random();
-			String couleur = CouleurDominante.colorName[rng.nextInt(CouleurDominante.colorName.length)];
+//			String couleur = CouleurDominante.colorName[rng.nextInt(CouleurDominante.colorName.length)];
 			// System.out.println(couleur + " " + couleur2);
 			String chemin = LimagesBI.get(i).path;
 			LimagesBI.get(i).couleur = couleur;
